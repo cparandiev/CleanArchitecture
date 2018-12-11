@@ -12,8 +12,8 @@ namespace Application.AutoMapperDomainProfiles
         public EntityModelsToDtoModelsProfile()
         {
             CreateMap<User, UserDto>();
-            CreateMap<Role, RoleDto>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => Enum.GetName((src.GetType()), src)));
+            CreateMap<UserRole, RoleDto>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => Enum.GetName((src.Role.Value.GetType()), src.Role.Value)));
         }
     }
 }

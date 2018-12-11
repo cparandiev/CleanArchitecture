@@ -68,11 +68,11 @@ namespace Persistence.Repositories
             return entity;
         }
 
-        public async Task<T> AddAsync(T entity)
+        public Task<T> AddAsync(T entity)
         {
             _dbContext.Set<T>().Add(entity);
 
-            return entity;
+            return Task.FromResult<T>(entity);
         }
 
         public void Update(T entity)
@@ -80,9 +80,11 @@ namespace Persistence.Repositories
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task UpdateAsync(T entity)
+        public Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
+
+            return Task.CompletedTask;
         }
 
         public void Delete(T entity)
@@ -90,9 +92,11 @@ namespace Persistence.Repositories
             _dbContext.Set<T>().Remove(entity);
         }
 
-        public async Task DeleteAsync(T entity)
+        public Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+
+            return Task.CompletedTask;
         }
 
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)

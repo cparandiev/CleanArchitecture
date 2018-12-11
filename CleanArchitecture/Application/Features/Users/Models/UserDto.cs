@@ -1,4 +1,5 @@
 ﻿using Application.Models;
+using System.Collections.Generic;
 
 namespace Application.Features.Users.Models
 {
@@ -8,6 +9,6 @@ namespace Application.Features.Users.Models
 
         public string Username { get; set; }
 
-        public RoleDto Role { get; set; }
+        public IEnumerable<RoleDto> Roles { get; set; }
     }
 }

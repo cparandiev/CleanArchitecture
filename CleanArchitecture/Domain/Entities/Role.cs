@@ -2,14 +2,14 @@
 
 namespace Domain.Entities
 {
-    public class User : BaseEntity
+    public class Role : BaseEntity
     {
-        public User()
+        public Role()
         {
             UserRoles = new HashSet<UserRole>();
         }
 
-        public string Username { get; set; }
+        public Enums.Role? Value { get; set; }
 
         public IEnumerable<UserRole> UserRoles { get; set; }
     }

@@ -19,6 +19,7 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
         }
     }
 }

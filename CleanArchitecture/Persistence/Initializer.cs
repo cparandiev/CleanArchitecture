@@ -26,11 +26,18 @@ namespace Persistence
 
         public void SeedUsers(Context context)
         {
+            var newRoles = new[]
+            {
+                new Domain.Entities.Role(){Value = Domain.Enums.Role.Admin},
+                new Domain.Entities.Role(){Value = Domain.Enums.Role.Doctor},
+                new Domain.Entities.Role(){Value = Domain.Enums.Role.Patient},
+            };
+
             var newUsers = new[]
             {
-                new User() {Role = Role.Patient, Username = "John" },
-                new User() {Role = Role.Patient, Username = "Tony" },
-                new User() {Role = Role.Patient, Username = "Hank" }
+                new User() {Username = "John", UserRoles = new[] { new UserRole() { Role = newRoles[0] }, new UserRole() { Role = newRoles[1]}, new UserRole() { Role = newRoles[2] }}},
+                new User() {Username = "Tony", UserRoles = new[] { new UserRole() { Role = newRoles[0] }, new UserRole() { Role = newRoles[1]}}},
+                new User() {Username = "Hank", UserRoles = new[] { new UserRole() { Role = newRoles[0] }}}
             };
 
             context.Users.AddRange(newUsers);

@@ -19,6 +19,13 @@ using FluentValidation.AspNetCore;
 using Application.Features.Users.Commands.CreateUser;
 using Web.Filters;
 using Application.AutoMapperDomainProfiles;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Threading.Tasks;
+using System;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace Web
 {
@@ -38,6 +45,27 @@ namespace Web
                 .AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommand>());
+
+            // Add Authentication
+            services.AddScoped<UserValidation>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+               {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       ValidIssuer = "yourdomain.com",
+                       ValidAudience = "yourdomain.com",
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
+                   };
+                   options.EventsType = typeof(UserValidation);
+               });
+
+            // Add Authorization
+            services.AddAuthorization();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -65,6 +93,8 @@ namespace Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

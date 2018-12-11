@@ -6,7 +6,9 @@ using Application.Features.Users.Commands.CreateUser;
 using Application.Features.Users.Queries.GetUsers;
 using Application.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Web.Filters;
 using Web.Models.ViewModels;
 
 namespace Web.Controllers
@@ -32,14 +34,14 @@ namespace Web.Controllers
             var rng = new Random();
 
             ///
-            var firstUsersDtos = await Mediator.Send(new GetUsersQuery());
-            var firstUsersVMs = _autoMapper.Map<List<UserViewModel>>(firstUsersDtos);
+            //var firstUsersDtos = await Mediator.Send(new GetUsersQuery());
+            //var firstUsersVMs = _autoMapper.Map<List<UserViewModel>>(firstUsersDtos);
 
 
-            await Mediator.Send(new CreateUserCommand() { Username = "new2" });
+            //await Mediator.Send(new CreateUserCommand() { Username = "new2" });
 
-            var secondUsersDtos = await Mediator.Send(new GetUsersQuery());
-            var secondUsersVMs = _autoMapper.Map<List<UserViewModel>>(secondUsersDtos);
+            //var secondUsersDtos = await Mediator.Send(new GetUsersQuery());
+            //var secondUsersVMs = _autoMapper.Map<List<UserViewModel>>(secondUsersDtos);
             ///
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -51,15 +53,23 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> WeatherForecasts2(object a)
+        public async Task<ActionResult> One()
         {
-            
-            var b = _autoMapper.Map<CreateUserCommand>(a);
+            return NoContent();
+        }
 
+        [Authorize(Roles = "Patient")]
+        [HttpGet("[action]")]
+        public async Task<ActionResult> Two()
+        {
+            return NoContent();
+        }
 
-            await Mediator.Send(b);
-
-
+        [Authorize(Roles = "Doctor")]
+        [Authorize(Roles = "Patient")]
+        [HttpGet("[action]")]
+        public async Task<ActionResult> Three()
+        {
             return NoContent();
         }
 

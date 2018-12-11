@@ -24,7 +24,7 @@ namespace Application.Features.Users.Commands.CreateUser
 
         private bool UniqueName(string name)
         {
-            return _context.Users.Count(new UserWithUsernameSpecification(name)) == 0;
+            return _context.Users.Count(new UserWithRolesSpecification(name)) == 0;
         }
     }
 }
