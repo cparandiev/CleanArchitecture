@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Application.Interfaces;
 using AutoMapper;
-using Domain.Entities;
+using Domain.Entities.UserAggregate;
 using MediatR;
 
 namespace Application.Features.Users.Commands.CreateUser

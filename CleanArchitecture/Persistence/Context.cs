@@ -1,6 +1,7 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.MedicalExaminationRequestAggregate;
+using Domain.Entities.UserAggregate;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Configurations;
+using Persistence.Helpers;
 
 namespace Persistence
 {
@@ -18,8 +19,11 @@ namespace Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
+            //modelBuilder.ApplyConfiguration(new UserConfiguration());
+            //modelBuilder.ApplyConfiguration(new UserConfiguration());
+            //modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
         }
     }
 }

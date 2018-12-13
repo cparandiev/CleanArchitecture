@@ -1,9 +1,8 @@
-﻿using Domain.Entities;
-using Domain.Enums;
+﻿using Domain.Entities.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Configurations
+namespace Persistence.Configurations.UserAggregate
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Enums;
+﻿using Domain.Entities.UserAggregate;
 using System.Linq;
 
 namespace Persistence
@@ -28,9 +27,9 @@ namespace Persistence
         {
             var newRoles = new[]
             {
-                new Domain.Entities.Role(){Value = Domain.Enums.Role.Admin},
-                new Domain.Entities.Role(){Value = Domain.Enums.Role.Doctor},
-                new Domain.Entities.Role(){Value = Domain.Enums.Role.Patient},
+                new Role(){Value = Domain.Enums.Role.Admin},
+                new Role(){Value = Domain.Enums.Role.Doctor},
+                new Role(){Value = Domain.Enums.Role.Patient},
             };
 
             var newUsers = new[]

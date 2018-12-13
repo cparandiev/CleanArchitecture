@@ -1,7 +1,4 @@
-﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.Entities.UserAggregate;
 
 namespace Application.Specifications.UserSpecifications
 {

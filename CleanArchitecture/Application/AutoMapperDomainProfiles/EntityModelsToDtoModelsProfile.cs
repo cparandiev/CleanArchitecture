@@ -1,8 +1,7 @@
 ﻿using Application.Features.Users.Models;
 using Application.Models;
 using AutoMapper;
-using Domain.Entities;
-using Domain.Enums;
+using Domain.Entities.UserAggregate;
 using System;
 
 namespace Application.AutoMapperDomainProfiles

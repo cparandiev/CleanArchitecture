@@ -1,5 +1,5 @@
 ﻿using Application.Interfaces.Repositories;
-using Domain.Entities;
+using Domain.Entities.UserAggregate;
 
 namespace Persistence.Repositories
 {
