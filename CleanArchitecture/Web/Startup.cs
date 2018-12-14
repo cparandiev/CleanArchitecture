@@ -22,10 +22,6 @@ using Application.AutoMapperDomainProfiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Security.Claims;
-using System.Collections.Generic;
 
 namespace Web
 {
@@ -83,6 +79,7 @@ namespace Web
 
             // Add Repositories
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add Automapper

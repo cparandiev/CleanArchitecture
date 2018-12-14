@@ -14,6 +14,8 @@ namespace Domain.Entities.DoctorAggregate
             DoctorMedicalSpecialistTypes = new HashSet<DoctorMedicalSpecialistType>();
         }
 
+        public string Summary { get; set; }
+
         public int UsedId { get; set; }
 
         public int ClinicId { get; set; }

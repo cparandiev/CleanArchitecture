@@ -11,18 +11,14 @@ namespace Web.Filters
     {
         public override void OnException(ExceptionContext context)
         {
-            if (context.Exception is ValidationException)
-            {
-                context.HttpContext.Response.ContentType = "application/json";
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                context.Result = new JsonResult(((ValidationException)context.Exception).Failures);
-
-                return;
-            }
-
             var code = HttpStatusCode.InternalServerError;
 
-            if (context.Exception is NotFoundException)
+            if (context.Exception is ValidationException)
+            {
+                code = HttpStatusCode.BadRequest;
+                context.Result = new JsonResult(((ValidationException)context.Exception).Failures);
+            }
+            else if (context.Exception is NotFoundException)
             {
                 code = HttpStatusCode.NotFound;
                 context.Result = new JsonResult(new { errors = new[] { context.Exception.Message }});

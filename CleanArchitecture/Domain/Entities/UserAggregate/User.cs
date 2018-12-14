@@ -13,6 +13,9 @@ namespace Domain.Entities.UserAggregate
         {
             UserRoles = new HashSet<UserRole>();
         }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public string Username { get; set; }
 

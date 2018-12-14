@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Users.Commands.CreateUser
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
         private readonly IUnitOfWork _context;
         private readonly IMapper _autoMapper;
@@ -18,14 +18,14 @@ namespace Application.Features.Users.Commands.CreateUser
             _autoMapper = autoMapper;
         }
 
-        public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var entity = _autoMapper.Map<User>(request);
 
             await _context.Users.AddAsync(entity);
             await _context.CompleteAsync();
 
-            return Unit.Value;
+            return entity.Id;
         }
     }
 }

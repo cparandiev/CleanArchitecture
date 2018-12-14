@@ -1,10 +1,9 @@
 ﻿using Domain.Enums;
-using MediatR;
 using System;
 
-namespace Application.Features.Users.Commands.CreateUser
+namespace Web.Models.BindingModels
 {
-    public class CreateUserCommand : IRequest<int>
+    public class RegisterPatientBm
     {
         public string FirstName { get; set; }
 
@@ -18,12 +17,12 @@ namespace Application.Features.Users.Commands.CreateUser
 
         public DateTime Birthdate { get; set; }
 
-        public Gender Gender { get; set; }
+        public string Gender { get; set; }
 
         public decimal Height { get; set; }
 
         public decimal Weight { get; set; }
 
-        public Blood Blood { get; set; }
+        public string Blood { get; set; }
     }
 }

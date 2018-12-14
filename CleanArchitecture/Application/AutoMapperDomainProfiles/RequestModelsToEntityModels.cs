@@ -1,6 +1,5 @@
 ﻿using Application.Features.Users.Commands.CreateUser;
 using AutoMapper;
-using Domain.Entities;
 using Domain.Entities.UserAggregate;
 
 namespace Application.AutoMapperDomainProfiles

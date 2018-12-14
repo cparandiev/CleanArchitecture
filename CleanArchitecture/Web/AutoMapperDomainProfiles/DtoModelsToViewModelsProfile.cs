@@ -1,5 +1,5 @@
-﻿using Application.Features.Users.Models;
-using Application.Models;
+﻿using Application.Features.Patient.Models;
+using Application.Features.Users.Models;
 using AutoMapper;
 using Web.Models.ViewModels;
 
@@ -10,7 +10,7 @@ namespace Web.AutoMapperDomainProfiles
         public DtoModelsToViewModelsProfile()
         {
             CreateMap<UserDto, UserViewModel>();
-            CreateMap<RoleDto, RoleViewModel>();
+            CreateMap<PatientDto, PatientViewModel>();
         }
     }
 }

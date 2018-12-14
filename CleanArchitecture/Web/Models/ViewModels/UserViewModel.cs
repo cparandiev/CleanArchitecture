@@ -6,6 +6,6 @@
 
         public string Username { get; set; }
 
-        public RoleViewModel[] Roles { get; set; }
+        public string[] Roles { get; set; }
     }
 }
