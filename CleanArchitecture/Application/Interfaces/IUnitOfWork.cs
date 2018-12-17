@@ -10,6 +10,8 @@ namespace Application.Interfaces
 
         IPatientRepository Patients { get; }
 
+        IRoleRepository Roles { get; }
+
         Task CompleteAsync();
 
         Task CompleteAsync(CancellationToken cancellationToken);

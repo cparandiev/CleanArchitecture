@@ -9,16 +9,19 @@ namespace Persistence
     {
         private readonly Context _context;
 
-        public UnitOfWork(Context context, IUserRepository userRepository, IPatientRepository patientRepository)
+        public UnitOfWork(Context context, IUserRepository userRepository, IPatientRepository patientRepository, IRoleRepository roles)
         {
             _context = context;
             Users = userRepository;
             Patients = patientRepository;
+            Roles = roles;
         }
 
         public IUserRepository Users { get; }
 
         public IPatientRepository Patients { get; }
+
+        public IRoleRepository Roles { get; }
 
         public async Task CompleteAsync()
         {

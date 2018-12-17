@@ -1,4 +1,5 @@
 ﻿using Application.Features.Patient.Commands.CreatePatient;
+using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Users.Commands.CreateUser;
 using AutoMapper;
 using Domain.Enums;
@@ -15,6 +16,7 @@ namespace Web.AutoMapperDomainProfiles
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => Enum.Parse(typeof(Gender), src.Gender)))
                 .ForMember(dest => dest.Blood, opt => opt.MapFrom(src => Enum.Parse(typeof(Blood), src.Blood)));
             CreateMap<RegisterPatientBm, CreatePatientCommand>();
+            CreateMap<LoginPatientBm, LoginPatientCommand>();
         }
     }
 }

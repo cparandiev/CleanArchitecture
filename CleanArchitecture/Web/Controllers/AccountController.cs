@@ -4,8 +4,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Features.Patient.Commands.CreatePatient;
+using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Queries.GetPatient;
 using Application.Features.Users.Commands.CreateUser;
+using Application.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +24,14 @@ namespace Web.Controllers
     public class AccountController : BaseController
     {
         private readonly IConfiguration _configuration;
-
         private readonly IMapper _autoMapper;
+        private readonly IAuthService _authService;
 
-        public AccountController(IConfiguration configuration, IMapper autoMapper)
+        public AccountController(IConfiguration configuration, IMapper autoMapper, IAuthService authService)
         {
             _configuration = configuration;
             _autoMapper = autoMapper;
+            _authService = authService;
         }
 
         [HttpGet("{id}")]
@@ -65,13 +68,28 @@ namespace Web.Controllers
             createPatientCommand.UserId = userId;
             var patientId = await Mediator.Send(createPatientCommand);
 
-            var getPatientQuery = new GetPatientQuery() { UserId = userId };
+            var getPatientQuery = new GetPatientByIdQuery() { UserId = userId };
             var patientDto = await Mediator.Send(getPatientQuery);
 
             var patientVm = _autoMapper.Map<PatientViewModel>(patientDto);
 
             return Created($"/api/users/{userId}", patientVm);
+        }
 
+        [AllowAnonymous]
+        [HttpPost("login/patient")]
+        public async Task<IActionResult> LoginPatient([FromBody]LoginPatientBm model)
+        {
+            var createUserCommand = _autoMapper.Map<LoginPatientCommand>(model);
+            var patientDto = await Mediator.Send(createUserCommand);
+            
+            var claims = new[]{
+                new Claim("userId", patientDto.User.Id.ToString())
+            };
+
+            var jwt = _authService.CreateJWT(_configuration["SecurityKey"], claims, "yourdomain.com", "yourdomain.com", DateTime.Now.AddMinutes(30));
+
+            return Ok(jwt);
         }
     }
 }

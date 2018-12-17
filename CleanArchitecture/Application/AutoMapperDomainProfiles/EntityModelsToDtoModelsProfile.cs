@@ -6,6 +6,7 @@ using Domain.Entities.PatientAggregate;
 using Domain.Entities.UserAggregate;
 using Domain.Enums;
 using System;
+using System.Linq;
 
 namespace Application.AutoMapperDomainProfiles
 {
@@ -13,10 +14,10 @@ namespace Application.AutoMapperDomainProfiles
     {
         public EntityModelsToDtoModelsProfile()
         {
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(ur => ur.Role.Value)));
 
-            CreateMap<User, PatientDto>()
-                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles));
+            CreateMap<Patient, PatientDto>();
 
             CreateMap<Blood, string>()
                 .ConvertUsing<EnumToStringConverter<Blood>>();
@@ -26,11 +27,6 @@ namespace Application.AutoMapperDomainProfiles
 
             CreateMap<Domain.Enums.Role, string>()
                 .ConvertUsing<EnumToStringConverter<Domain.Enums.Role>>();
-
-            CreateMap<Patient, PatientDto>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
-                .ConvertUsing(s => Mapper.Map<User, PatientDto>(s.User)); // todo
-
         }
     }
 }

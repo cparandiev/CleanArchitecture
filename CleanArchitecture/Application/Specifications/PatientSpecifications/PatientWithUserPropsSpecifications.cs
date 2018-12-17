@@ -11,7 +11,14 @@ namespace Application.Specifications.PatientSpecifications
             : base(p => p.User.Id == userId)
         {
             AddInclude(u => u.User);
-            AddInclude($"{nameof(User)}.{nameof(User.UserRoles)}.{nameof(UserRole.Role)}");
+            AddInclude($"{nameof(Patient.User)}.{nameof(User.UserRoles)}.{nameof(UserRole.Role)}");
+        }
+
+        public PatientWithUserPropsSpecifications(string username)
+            : base(p => p.User.Username == username)
+        {
+            AddInclude(u => u.User);
+            AddInclude($"{nameof(Patient.User)}.{nameof(User.UserRoles)}.{nameof(UserRole.Role)}");
         }
     }
 }

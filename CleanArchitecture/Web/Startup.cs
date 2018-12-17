@@ -22,6 +22,7 @@ using Application.AutoMapperDomainProfiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Services;
 
 namespace Web
 {
@@ -80,11 +81,16 @@ namespace Web
             // Add Repositories
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add Automapper
             services.AddAutoMapper();
             services.AddAutoMapper(typeof(RequestModelsToEntityModels).GetTypeInfo().Assembly);
+
+            // Add Services
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ISecurePasswordHasher, SecurePasswordHasher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

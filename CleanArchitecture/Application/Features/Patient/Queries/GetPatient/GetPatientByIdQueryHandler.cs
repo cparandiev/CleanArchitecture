@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Features.Patient.Models;
 using Application.Interfaces;
@@ -8,22 +9,24 @@ using MediatR;
 
 namespace Application.Features.Patient.Queries.GetPatient
 {
-    public class GetPatientQueryHandler : IRequestHandler<GetPatientQuery, PatientDto>
+    public class GetPatientByIdQueryHandler : IRequestHandler<GetPatientByIdQuery, PatientDto>
     {
         private readonly IUnitOfWork _context;
         private readonly IMapper _autoMapper;
 
-        public GetPatientQueryHandler(IUnitOfWork context, IMapper autoMapper)
+        public GetPatientByIdQueryHandler(IUnitOfWork context, IMapper autoMapper)
         {
             _context = context;
             _autoMapper = autoMapper;
         }
 
-        public Task<PatientDto> Handle(GetPatientQuery request, CancellationToken cancellationToken)
+        public Task<PatientDto> Handle(GetPatientByIdQuery request, CancellationToken cancellationToken)
         {
             var entity = _context.Patients.GetSingleBySpec(new PatientWithUserPropsSpecifications(request.UserId));
-
-            return Task.FromResult(_autoMapper.Map<PatientDto>(entity));
+            
+            var patientDto = _autoMapper.Map<PatientDto>(entity);
+            
+            return Task.FromResult(patientDto);
         }
     }
 }

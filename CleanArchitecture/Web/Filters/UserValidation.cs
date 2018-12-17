@@ -12,7 +12,7 @@ namespace Web.Filters
 {
     public class UserValidation : JwtBearerEvents
     {
-        public override async Task TokenValidated(TokenValidatedContext context)
+        public override Task TokenValidated(TokenValidatedContext context)
         {
             if (context.Principal.HasClaim(c => c.Type == "userId"))
             {
@@ -30,6 +30,8 @@ namespace Web.Filters
                     context.Principal.AddIdentity(new ClaimsIdentity(claims));
                 }
             }
+
+            return Task.CompletedTask;
         }
     }
 }

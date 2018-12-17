@@ -1,7 +1,11 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using Application.Specifications.RoleSpecifications;
 using AutoMapper;
+using Domain.Entities.UserAggregate;
+using Domain.Enums;
 using MediatR;
 
 namespace Application.Features.Patient.Commands.CreatePatient
@@ -20,7 +24,11 @@ namespace Application.Features.Patient.Commands.CreatePatient
         public async Task<int> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
         {
             var userEntity = _context.Users.GetById(request.UserId);
-
+            var patientRole = _context.Roles.GetSingleBySpec(new RoleByValueSpecifications(Domain.Enums.Role.Patient));
+            
+            userEntity.UserRoles = new HashSet<UserRole>{
+                new UserRole{ Role = patientRole }
+            };
             var patientEntity = new Domain.Entities.PatientAggregate.Patient() {
                 User = userEntity
             };
