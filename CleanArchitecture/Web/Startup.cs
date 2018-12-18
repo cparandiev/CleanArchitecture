@@ -54,8 +54,8 @@ namespace Web
                        ValidateAudience = true,
                        ValidateLifetime = true,
                        ValidateIssuerSigningKey = true,
-                       ValidIssuer = "yourdomain.com",
-                       ValidAudience = "yourdomain.com",
+                       ValidIssuer = Configuration["Issuer"],
+                       ValidAudience = Configuration["Audience"],
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
                    };
                    options.EventsType = typeof(UserValidation);

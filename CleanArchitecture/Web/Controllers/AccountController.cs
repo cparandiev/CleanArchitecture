@@ -80,14 +80,14 @@ namespace Web.Controllers
         [HttpPost("login/patient")]
         public async Task<IActionResult> LoginPatient([FromBody]LoginPatientBm model)
         {
-            var createUserCommand = _autoMapper.Map<LoginPatientCommand>(model);
-            var patientDto = await Mediator.Send(createUserCommand);
+            var loginUserCommand = _autoMapper.Map<LoginPatientCommand>(model);
+            var patientDto = await Mediator.Send(loginUserCommand);
             
             var claims = new[]{
                 new Claim("userId", patientDto.User.Id.ToString())
             };
 
-            var jwt = _authService.CreateJWT(_configuration["SecurityKey"], claims, "yourdomain.com", "yourdomain.com", DateTime.Now.AddMinutes(30));
+            var jwt = _authService.CreateJWT(_configuration["SecurityKey"], claims, _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
 
             return Ok(jwt);
         }
