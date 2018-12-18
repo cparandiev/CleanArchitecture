@@ -2,6 +2,10 @@
 using Application.Specifications.UserSpecifications;
 using FluentValidation;
 using Application.Constants.User.Validation;
+using Domain.Enums;
+using System;
+using System.Linq;
+using Application.Helpers;
 
 namespace Application.Features.Users.Commands.CreateUser
 {
@@ -41,6 +45,17 @@ namespace Application.Features.Users.Commands.CreateUser
                 .NotNull()
                 .Matches(Constants.Validation.ValidationParameters.EMAIL_REGEX)
                 .WithMessage(ErrorMessages.EMAIL_REQUIREMENTS);
+
+            RuleFor(x => x.Birthdate)
+                .NotNull();
+
+            RuleFor(x => x.Blood)
+                .NotNull()
+                .IsValidEnum(typeof(Blood));
+
+            RuleFor(x => x.Gender)
+                .NotNull()
+                .IsValidEnum(typeof(Gender));
 
             RuleFor(x => x.Height)
                 .GreaterThanOrEqualTo(ValidationParameters.MIN_HEIGHT)
