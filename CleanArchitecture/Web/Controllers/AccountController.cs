@@ -34,29 +34,6 @@ namespace Web.Controllers
             _authService = authService;
         }
 
-        [HttpGet("{id}")]
-        [AllowAnonymous]
-        public string RequestToken(int id)
-        {
-            var claims = new[]
-            {
-                new Claim("userId", id.ToString())
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecurityKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: "yourdomain.com",
-                audience: "yourdomain.com",
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
         [AllowAnonymous]
         [HttpPost("register/patient")]
         public async Task<IActionResult> RegisterPatient([FromBody]RegisterPatientBm model)
@@ -70,10 +47,11 @@ namespace Web.Controllers
 
             var getPatientQuery = new GetPatientByIdQuery() { UserId = userId };
             var patientDto = await Mediator.Send(getPatientQuery);
+            
+            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(patientDto);
+            loggedUserVm = SignInUser(loggedUserVm);
 
-            var patientVm = _autoMapper.Map<PatientViewModel>(patientDto);
-
-            return Created($"/api/users/{userId}", patientVm);
+            return Created($"/api/users/{userId}", loggedUserVm);
         }
 
         [AllowAnonymous]
@@ -83,13 +61,21 @@ namespace Web.Controllers
             var loginUserCommand = _autoMapper.Map<LoginPatientCommand>(model);
             var patientDto = await Mediator.Send(loginUserCommand);
             
+            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(patientDto);
+            loggedUserVm = SignInUser(loggedUserVm);
+
+            return Ok(loggedUserVm);
+        }
+
+        private LoggedUserViewModel SignInUser(LoggedUserViewModel loggedUserVm)
+        {
             var claims = new[]{
-                new Claim("userId", patientDto.User.Id.ToString())
+                new Claim("userId", loggedUserVm.UserId.ToString())
             };
 
-            var jwt = _authService.CreateJWT(_configuration["SecurityKey"], claims, _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
+            loggedUserVm.JWT = _authService.CreateJWT(_configuration["SecurityKey"], claims, _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
 
-            return Ok(jwt);
+            return loggedUserVm;
         }
     }
 }

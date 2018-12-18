@@ -11,6 +11,13 @@ namespace Web.AutoMapperDomainProfiles
         {
             CreateMap<UserDto, UserViewModel>();
             CreateMap<PatientDto, PatientViewModel>();
+
+            CreateMap<PatientDto, LoggedUserViewModel>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username))
+                .ForMember(dest => dest.Firstname, opt => opt.MapFrom(src => src.User.FirstName))
+                .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.User.LastName))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.User.Roles));
         }
     }
 }

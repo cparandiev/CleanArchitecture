@@ -4,9 +4,15 @@ namespace Web.Models.ViewModels
 {
     public class LoggedUserViewModel
     {
+        public int UserId { get; set; }
+
         public string JWT { get; set; }
 
         public string Username { get; set; }
+
+        public string Firstname { get; set; }
+
+        public string Lastname { get; set; }
 
         public List<string> Roles { get; set; }
     }
