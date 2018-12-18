@@ -11,7 +11,7 @@ namespace Persistence.Configurations.DoctorAggregate
         {
             builder.HasOne(a => a.User)
                 .WithOne(u => u.Doctor)
-                .HasForeignKey<Doctor>(a => a.UsedId);
+                .HasForeignKey<Doctor>(a => a.UserId);
 
             builder.HasOne(d => d.Clinic)
                 .WithMany(c => c.Doctors)

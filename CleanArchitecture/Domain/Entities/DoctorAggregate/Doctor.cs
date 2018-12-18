@@ -16,7 +16,7 @@ namespace Domain.Entities.DoctorAggregate
 
         public string Summary { get; set; }
 
-        public int UsedId { get; set; }
+        public int UserId { get; set; }
 
         public int ClinicId { get; set; }
 

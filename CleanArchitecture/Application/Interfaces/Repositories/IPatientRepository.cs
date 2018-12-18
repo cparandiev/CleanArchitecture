@@ -1,5 +1,4 @@
 ﻿using Domain.Entities.PatientAggregate;
-using Domain.Entities.UserAggregate;
 
 namespace Application.Interfaces.Repositories
 {

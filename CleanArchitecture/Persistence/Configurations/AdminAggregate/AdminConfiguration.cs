@@ -10,7 +10,7 @@ namespace Persistence.Configurations.AdminAggregate
         {
             builder.HasOne(a => a.User)
                 .WithOne(u => u.Admin)
-                .HasForeignKey<Admin>(a => a.UsedId);
+                .HasForeignKey<Admin>(a => a.UserId);
         }
     }
 }

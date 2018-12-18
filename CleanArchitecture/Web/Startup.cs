@@ -86,6 +86,8 @@ namespace Web
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IClinicRepository, ClinicRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add Automapper

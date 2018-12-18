@@ -15,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Doctor\Models\" />
+    <Folder Include="Features\Doctor\Queries\" />
     <Folder Include="Features\Empty\Commands\" />
     <Folder Include="Features\Empty\Models\" />
     <Folder Include="Features\Empty\Queries\" />

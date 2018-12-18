@@ -10,7 +10,7 @@ namespace Persistence.Configurations.PatientAggregate
         {
             builder.HasOne(a => a.User)
                 .WithOne(u => u.Patient)
-                .HasForeignKey<Patient>(a => a.UsedId);
+                .HasForeignKey<Patient>(a => a.UserId);
         }
     }
 }

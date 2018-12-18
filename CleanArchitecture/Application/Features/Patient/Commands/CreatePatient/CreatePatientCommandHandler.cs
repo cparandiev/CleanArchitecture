@@ -29,9 +29,8 @@ namespace Application.Features.Patient.Commands.CreatePatient
             userEntity.UserRoles = new HashSet<UserRole>{
                 new UserRole{ Role = patientRole }
             };
-            var patientEntity = new Domain.Entities.PatientAggregate.Patient() {
-                User = userEntity
-            };
+
+            var patientEntity = _autoMapper.Map<Domain.Entities.PatientAggregate.Patient>(request);
 
             await _context.Patients.AddAsync(patientEntity);
             await _context.CompleteAsync();
