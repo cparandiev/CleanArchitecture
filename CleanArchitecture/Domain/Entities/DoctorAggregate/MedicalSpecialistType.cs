@@ -10,6 +10,6 @@ namespace Domain.Entities.DoctorAggregate
         }
         public Enums.MedicalSpecialistType? Value { get; set; }
 
-        public virtual IEnumerable<DoctorMedicalSpecialistType> DoctorMedicalSpecialistTypes { get; set; }
+        public virtual ICollection<DoctorMedicalSpecialistType> DoctorMedicalSpecialistTypes { get; set; }
     }
 }

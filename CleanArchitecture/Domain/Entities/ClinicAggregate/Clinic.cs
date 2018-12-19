@@ -14,6 +14,6 @@ namespace Domain.Entities.ClinicAggregate
         
         public virtual ClinicAddress Address { get; set; }
 
-        public virtual IEnumerable<Doctor> Doctors { get; set; }
+        public virtual ICollection<Doctor> Doctors { get; set; }
     }
 }

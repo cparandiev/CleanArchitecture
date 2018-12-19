@@ -17,8 +17,8 @@ namespace Domain.Entities.PatientAggregate
 
         public virtual User User { get; set; }
 
-        public virtual IEnumerable<MedicalExaminationRequest> MedicalExaminationRequests { get; set; }
+        public virtual ICollection<MedicalExaminationRequest> MedicalExaminationRequests { get; set; }
 
-        public virtual IEnumerable<BodyЕxaminationResult> BodyЕxaminationResults { get; set; }
+        public virtual ICollection<BodyЕxaminationResult> BodyЕxaminationResults { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using Application.Specifications.RoleSpecifications;
 using AutoMapper;
 using Domain.Entities.UserAggregate;
 using Domain.Enums;
@@ -23,10 +24,10 @@ namespace Application.Features.Doctor.Commands.CreateDoctor
 
         public async Task<int> Handle(CreateDoctorCommand request, CancellationToken cancellationToken)
         {
-            var userEntity = _context.Users.GetById(request.UserId);
-            var patientAndDoctorRoles = _context.Roles.ListAll().Where(r => r.Value == Domain.Enums.Role.Patient || r.Value == Domain.Enums.Role.Doctor);
+            var userEntity = _context.Users.GetById(request.UserId.Value);
+            var doctorRole = _context.Roles.GetSingleBySpec(new RoleByValueSpecifications(Domain.Enums.Role.Doctor));
 
-            userEntity.UserRoles = patientAndDoctorRoles.Select(r => new UserRole { Role = r });
+            userEntity.UserRoles.Add(new UserRole { Role = doctorRole });
 
             var doctorEntity = _autoMapper.Map<Domain.Entities.DoctorAggregate.Doctor>(request);
 

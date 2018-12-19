@@ -39,6 +39,6 @@ namespace Domain.Entities.UserAggregate
 
         public virtual Patient Patient { get; set; }
 
-        public virtual IEnumerable<UserRole> UserRoles { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

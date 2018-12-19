@@ -1,8 +1,9 @@
 ﻿using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
+using Application.Features.Doctor.Commands.CreateDoctor;
+using Application.Features.Doctor.Commands.LoginDoctor;
+using Application.Features.Doctor.Queries.GetDoctor;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Queries.GetPatient;
@@ -12,7 +13,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using Web.Models.BindingModels;
 using Web.Models.ViewModels;
 
@@ -62,6 +62,43 @@ namespace Web.Controllers
             var patientDto = await Mediator.Send(loginUserCommand);
             
             var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(patientDto);
+            loggedUserVm = SignInUser(loggedUserVm);
+
+            return Ok(loggedUserVm);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register/doctor")]
+        public async Task<IActionResult> RegisterDoctor([FromBody]RegisterDoctorBm model)
+        {
+            var createUserCommand = _autoMapper.Map<CreateUserCommand>(model);
+            var userId = await Mediator.Send(createUserCommand);
+
+            var createPatientCommand = _autoMapper.Map<CreatePatientCommand>(model);
+            createPatientCommand.UserId = userId;
+            var patientId = await Mediator.Send(createPatientCommand);
+
+            var createDoctorCommand = _autoMapper.Map<CreateDoctorCommand>(model);
+            createDoctorCommand.UserId = userId;
+            var doctorId = await Mediator.Send(createDoctorCommand);
+
+            var getDoctorByIdQuery = new GetDoctorByIdQuery() { UserId = userId };
+            var doctorDto = await Mediator.Send(getDoctorByIdQuery);
+
+            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(doctorDto);
+            loggedUserVm = SignInUser(loggedUserVm);
+
+            return Created($"/api/users/{userId}", loggedUserVm);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login/doctor")]
+        public async Task<IActionResult> LoginDoctor([FromBody]LoginDoctorBm model)
+        {
+            var loginDoctorCommand = _autoMapper.Map<LoginDoctorCommand>(model);
+            var doctorDto = await Mediator.Send(loginDoctorCommand);
+
+            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(doctorDto);
             loggedUserVm = SignInUser(loggedUserVm);
 
             return Ok(loggedUserVm);

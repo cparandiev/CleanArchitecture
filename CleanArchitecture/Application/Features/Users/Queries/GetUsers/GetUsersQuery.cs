@@ -4,6 +4,6 @@ using System.Collections.Generic;
 
 namespace Application.Features.Users.Queries.GetUsers
 {
-    public class GetUsersQuery : IRequest<IEnumerable<UserDto>>
+    public class GetUsersQuery : IRequest<ICollection<UserDto>>
     {}
 }

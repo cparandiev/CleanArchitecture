@@ -1,7 +1,9 @@
 ﻿using Application.AutoMapperDomainProfiles.Converters;
+using Application.Features.Doctor.Models;
 using Application.Features.Patient.Models;
 using Application.Features.Users.Models;
 using AutoMapper;
+using Domain.Entities.DoctorAggregate;
 using Domain.Entities.PatientAggregate;
 using Domain.Entities.UserAggregate;
 using Domain.Enums;
@@ -18,6 +20,8 @@ namespace Application.AutoMapperDomainProfiles
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(ur => ur.Role.Value)));
 
             CreateMap<Patient, PatientDto>();
+
+            CreateMap<Doctor, DoctorDto>();
 
             CreateMap<Blood, string>()
                 .ConvertUsing<EnumToStringConverter<Blood>>();

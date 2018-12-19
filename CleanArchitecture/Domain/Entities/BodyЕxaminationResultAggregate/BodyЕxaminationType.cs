@@ -11,6 +11,6 @@ namespace Domain.Entities.BodyЕxaminationResultAggregate
 
         public Enums.BodyExaminationType? Value { get; set; }
 
-        public IEnumerable<BodyЕxaminationResultType> BodyЕxaminationResultTypes { get; set; }
+        public ICollection<BodyЕxaminationResultType> BodyЕxaminationResultTypes { get; set; }
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Web.Models.ViewModels
+namespace Web.Models.BindingModels
 {
-    public class UserViewModel
+    public class RegisterDoctorBm
     {
-        public int Id { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
         public string Username { get; set; }
+
+        public string Password { get; set; }
 
         public string Email { get; set; }
 
@@ -25,6 +24,8 @@ namespace Web.Models.ViewModels
 
         public string Blood { get; set; }
 
-        public ICollection<string> Roles { get; set; }
+        public string Summary { get; set; }
+
+        public int? ClinicId { get; set; }
     }
 }

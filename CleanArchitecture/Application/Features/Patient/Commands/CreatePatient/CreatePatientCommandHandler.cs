@@ -23,12 +23,10 @@ namespace Application.Features.Patient.Commands.CreatePatient
 
         public async Task<int> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
         {
-            var userEntity = _context.Users.GetById(request.UserId);
+            var userEntity = _context.Users.GetById(request.UserId.Value);
             var patientRole = _context.Roles.GetSingleBySpec(new RoleByValueSpecifications(Domain.Enums.Role.Patient));
-            
-            userEntity.UserRoles = new HashSet<UserRole>{
-                new UserRole{ Role = patientRole }
-            };
+
+            userEntity.UserRoles.Add(new UserRole { Role = patientRole });
 
             var patientEntity = _autoMapper.Map<Domain.Entities.PatientAggregate.Patient>(request);
 

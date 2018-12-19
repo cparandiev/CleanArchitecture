@@ -25,6 +25,6 @@ namespace Application.Features.Users.Models
 
         public string Blood { get; set; }
 
-        public IEnumerable<string> Roles { get; set; }
+        public ICollection<string> Roles { get; set; }
     }
 }

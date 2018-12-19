@@ -11,6 +11,6 @@ namespace Domain.Entities.UserAggregate
 
         public Enums.Role? Value { get; set; }
 
-        public IEnumerable<UserRole> UserRoles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

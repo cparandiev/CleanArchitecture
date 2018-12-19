@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetUsers
 {
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<UserDto>>
+    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, ICollection<UserDto>>
     {
         private readonly IUnitOfWork _context;
         private readonly IMapper _autoMapper;
@@ -21,7 +21,7 @@ namespace Application.Features.Users.Queries.GetUsers
             _autoMapper = autoMapper;
         }
 
-        public async Task<IEnumerable<UserDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<ICollection<UserDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
             var entities = await _context.Users.ListAllAsync();
 

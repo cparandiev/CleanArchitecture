@@ -25,7 +25,7 @@ namespace Domain.Entities.BodyЕxaminationResultAggregate
 
         public virtual PulseRateExamination PulseRate { get; set; }
 
-        public virtual IEnumerable<BodyЕxaminationResultType> BodyЕxaminationResultTypes { get; set; }
+        public virtual ICollection<BodyЕxaminationResultType> BodyЕxaminationResultTypes { get; set; }
 
     }
 }

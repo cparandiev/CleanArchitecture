@@ -24,10 +24,10 @@ namespace Domain.Entities.DoctorAggregate
 
         public virtual Clinic Clinic { get; set; }
 
-        public virtual IEnumerable<DoctorWorkingTime> WorkingTimes { get; set; }
+        public virtual ICollection<DoctorWorkingTime> WorkingTimes { get; set; }
 
-        public virtual IEnumerable<MedicalExaminationRequest> MedicalExaminationRequests { get; set; }
+        public virtual ICollection<MedicalExaminationRequest> MedicalExaminationRequests { get; set; }
 
-        public virtual IEnumerable<DoctorMedicalSpecialistType> DoctorMedicalSpecialistTypes { get; set; }
+        public virtual ICollection<DoctorMedicalSpecialistType> DoctorMedicalSpecialistTypes { get; set; }
     }
 }
