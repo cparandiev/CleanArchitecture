@@ -16,12 +16,18 @@ namespace Application.AutoMapperDomainProfiles
     {
         public EntityModelsToDtoModelsProfile()
         {
+            #region User mappings
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(ur => ur.Role.Value)));
+            #endregion
 
+            #region Patient mappings
             CreateMap<Patient, PatientDto>();
+            #endregion
 
+            #region Doctor mappings
             CreateMap<Doctor, DoctorDto>();
+            #endregion
 
             CreateMap<Blood, string>()
                 .ConvertUsing<EnumToStringConverter<Blood>>();

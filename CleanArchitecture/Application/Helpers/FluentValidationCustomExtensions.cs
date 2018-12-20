@@ -21,5 +21,10 @@ namespace Application.Helpers
         {
             return ruleBuilder.SetValidator(new ClinicExistsValidator<TElement>(context));
         }
+
+        public static IRuleBuilderOptions<T, TElement> DoctorExists<T, TElement>(this IRuleBuilder<T, TElement> ruleBuilder, IUnitOfWork context)
+        {
+            return ruleBuilder.SetValidator(new DoctorExistsValidator<TElement>(context));
+        }
     }
 }

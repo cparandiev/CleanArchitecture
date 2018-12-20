@@ -9,6 +9,7 @@ namespace Application.Specifications.DoctorSpecifications
             : base(p => p.User.Id == userId)
         {
             AddInclude(u => u.User);
+            AddInclude(u => u.WorkingTimes);
             AddInclude($"{nameof(Doctor.User)}.{nameof(User.UserRoles)}.{nameof(UserRole.Role)}");
         }
 
@@ -16,6 +17,15 @@ namespace Application.Specifications.DoctorSpecifications
             : base(p => p.User.Username == username)
         {
             AddInclude(u => u.User);
+            AddInclude(u => u.WorkingTimes);
+            AddInclude($"{nameof(Doctor.User)}.{nameof(User.UserRoles)}.{nameof(UserRole.Role)}");
+        }
+
+        public DoctorWithUserPropsSpecifications(int? doctorId)
+            : base(p => p.Id == doctorId)
+        {
+            AddInclude(u => u.User);
+            AddInclude(u => u.WorkingTimes);
             AddInclude($"{nameof(Doctor.User)}.{nameof(User.UserRoles)}.{nameof(UserRole.Role)}");
         }
     }

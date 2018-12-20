@@ -1,4 +1,5 @@
 ﻿using Application.Features.Doctor.Commands.CreateDoctor;
+using Application.Features.Doctor.Models;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Users.Commands.CreateUser;
 using AutoMapper;
@@ -12,9 +13,18 @@ namespace Application.AutoMapperDomainProfiles
     {
         public RequestModelsToEntityModels()
         {
+            #region User mappings
             CreateMap<CreateUserCommand, User>();
+            #endregion
+
+            #region Patient mappings
             CreateMap<CreatePatientCommand, Patient>();
+            #endregion
+
+            #region Doctor mappings
             CreateMap<CreateDoctorCommand, Doctor>();
+            CreateMap<WorkingTimeUnit, DoctorWorkingTime>();
+            #endregion
         }
     }
 }
