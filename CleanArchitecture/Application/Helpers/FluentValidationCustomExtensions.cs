@@ -26,5 +26,10 @@ namespace Application.Helpers
         {
             return ruleBuilder.SetValidator(new DoctorExistsValidator<TElement>(context));
         }
+
+        public static IRuleBuilderOptions<T, TElement> UniqueUsername<T, TElement>(this IRuleBuilder<T, TElement> ruleBuilder, IUnitOfWork context)
+        {
+            return ruleBuilder.SetValidator(new UniqueUsernameValidator<TElement>(context));
+        }
     }
 }

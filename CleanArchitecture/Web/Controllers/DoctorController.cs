@@ -1,5 +1,6 @@
 ﻿using Application.Features.Doctor.Commands.SetWeeklyWorkingTime;
 using AutoMapper;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = nameof(Role.Patient))]
         public async Task<IActionResult> WeeklyWorkingTime([FromBody]DoctorWeeklyWorkingTimeBm model)
         {
             var setWeeklyWorkingTimeCommand = _autoMapper.Map<SetWeeklyWorkingTimeCommand>(model);

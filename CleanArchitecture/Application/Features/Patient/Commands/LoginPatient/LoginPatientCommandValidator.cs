@@ -27,6 +27,7 @@ namespace Application.Features.Patient.Commands.LoginPatient
 
             RuleFor(x => x)
                 .Must(VerifyCredentials)
+                .When(x => x.Password != null && x.Username != null)
                 .WithMessage(ErrorMessages.INVALID_CREDENTIALS)
                 .OverridePropertyName(Constants.Validation.ErrorNames.ModelCompossibleErrorName);
         }

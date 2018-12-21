@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Features.Doctor.Commands.CreateDoctor;
@@ -45,13 +46,7 @@ namespace Web.Controllers
             createPatientCommand.UserId = userId;
             var patientId = await Mediator.Send(createPatientCommand);
 
-            var getPatientQuery = new GetPatientByIdQuery() { UserId = userId };
-            var patientDto = await Mediator.Send(getPatientQuery);
-            
-            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(patientDto);
-            loggedUserVm = SignInUser(loggedUserVm);
-
-            return Created($"/api/users/{userId}", loggedUserVm);
+            return await LoginPatient(_autoMapper.Map<LoginPatientBm>(model));
         }
 
         [AllowAnonymous]
@@ -62,7 +57,7 @@ namespace Web.Controllers
             var patientDto = await Mediator.Send(loginUserCommand);
             
             var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(patientDto);
-            loggedUserVm = SignInUser(loggedUserVm);
+            loggedUserVm = SignInUser(loggedUserVm, new List<Claim>() { new Claim("patientId", patientDto.Id.ToString()) });
 
             return Ok(loggedUserVm);
         }
@@ -82,13 +77,7 @@ namespace Web.Controllers
             createDoctorCommand.UserId = userId;
             var doctorId = await Mediator.Send(createDoctorCommand);
 
-            var getDoctorByIdQuery = new GetDoctorByIdQuery() { UserId = userId };
-            var doctorDto = await Mediator.Send(getDoctorByIdQuery);
-
-            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(doctorDto);
-            loggedUserVm = SignInUser(loggedUserVm);
-
-            return Created($"/api/users/{userId}", loggedUserVm);
+            return await LoginDoctor(_autoMapper.Map<LoginDoctorBm>(model));
         }
 
         [AllowAnonymous]
@@ -98,19 +87,23 @@ namespace Web.Controllers
             var loginDoctorCommand = _autoMapper.Map<LoginDoctorCommand>(model);
             var doctorDto = await Mediator.Send(loginDoctorCommand);
 
+            var getPatientQuery = new GetPatientByIdQuery() { UserId = doctorDto.User.Id };
+            var patientDto = await Mediator.Send(getPatientQuery);
+
             var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(doctorDto);
-            loggedUserVm = SignInUser(loggedUserVm);
+            loggedUserVm = SignInUser(loggedUserVm, new List<Claim>() {
+                new Claim ("doctorId", doctorDto.Id.ToString()),
+                new Claim ("patientId", patientDto.Id.ToString())
+            });
 
             return Ok(loggedUserVm);
         }
 
-        private LoggedUserViewModel SignInUser(LoggedUserViewModel loggedUserVm)
+        private LoggedUserViewModel SignInUser(LoggedUserViewModel loggedUserVm, List<Claim> claims)
         {
-            var claims = new[]{
-                new Claim("userId", loggedUserVm.UserId.ToString())
-            };
+            claims.Add(new Claim("userId", loggedUserVm.UserId.ToString()));
 
-            loggedUserVm.JWT = _authService.CreateJWT(_configuration["SecurityKey"], claims, _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
+            loggedUserVm.JWT = _authService.CreateJWT(_configuration["SecurityKey"], claims.ToArray(), _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
 
             return loggedUserVm;
         }

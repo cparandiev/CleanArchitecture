@@ -1,22 +1,15 @@
 ﻿using Application.Interfaces;
-using Application.Specifications.UserSpecifications;
 using FluentValidation;
 using Application.Constants.User.Validation;
 using Domain.Enums;
-using System;
-using System.Linq;
 using Application.Helpers;
 
 namespace Application.Features.Users.Commands.CreateUser
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
-        private readonly IUnitOfWork _context;
-
         public CreateUserCommandValidator(IUnitOfWork context)
         {
-            _context = context;
-
             RuleFor(x => x.FirstName)
                 .NotNull()
                 .MinimumLength(ValidationParameters.FIRST_NAME_MIN_LENGTH)
@@ -30,12 +23,9 @@ namespace Application.Features.Users.Commands.CreateUser
             RuleFor(x => x.Username)
                 .NotNull()
                 .MinimumLength(ValidationParameters.USERNAME_MIN_LENGTH)
-                .MaximumLength(ValidationParameters.USERNAME_MAX_LENGTH);
-
-            RuleFor(x => x.Username)
-                .Must(UniqueName)
-                .WithMessage(ErrorMessages.UNIQUE_USERNAME);
-
+                .MaximumLength(ValidationParameters.USERNAME_MAX_LENGTH)
+                .UniqueUsername(context);
+            
             RuleFor(x => x.Password)
                 .NotNull()
                 .Matches(Constants.Validation.ValidationParameters.PASSWORD_REGEX)
@@ -64,11 +54,6 @@ namespace Application.Features.Users.Commands.CreateUser
             RuleFor(x => x.Weight)
                 .GreaterThanOrEqualTo(ValidationParameters.MIN_WEIGHT)
                 .LessThanOrEqualTo(ValidationParameters.MAX_WEIGHT);
-        }
-
-        private bool UniqueName(string name)
-        {
-            return _context.Users.Count(new UserWithRolesSpecification(name)) == 0;
         }
     }
 }

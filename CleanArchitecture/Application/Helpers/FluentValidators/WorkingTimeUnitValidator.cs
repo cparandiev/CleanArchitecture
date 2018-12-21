@@ -13,12 +13,9 @@ namespace Application.Helpers.FluentValidators
                 .NotNull();
 
             RuleFor(x => x.Close)
-                .NotNull();
-
-            RuleFor(x => x)
-                .Must(x => x.Open.Value < x.Close.Value)
-                .WithMessage(ErrorMessages.INVALID_WORKING_TIME_UNIT)
-                .OverridePropertyName(ErrorNames.ModelCompossibleErrorName);
+                .NotNull()
+                .GreaterThan(m => m.Open.Value)
+                .When(m => m.Open.HasValue);
         }
     }
 }
