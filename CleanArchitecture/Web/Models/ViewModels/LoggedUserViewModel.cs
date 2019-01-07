@@ -2,7 +2,7 @@
 
 namespace Web.Models.ViewModels
 {
-    public class LoggedUserViewModel
+    public abstract class LoggedUserViewModel
     {
         public int UserId { get; set; }
 

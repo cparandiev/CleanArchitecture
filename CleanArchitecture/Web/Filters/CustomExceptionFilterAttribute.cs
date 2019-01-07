@@ -12,21 +12,30 @@ namespace Web.Filters
         public override void OnException(ExceptionContext context)
         {
             var code = HttpStatusCode.InternalServerError;
+            IActionResult result = new EmptyResult();
 
             if (context.Exception is ValidationException)
             {
                 code = HttpStatusCode.BadRequest;
-                context.Result = new JsonResult(((ValidationException)context.Exception).Failures);
+                result = new JsonResult(((ValidationException)context.Exception).Failures);
             }
             else if (context.Exception is NotFoundException)
             {
                 code = HttpStatusCode.NotFound;
-                context.Result = new JsonResult(new { errors = new[] { context.Exception.Message }});
+                result = new JsonResult(new { errors = new[] { context.Exception.Message }});
+            }
+            else if (context.Exception is UnauthorizedAccessException)
+            {
+                code = HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                // todo
             }
 
             context.HttpContext.Response.ContentType = "application/json";
             context.HttpContext.Response.StatusCode = (int)code;
-            
+            context.Result = result;
         }
     }
 }

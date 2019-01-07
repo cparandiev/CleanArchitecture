@@ -2,6 +2,6 @@
 {
     public static class ErrorNames
     {
-        public const string ModelCompossibleErrorName = "Compossible Error";
+        public const string ModelCompossibleErrorName = "CompossibleError";
     }
 }

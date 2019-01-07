@@ -19,7 +19,7 @@ namespace Domain.Entities.MedicalExaminationRequestAggregate
 
         public virtual Doctor Doctor { get; set; }
 
-        public virtual Patient Patiant { get; set; }
+        public virtual Patient Patient { get; set; }
 
         public virtual MedicalExaminationResult Result { get; set; }
     }

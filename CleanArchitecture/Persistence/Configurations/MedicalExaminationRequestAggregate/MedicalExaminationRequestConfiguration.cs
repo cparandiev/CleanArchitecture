@@ -13,7 +13,7 @@ namespace Persistence.Configurations.MedicalExaminationRequestAggregate
                 .HasForeignKey(me => me.DoctorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(me => me.Patiant)
+            builder.HasOne(me => me.Patient)
                 .WithMany(p => p.MedicalExaminationRequests)
                 .HasForeignKey(me => me.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);

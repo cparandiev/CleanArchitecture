@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Features.Doctor.Commands.CreateDoctor;
 using Application.Features.Doctor.Commands.LoginDoctor;
-using Application.Features.Doctor.Queries.GetDoctor;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Queries.GetPatient;
@@ -14,14 +13,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Web.Constants.Claim;
 using Web.Models.BindingModels;
 using Web.Models.ViewModels;
 
 namespace Web.Controllers
 {
     [Authorize]
-    [ApiController]
-    [Route("api/[controller]")]
     public class AccountController : BaseController
     {
         private readonly IConfiguration _configuration;
@@ -56,8 +54,11 @@ namespace Web.Controllers
             var loginUserCommand = _autoMapper.Map<LoginPatientCommand>(model);
             var patientDto = await Mediator.Send(loginUserCommand);
             
-            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(patientDto);
-            loggedUserVm = SignInUser(loggedUserVm, new List<Claim>() { new Claim("patientId", patientDto.Id.ToString()) });
+            var loggedUserVm = _autoMapper.Map<LoggedPatientViewModel>(patientDto);
+            loggedUserVm.JWT = CreateJWT(new List<Claim>() {
+                new Claim (UserClaimsNames.USER_ID, patientDto.User.Id.ToString()),
+                new Claim (UserClaimsNames.PATIENT_ID, patientDto.Id.ToString())
+            });
 
             return Ok(loggedUserVm);
         }
@@ -90,22 +91,17 @@ namespace Web.Controllers
             var getPatientQuery = new GetPatientByIdQuery() { UserId = doctorDto.User.Id };
             var patientDto = await Mediator.Send(getPatientQuery);
 
-            var loggedUserVm = _autoMapper.Map<LoggedUserViewModel>(doctorDto);
-            loggedUserVm = SignInUser(loggedUserVm, new List<Claim>() {
-                new Claim ("doctorId", doctorDto.Id.ToString()),
-                new Claim ("patientId", patientDto.Id.ToString())
+            var loggedUserVm = _autoMapper.Map<LoggedDoctorViewModel>(doctorDto);
+            loggedUserVm.JWT = CreateJWT(new List<Claim>() {
+                new Claim (UserClaimsNames.USER_ID, doctorDto.User.Id.ToString()),
+                new Claim (UserClaimsNames.DOCTOR_ID, doctorDto.Id.ToString()),
+                new Claim (UserClaimsNames.PATIENT_ID, patientDto.Id.ToString())
             });
 
             return Ok(loggedUserVm);
         }
 
-        private LoggedUserViewModel SignInUser(LoggedUserViewModel loggedUserVm, List<Claim> claims)
-        {
-            claims.Add(new Claim("userId", loggedUserVm.UserId.ToString()));
-
-            loggedUserVm.JWT = _authService.CreateJWT(_configuration["SecurityKey"], claims.ToArray(), _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
-
-            return loggedUserVm;
-        }
+        [NonAction]
+        private string CreateJWT(List<Claim> claims) => _authService.CreateJWT(_configuration["SecurityKey"], claims.ToArray(), _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
     }
 }
