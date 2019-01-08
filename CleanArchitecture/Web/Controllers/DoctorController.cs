@@ -19,13 +19,13 @@ namespace Web.Controllers
             _autoMapper = autoMapper;
         }
 
-        [HttpPost("{doctorId}/WeeklyWorkingTime")]
+        [HttpPost("{doctorId:int}/WeeklyWorkingTime")]
         [Authorize(Roles = nameof(Role.Doctor))]
         [TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> WeeklyWorkingTime([FromRoute] int? doctorId, [FromBody]DoctorWeeklyWorkingTimeBm model)
         {
-            model.DoctorId = doctorId;
-            var setWeeklyWorkingTimeCommand = _autoMapper.Map<SetWeeklyWorkingTimeCommand>(model);
+            var setWeeklyWorkingTimeCommand = _autoMapper.Map<SetWeeklyWorkingTimeCommand>(model, opts => opts.Items[nameof(SetWeeklyWorkingTimeCommand.DoctorId)] = doctorId.Value);
+            
             await Mediator.Send(setWeeklyWorkingTimeCommand);
 
             return Ok();

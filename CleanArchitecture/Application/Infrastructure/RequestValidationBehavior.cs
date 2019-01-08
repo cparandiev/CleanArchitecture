@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using FluentValidation.Internal;
+using FluentValidation.Results;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +21,14 @@ namespace Application.Infrastructure
 
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var context = new ValidationContext(request);
+            var failures = Validate(request);
 
-            var failures = _validators
-                .Select(v => v.Validate(context))
-                .SelectMany(result => result.Errors)
-                .Where(f => f != null)
-                .ToList();
+            if (failures.Count != 0)
+            {
+                throw new Exceptions.ValidationException(failures);
+            }
+
+            failures = Validate(request, new[] { "Second Phase" });
 
             if (failures.Count != 0)
             {
@@ -33,6 +36,19 @@ namespace Application.Infrastructure
             }
 
             return next();
+        }
+
+        private List<ValidationFailure> Validate(TRequest request, string[] selectors = null)
+        {
+            var context = new ValidationContext(request, new PropertyChain(), new RulesetValidatorSelector(selectors ?? new[] { "default" }));
+
+            var failures = _validators
+                .Select(v => v.Validate(context))
+                .SelectMany(result => result.Errors)
+                .Where(f => f != null)
+                .ToList();
+
+            return failures;
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Application.Interfaces
 
         IClinicRepository Clinics { get; }
 
+        IMedicalExaminationRequestRepository MedicalExaminationRequests { get; }
+
         Task CompleteAsync();
 
         Task CompleteAsync(CancellationToken cancellationToken);

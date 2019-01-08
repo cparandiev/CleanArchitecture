@@ -102,6 +102,6 @@ namespace Web.Controllers
         }
 
         [NonAction]
-        private string CreateJWT(List<Claim> claims) => _authService.CreateJWT(_configuration["SecurityKey"], claims.ToArray(), _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddMinutes(30));
+        private string CreateJWT(List<Claim> claims) => _authService.CreateJWT(_configuration["SecurityKey"], claims.ToArray(), _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddYears(1)); //todo
     }
 }

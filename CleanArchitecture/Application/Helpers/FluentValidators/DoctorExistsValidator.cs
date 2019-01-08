@@ -1,4 +1,4 @@
-﻿using Application.Constants.User.Validation;
+﻿using Application.Constants.Doctor.Validation;
 using Application.Interfaces;
 using FluentValidation.Validators;
 
@@ -9,7 +9,7 @@ namespace Application.Helpers.FluentValidators
         private readonly IUnitOfWork _context;
 
         public DoctorExistsValidator(IUnitOfWork context) 
-            : base(ErrorMessages.USER_NOT_FOUND)
+            : base(ErrorMessages.DOCTOR_NOT_FOUND)
         {
             _context = context;
         }
