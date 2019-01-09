@@ -8,8 +8,11 @@ namespace Application.Features.Doctor.Commands.CreateDoctor
     {
         public CreateDoctorCommandValidator(IUnitOfWork context)
         {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+
             RuleFor(x => x.UserId)
                 .NotNull()
+                .GreaterThan(0)
                 .UserExists(context);
 
             RuleFor(x => x.Summary)
@@ -19,6 +22,7 @@ namespace Application.Features.Doctor.Commands.CreateDoctor
 
             RuleFor(x => x.ClinicId)
                 .NotNull()
+                .GreaterThan(0)
                 .ClinicExists(context);
         }
     }

@@ -9,6 +9,8 @@ namespace Application.Helpers.FluentValidators
 
         public WorkingTimeUnitValidator()
         {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+
             RuleFor(x => x.Open)
                 .NotNull();
 

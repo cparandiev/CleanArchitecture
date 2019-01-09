@@ -9,8 +9,11 @@ namespace Application.Features.Doctor.Commands.SetWeeklyWorkingTime
     {
         public SetWeeklyWorkingTimeCommandValidator(IUnitOfWork context)
         {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+
             RuleFor(x => x.DoctorId)
                 .NotNull()
+                .GreaterThan(0)
                 .DoctorExists(context);
 
             RuleFor(x => x.NumOfWeeks)

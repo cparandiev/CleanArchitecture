@@ -19,7 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{529E5FDC-C950-4B5C-9718-39F936070E51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{DD7B8A96-F0CF-433C-9602-1AC8F2E9C908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{DD7B8A96-F0CF-433C-9602-1AC8F2E9C908}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AEED284C-0AA0-4633-B0B7-248C6454896F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Tests", "Application.Tests\Application.Tests.csproj", "{7252CB30-2E91-495D-B993-49C8B3F411B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,10 @@ Global
 		{DD7B8A96-F0CF-433C-9602-1AC8F2E9C908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD7B8A96-F0CF-433C-9602-1AC8F2E9C908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD7B8A96-F0CF-433C-9602-1AC8F2E9C908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7252CB30-2E91-495D-B993-49C8B3F411B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7252CB30-2E91-495D-B993-49C8B3F411B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7252CB30-2E91-495D-B993-49C8B3F411B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7252CB30-2E91-495D-B993-49C8B3F411B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{3EDF3B5F-0BFA-4D6C-8D89-33C3B9695394} = {0C14CA42-D184-489B-9561-C66A1CD95036}
 		{529E5FDC-C950-4B5C-9718-39F936070E51} = {3EDF3B5F-0BFA-4D6C-8D89-33C3B9695394}
 		{DD7B8A96-F0CF-433C-9602-1AC8F2E9C908} = {2896C698-44AD-4E55-9BC1-FC081F808F53}
+		{7252CB30-2E91-495D-B993-49C8B3F411B1} = {AEED284C-0AA0-4633-B0B7-248C6454896F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00E1D837-3202-4C7D-80E5-BD01C89466EE}
