@@ -17,12 +17,17 @@ namespace Application.Features.Patient.Commands.RequestMedicalExamination
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
             _context = context;
-            
+
+            RuleSet("Authorization Phase", () => {
+                RuleFor(x => x.PatientId)
+                    .Equal(x => x.CurrentPatientId);
+            });
+
             RuleFor(x => x.DoctorId).NotNull().DoctorExists(context);
             RuleFor(x => x.PatientId).NotNull().PatientExists(context);
             RuleFor(x => x.DurationInMinutes).NotNull().GreaterThan(0);
             RuleFor(x => x.RequestDate).NotNull().GreaterThan(DateTime.Now);
-
+            
             RuleSet("Second Phase", () => {
                 RuleFor(x => x).Must(DoctorToBeFree)
                     .WithMessage(ErrorMessages.UNAVAILABLE_DOCTOR_TIME_RANGE)

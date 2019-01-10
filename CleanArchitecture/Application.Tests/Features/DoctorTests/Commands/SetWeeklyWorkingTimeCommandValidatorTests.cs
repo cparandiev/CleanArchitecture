@@ -70,6 +70,15 @@ namespace Application.Tests.Features.DoctorTests.Commands
             _validator.ShouldHaveChildValidator(x => x.WorkingTimes, typeof(WorkingTimeUnitValidator));
         }
 
+        [Theory]
+        [InlineData(1, 2)]
+        public void SetWeeklyWorkingTimeCommand_UnauthorizedDoctor(int doctorId, int currentDoctorId)
+        {
+            var command = new SetWeeklyWorkingTimeCommand() { DoctorId = doctorId, CurrentDoctorId = currentDoctorId };
+
+            _validator.ShouldHaveValidationErrorFor(x => x.DoctorId, command, "Authorization Phase" );
+        }
+
         private Doctor GetSampleDoctorEntity() => new Doctor()
         {
             Id = 1,

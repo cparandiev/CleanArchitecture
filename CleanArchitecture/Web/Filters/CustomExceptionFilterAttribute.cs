@@ -14,7 +14,11 @@ namespace Web.Filters
             var code = HttpStatusCode.InternalServerError;
             IActionResult result = new EmptyResult();
 
-            if (context.Exception is ValidationException)
+            if (context.Exception is UnauthorizedException)
+            {
+                code = HttpStatusCode.Unauthorized;
+            }
+            else if (context.Exception is ValidationException)
             {
                 code = HttpStatusCode.BadRequest;
                 result = new JsonResult(((ValidationException)context.Exception).Failures);

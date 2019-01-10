@@ -1,11 +1,11 @@
 ﻿using Application.Features.Doctor.Models;
+using Application.Models;
 using MediatR;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Application.Features.Doctor.Commands.SetWeeklyWorkingTime
 {
-    public class SetWeeklyWorkingTimeCommand : IRequest
+    public class SetWeeklyWorkingTimeCommand : UserIdentity, IRequest
     {
         public int? DoctorId { get; set; }
 

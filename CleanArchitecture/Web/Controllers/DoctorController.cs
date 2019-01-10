@@ -21,7 +21,7 @@ namespace Web.Controllers
 
         [HttpPost("{doctorId:int}/WeeklyWorkingTime")]
         [Authorize(Roles = nameof(Role.Doctor))]
-        [TypeFilter(typeof(OwnerFilter))]
+        //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> WeeklyWorkingTime([FromRoute] int? doctorId, [FromBody]DoctorWeeklyWorkingTimeBm model)
         {
             var setWeeklyWorkingTimeCommand = _autoMapper.Map<SetWeeklyWorkingTimeCommand>(model, opts => opts.Items[nameof(SetWeeklyWorkingTimeCommand.DoctorId)] = doctorId.Value);
@@ -33,7 +33,7 @@ namespace Web.Controllers
 
         
         [HttpGet("one/{patientId}")]
-        [TypeFilter(typeof(OwnerFilter))]
+        //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> Test(int? patientId)
         {
             return Ok();

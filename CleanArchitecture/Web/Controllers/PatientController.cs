@@ -21,10 +21,11 @@ namespace Web.Controllers
 
         [HttpPost("{patientId:int}/RequestMedicalExamination")]
         [Authorize(Roles = nameof(Role.Patient))]
-        [TypeFilter(typeof(OwnerFilter))]
+        //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> RequestMedicalExamination([FromRoute] int? patientId, [FromBody]RequestMedicalExaminationBm model)
         {
             var requestMedicalExaminationCommand = _autoMapper.Map<RequestMedicalExaminationCommand>(model, opts => opts.Items[nameof(RequestMedicalExaminationCommand.PatientId)] = patientId.Value);
+
             await Mediator.Send(requestMedicalExaminationCommand);
 
             return Ok();

@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using Application.Models;
+using MediatR;
 using System;
 
 namespace Application.Features.Patient.Commands.RequestMedicalExamination
 {
-    public class RequestMedicalExaminationCommand : IRequest
+    public class RequestMedicalExaminationCommand : UserIdentity, IRequest
     {
         public DateTime? RequestDate { get; set; }
 

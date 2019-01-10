@@ -21,15 +21,19 @@ namespace Application.Infrastructure
 
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var failures = Validate(request);
+            var failures = Validate(request, new[] { "Authorization Phase" });
+            if (failures.Count != 0)
+            {
+                throw new Exceptions.UnauthorizedException();
+            }
 
+            failures = Validate(request);
             if (failures.Count != 0)
             {
                 throw new Exceptions.ValidationException(failures);
             }
 
             failures = Validate(request, new[] { "Second Phase" });
-
             if (failures.Count != 0)
             {
                 throw new Exceptions.ValidationException(failures);

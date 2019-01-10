@@ -11,6 +11,11 @@ namespace Application.Features.Doctor.Commands.SetWeeklyWorkingTime
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
+            RuleSet("Authorization Phase", () => {
+                RuleFor(x => x.DoctorId)
+                    .Equal(x => x.CurrentDoctorId);
+            });
+
             RuleFor(x => x.DoctorId)
                 .NotNull()
                 .GreaterThan(0)
