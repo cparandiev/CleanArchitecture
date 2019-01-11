@@ -1,5 +1,7 @@
 ﻿using Application.AutoMapperDomainProfiles.Converters;
+using Application.Features.Doctor.Commands.AccomplishMedicalExamination;
 using Application.Features.Doctor.Commands.CreateDoctor;
+using Application.Features.Doctor.Commands.ReviewMedicalExamination;
 using Application.Features.Doctor.Commands.SetWeeklyWorkingTime;
 using Application.Features.Doctor.Models;
 using Application.Features.Patient.Commands.CreatePatient;
@@ -22,11 +24,6 @@ namespace Web.AutoMapperDomainProfiles
             CreateMap<RegisterPatientBm, CreateUserCommand>();
             CreateMap<RegisterPatientBm, CreatePatientCommand>();
             CreateMap<LoginPatientBm, LoginPatientCommand>();
-            CreateMap<RequestMedicalExaminationBm, RequestMedicalExaminationCommand>()
-                .IncludeBase<object, UserIdentity>()
-                .AfterMap((src, dest, cntx) =>{
-                    dest.PatientId = (int?)cntx.Items[nameof(RequestMedicalExaminationCommand.PatientId)];
-                });
             #endregion
 
             #region Doctor mappings
@@ -38,6 +35,23 @@ namespace Web.AutoMapperDomainProfiles
                 .IncludeBase<object, UserIdentity>()
                 .AfterMap((src, dest, cntx) => {
                     dest.DoctorId = (int?)cntx.Items[nameof(SetWeeklyWorkingTimeCommand.DoctorId)];
+                });
+            #endregion
+
+            #region Medical Examination mappings
+            CreateMap<RequestMedicalExaminationBm, RequestMedicalExaminationCommand>()
+                .IncludeBase<object, UserIdentity>();
+
+            CreateMap<AccomplishMedicalExaminationBm, AccomplishMedicalExaminationCommand>()
+                .IncludeBase<object, UserIdentity>()
+                .AfterMap((src, dest, cntx) => {
+                    dest.RequestId = (int?)cntx.Items[nameof(AccomplishMedicalExaminationCommand.RequestId)];
+                });
+
+            CreateMap<ReviewMedicalExaminationBm, ReviewMedicalExaminationCommand>()
+                .IncludeBase<object, UserIdentity>()
+                .AfterMap((src, dest, cntx) => {
+                    dest.RequestId = (int?)cntx.Items[nameof(ReviewMedicalExaminationCommand.RequestId)];
                 });
             #endregion
 

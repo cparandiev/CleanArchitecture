@@ -9,5 +9,7 @@ namespace Web.Models.BindingModels
         public int? DurationInMinutes { get; set; }
 
         public int? DoctorId { get; set; }
+
+        public int? PatientId { get; set; }
     }
 }

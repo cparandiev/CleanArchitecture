@@ -1,5 +1,6 @@
 ﻿using Application.Helpers;
 using Application.Interfaces;
+using Application.Constants.User.Validation;
 using FluentValidation;
 
 namespace Application.Features.Patient.Commands.CreatePatient
@@ -10,6 +11,7 @@ namespace Application.Features.Patient.Commands.CreatePatient
         {
             RuleFor(x => x.UserId)
                 .NotNull()
+                //.Any(context.Users, prop => entity => entity.Id == prop.Value, ErrorMessages.USER_NOT_FOUND);
                 .UserExists(context);
         }
     }

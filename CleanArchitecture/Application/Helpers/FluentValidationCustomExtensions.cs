@@ -1,7 +1,11 @@
 ﻿using Application.Helpers.FluentValidators;
 using Application.Interfaces;
+using Application.Interfaces.Repositories;
+using Domain.Entities;
+using Domain.Entities.UserAggregate;
 using FluentValidation;
 using System;
+using System.Linq.Expressions;
 
 namespace Application.Helpers
 {
@@ -35,6 +39,17 @@ namespace Application.Helpers
         public static IRuleBuilderOptions<T, TElement> PatientExists<T, TElement>(this IRuleBuilder<T, TElement> ruleBuilder, IUnitOfWork context)
         {
             return ruleBuilder.SetValidator(new PatientExistsValidator<TElement>(context));
+        }
+
+        public static IRuleBuilderOptions<T, TElement> MedicalExaminationRequestExists<T, TElement>(this IRuleBuilder<T, TElement> ruleBuilder, IUnitOfWork context)
+        {
+            return ruleBuilder.SetValidator(new MedicalExaminationRequestExistsValidator<TElement>(context));
+        }
+
+        public static IRuleBuilderOptions<T, TElement> None<T, TEntity, TElement>(this IRuleBuilder<T, TElement> ruleBuilder, IRepository<TEntity> repository, Func<TElement, Expression<Func<TEntity, bool>>> setUpCriteria, string errorMessage)
+            where TEntity : BaseEntity
+        {
+            return ruleBuilder.SetValidator(new NoneEntitiesValidator<TElement, TEntity>(repository, setUpCriteria, errorMessage));
         }
     }
 }
