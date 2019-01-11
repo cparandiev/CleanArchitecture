@@ -24,6 +24,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Services;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Web
 {
@@ -46,6 +47,12 @@ namespace Web
                     x.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommand>());
+
+            // Add swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info{ Title = "Clean Architecture App API", Version = "v1" });
+            });
 
             // Add Authentication
             services.AddScoped<UserValidation>();
@@ -124,6 +131,11 @@ namespace Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Clean Architecture API V1");
             });
 
             app.UseSpa(spa =>
