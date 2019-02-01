@@ -1,4 +1,4 @@
-import { loginPatient } from "../actions";
+import loginPatient from "../actions";
 import { filter, mapTo } from 'rxjs/operators';
 
 const loginEpic = action$ => action$.pipe(

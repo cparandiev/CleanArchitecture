@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 
-import loginPatient from "./actions";
-import LoginForm from "./components/LoginForm";
-
-class Login extends Component {
+class LoginForm extends Component {
     render() {
-        const {login} = this.props;
-
         return (
             <MDBContainer>
             <MDBRow>
@@ -45,8 +39,4 @@ class Login extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    login: (userName, password) => dispatch(loginPatient.actions.DEFAULT({userName, password})),
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default LoginForm;

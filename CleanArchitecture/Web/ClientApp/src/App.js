@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
+import Navigation from './features/navigation';
 
 export default class App extends Component {
-  displayName = App.name
+  style = {
+    color: "red",
+    fontSize: 20,
+    border: "1px solid green"
+    };
 
   render() {
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetchdata' component={FetchData} />
-      </Layout>
+      <React.Fragment>
+          <Navigation/>
+          <Route exact path='/' component={Home} />
+          <Route path='/counter' component={Counter} />
+          <Route path='/fetchdata' component={FetchData} />
+      </React.Fragment>
     );
   }
 }
