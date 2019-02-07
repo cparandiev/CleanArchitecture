@@ -1,75 +1,32 @@
 import React, { Component } from "react";
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import { Nav } from "react-bootstrap";
 
 class NavbarPage extends Component {
-state = {
-  isOpen: false
-};
 
-toggleCollapse = () => {
-  this.setState({ isOpen: !this.state.isOpen });
-}
 
 render() {
   return (
-    <MDBNavbar color="default-color" dark expand="md">
-      <MDBNavbarBrand>
-        <strong className="white-text">Navbar</strong>
-      </MDBNavbarBrand>
-      <MDBNavbarToggler onClick={this.toggleCollapse} />
-      <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-        <MDBNavbarNav left>
-          <MDBNavItem active>
-            <MDBNavLink to="#!">Home</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="#!">Features</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="#!">Pricing</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBDropdown>
-              <MDBDropdownToggle nav caret>
-                <div className="d-none d-md-inline">Dropdown</div>
-              </MDBDropdownToggle>
-              <MDBDropdownMenu className="dropdown-default" right>
-                <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </MDBNavItem>
-        </MDBNavbarNav>
-        <MDBNavbarNav right>
-          <MDBNavItem>
-            <MDBNavLink className="waves-effect waves-light" to="#!">
-              <MDBIcon fab icon="twitter" />
-            </MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink className="waves-effect waves-light" to="#!">
-              <MDBIcon fab icon="google-plus-g" />
-            </MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBDropdown>
-              <MDBDropdownToggle nav caret>
-                <MDBIcon icon="user" />
-              </MDBDropdownToggle>
-              <MDBDropdownMenu className="dropdown-default" right>
-                <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </MDBNavItem>
-        </MDBNavbarNav>
-      </MDBCollapse>
-    </MDBNavbar>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarText">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item active">
+            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">Features</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
+        <span className="navbar-text">
+          Navbar text with an inline element
+        </span>
+      </div>
+    </nav>
     );
   }
 }

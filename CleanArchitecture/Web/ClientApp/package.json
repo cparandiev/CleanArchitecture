@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.2.1",
-    "mdbreact": "4.9.0",
+    "exact": "^0.8.0",
+    "node-sass": "4.11.0",
     "npm": "^6.5.0",
     "package.json": "^2.0.1",
     "ramda": "0.26.1",
