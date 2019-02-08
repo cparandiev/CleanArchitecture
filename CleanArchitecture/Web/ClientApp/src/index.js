@@ -1,24 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import 'jquery';
+import 'popper.js';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
-import 'bootstrap/dist/css/bootstrap.css';
-
-
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
-
+import "./styles/index.css";
+import {history} from "./store/configureStore";
 
 ReactDOM.render(
   <Provider store={store}>   
-    <BrowserRouter basename={baseUrl}>
+    <ConnectedRouter history={history}>
       <App />
-    </BrowserRouter> 
+    </ConnectedRouter> 
   </Provider>,
-  rootElement);
+  document.getElementById('root')
+);
 
 registerServiceWorker();

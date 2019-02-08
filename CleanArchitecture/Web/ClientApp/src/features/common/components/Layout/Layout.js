@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import "./layout.scss";
+
+import "./layout.css";
 
 export class Layout extends Component {
   render() {
     return (
-      <main className="main-layout">
-        <div className="container">
+      <div className="container main-layout">
             {this.props.children}
-        </div>
-      </main>
+      </div>
     );
   }
 }
