@@ -25,8 +25,6 @@ class LoginCard extends Component {
 
         const options = createOptions(selectedRole, map(text => ({text, onClick: this.selectRole(text)}), optionsTexts));
         
-        console.log(options);
-
         return (
             <div className="card">                
                 <div className="card-body">
@@ -35,24 +33,24 @@ class LoginCard extends Component {
                         {options}
                     </ul>
                     <form>
-                        <div class="row">
-                            <div class="col-8 offset-2">
+                        <div className="row">
+                            <div className="col-8 offset-2">
                                 <div className="form-group">
-                                    <label for="exampleInputEmail1">Username</label>
+                                    <label htmlFor="exampleInputEmail1">Username</label>
                                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username" />
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-8 offset-2">
+                        <div className="row">
+                            <div className="col-8 offset-2">
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
+                                    <label htmlFor="exampleInputPassword1">Password</label>
                                     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-8 offset-2">
+                        <div className="row">
+                            <div className="col-8 offset-2">
                                 <button type="submit" className="btn btn-primary float-right">Submit</button>
                             </div>
                         </div>

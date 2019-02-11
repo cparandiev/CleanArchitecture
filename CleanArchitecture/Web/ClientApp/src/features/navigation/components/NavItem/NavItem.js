@@ -4,10 +4,13 @@ import {Link} from "react-router-dom";
 
 import "./nav-item.css";
 
+const baseClassName = 'nav-item nav-link';
+
 class NavItem extends Component {
     render() {
         const {active, route, children} = this.props;
-        const className = active ? 'nav-item nav-link active-route' : 'nav-item nav-link';
+        
+        const className = active ? `${baseClassName} active-route` : baseClassName;
 
         return (
             <li className={className}>

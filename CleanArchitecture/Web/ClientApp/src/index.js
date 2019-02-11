@@ -14,7 +14,7 @@ import "./styles/index.css";
 import {history} from "./store/configureStore";
 
 const setHeight = () => {
-  var height = $(window).height() - 76;
+  var height = $(window).height() - 69;
   $(".main-layout").height(height);
 };
 

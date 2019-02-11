@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
 
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
 import Navigation from './features/navigation';
 import Layout from './features/common/components/Layout';
+import Routes from "./routes";
 
 export default class App extends Component {
   render() {
@@ -13,10 +10,7 @@ export default class App extends Component {
       <React.Fragment>
         <Navigation/>
         <Layout>
-            <Route exact path='/one' component={Home} />
-            <Route path='/two' component={Counter} />
-            <Route path='/counter' component={Counter} />
-            <Route path='/fetchdata' component={FetchData} />
+          <Routes />    
         </Layout>
       </React.Fragment>
     );

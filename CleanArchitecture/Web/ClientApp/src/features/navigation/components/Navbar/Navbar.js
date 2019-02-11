@@ -1,30 +1,22 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import {map, compose} from 'ramda';
+import {map, filter, propEq} from 'ramda';
+import MaterialIcon from 'material-icons-react';
 
-import NavItem from "./NavItem";
-import renderClassAsFunction from "../../../../utils/renderClassAsFunction";
+import NavItem from "../NavItem";
 
-const createNavItemProps = (currentRoute) => ({route, text}) => ({key: route, route, active: currentRoute === `/${route}`, children: text});
-
-const createNavItems = (currentRoute, routes) => map(compose(renderClassAsFunction(NavItem), createNavItemProps(currentRoute)))(routes);
+const createNavItems = (currentRoute, routes) => map(({route, text}) => (
+  <NavItem key={route} active={currentRoute === route} route={route}>
+    {text}
+  </NavItem>
+))(routes);
 
 class Navbar extends Component {
   render() {
-    const {currentRoute, user} = this.props;
+    const {currentRoute, routes} = this.props;
     
-    console.log(user);
-
-    const routes = [{
-      route: 'one',
-      text: 'one-text'
-    },{
-      route: 'two',
-      text: 'two-text'
-    },{
-      route: 'three',
-      text: 'three-text'
-    }];
+    const leftRoutes = filter(propEq('position', 'left'), routes);
+    const userDropdownRoutes = filter(propEq('position', 'user-dropdown'), routes);
 
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
@@ -33,17 +25,26 @@ class Navbar extends Component {
         </button>
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav mr-auto nav-pills">
-            {createNavItems(currentRoute, routes)}
+            {createNavItems(currentRoute, leftRoutes)}
           </ul>
+          <div className={`nav-item dropdown float-right `}>
+              <a className="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <MaterialIcon icon="person" size="32" />
+              </a>
+              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                {createNavItems(currentRoute, userDropdownRoutes)}
+              </div>
+          </div>
         </div>
       </nav>
-      );
+    );
   }
 }
 
 Navbar.propTypes = {
   currentRoute: PropTypes.string,
   user: PropTypes.object,
+  routes: PropTypes.array,
 }
 
 export default Navbar;

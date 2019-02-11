@@ -2,7 +2,8 @@ import loginPatient from "../../login/actions";
 
 const initialState = {
     authenticated: false,
-    userName: 'anonymous'
+    userName: 'anonymous',
+    roles: ['anonymous']
 }
 
 const authReducer = (state = initialState, {type, payload})=> {

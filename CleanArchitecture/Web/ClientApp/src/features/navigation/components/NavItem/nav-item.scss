@@ -2,6 +2,8 @@
 
 a {
     font-size: $font-size-sm !important;
+    color: $grey !important;
+    font-weight: bold !important;
 }
 
 .active-route {
@@ -9,6 +11,5 @@ a {
 
     a {
         color: $white !important;
-        font-weight: bold;
     }
 }
