@@ -14,6 +14,7 @@ export default class App extends Component {
         <Navigation/>
         <Layout>
             <Route exact path='/one' component={Home} />
+            <Route path='/two' component={Counter} />
             <Route path='/counter' component={Counter} />
             <Route path='/fetchdata' component={FetchData} />
         </Layout>

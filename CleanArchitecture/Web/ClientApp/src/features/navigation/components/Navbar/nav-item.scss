@@ -1,0 +1,14 @@
+@import "../../../../styles/variables.scss";
+
+a {
+    font-size: $font-size-sm !important;
+}
+
+.active-route {
+    background-color: $red !important;
+
+    a {
+        color: $white !important;
+        font-weight: bold;
+    }
+}

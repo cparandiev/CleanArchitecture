@@ -5,8 +5,10 @@ import "./layout.css";
 export class Layout extends Component {
   render() {
     return (
-      <div className="container main-layout">
-            {this.props.children}
+      <div className="main-layout">
+        <div className="container">
+              {this.props.children}
+        </div>
       </div>
     );
   }

@@ -3,13 +3,20 @@ import {connect} from 'react-redux';
 
 import loginPatient from "./actions";
 import LoginCard from "./components/LoginCard";
+import "./login.css"
 
 class Login extends Component {
     render() {
         const {login} = this.props;
 
         return (
-          <LoginCard />
+            <div className="login-page">
+                <div className="row">
+                    <div className="col-8 offset-2">
+                        <LoginCard />
+                    </div>
+                </div>
+            </div>
         );
     }
 }
