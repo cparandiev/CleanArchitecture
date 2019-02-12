@@ -10,7 +10,7 @@ const authReducer = (state = initialState, {type, payload})=> {
     switch(type){
         case loginPatient.types.FULFILLED:
 
-            return {authenticated: true, userName: 'somename'};
+            return {authenticated: true, userName: 'somename', roles: ['anonymous']};
         default: 
             return state;
     }

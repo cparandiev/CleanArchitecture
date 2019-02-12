@@ -12,6 +12,7 @@ import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
 import "./styles/index.css";
 import {history} from "./store/configureStore";
+import apiService from "./apiService";
 
 const setHeight = () => {
   var height = $(window).height() - 69;
@@ -24,7 +25,7 @@ window.onresize = function(event) {
 };
 
 ReactDOM.render(
-  <Provider store={store}>   
+  <Provider store={store(apiService)}>   
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter> 

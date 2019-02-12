@@ -3,63 +3,70 @@ import { Counter } from '../components/Counter';
 
 export default {
     signIn: {
-        route: '/login',
-        roles: [],
+        path: '/login',
         component: Home,
         exact: true,
+        authenticated: false,
     },
     signUp: {
-        route: '/register',
-        roles: [],
+        path: '/register',
         component: Home,
         exact: true,
+        authenticated: false,
+    },
+    unauthorized: {
+        path: '/unauthorized',
+        component: Home,
+        authenticated: true,
     },
     myProfile: {
-        route: '/profile',
-        roles: [],
+        path: '/profile',
+        requiredRoles: [],
         component: Home,
         exact: true,
+        authenticated: true,
     },
     logout: {
-        route: '/logout',
-        roles: [],
+        path: '/logout',
+        requiredRoles: [],
         component: Home,
         exact: true,
+        authenticated: true,
     },
     home: {
-        route: '/',
-        roles: [],
+        path: '/home',
+        requiredRoles: [],
         component: Home,
         exact: true,
     },
     about: {
-        route: '/two',
-        roles: [],
+        path: '/two',
+        requiredRoles: [],
         component: Counter
     },
     contacts: {
-        route: '/counter',
-        roles: [],
+        path: '/counter',
+        requiredRoles: [],
         component: Counter
     },
     two: {
-        route: '/two2',
-        roles: [],
+        path: '/two2',
+        requiredRoles: [],
         component: Counter
     },
     counter: {
-        route: '/counter2',
-        roles: [],
+        path: '/counter2',
+        requiredRoles: [],
         component: Counter
     },
     fetchdata: {
-        route: '/fetchdata',
-        roles: [],
+        path: '/fetchdata',
+        requiredRoles: [],
         component: Counter
     },
     // notFound: {
-    //     route: '*',
-    //     roles: [],
+    //     path: '*',
+    //     requiredRoles: [],
     //     component: NotFound
     // },
 }

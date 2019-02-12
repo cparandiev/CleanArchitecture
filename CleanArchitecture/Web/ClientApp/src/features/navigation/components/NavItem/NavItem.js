@@ -8,13 +8,13 @@ const baseClassName = 'nav-item nav-link';
 
 class NavItem extends Component {
     render() {
-        const {active, route, children} = this.props;
+        const {active, path, children} = this.props;
         
         const className = active ? `${baseClassName} active-route` : baseClassName;
 
         return (
             <li className={className}>
-                <Link to={route} className={className}>
+                <Link to={path} className={className}>
                     {children}
                 </Link>
             </li>
@@ -23,7 +23,7 @@ class NavItem extends Component {
 }
 
 NavItem.propTypes = {
-    route: PropTypes.string,
+    path: PropTypes.string,
     active: PropTypes.bool
 }
 

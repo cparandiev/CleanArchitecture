@@ -1,9 +1,24 @@
-import loginPatient from "../actions";
-import { filter, mapTo } from 'rxjs/operators';
+import { debounceTime, map, mapTo} from 'rxjs/operators';
+import { combineEpics, ofType } from 'redux-observable';
 
-const loginEpic = action$ => action$.pipe(
-    filter(action => action.type === loginPatient.types.DEFAULT),
-    mapTo({ type: 'PONG' })
+import loginPatient from "../actions";
+import {apiRequest} from '../../common/actions';
+
+const baseAction$ = action$ => action$.pipe(
+    ofType(loginPatient.types.DEFAULT),
+    debounceTime(500),
 );
 
-export default loginEpic;
+const loginPending = action$ => action$.pipe(
+    baseAction$,
+    mapTo(loginPatient.actions.PENDING()),
+);
+
+const loginRequest = action$ => action$.pipe(
+    baseAction$,
+    map(({payload}) => 
+        apiRequest.actions.DEFAULT({method: 'GET', url: 'https://jsonplaceholder.typicode.com/todos/1', ...loginPatient.actions, data: payload})
+    )
+);
+
+export default combineEpics(loginPending, loginRequest);

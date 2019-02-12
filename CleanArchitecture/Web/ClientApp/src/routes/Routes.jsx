@@ -3,9 +3,16 @@ import { Route } from 'react-router';
 import { map, compose, values } from "ramda";
 
 import routesConfig from "./routesConfig";
+import PrivateRoute from "./PrivateRoute";
+import AnonymousRoute from "./AnonymousRoute";
 
 const createRoutes = compose(
-    map(({exact, route, component}) => <Route key={route} exact={exact} path={route} component={component}/>),
+    map((props) => props.authenticated === true
+        ? <PrivateRoute key={props.path} {...props}/>
+        : props.authenticated === false
+            ? <AnonymousRoute key={props.path} {...props}/>
+            : <Route key={props.path} {...props}/>
+    ),
     values
 );
 

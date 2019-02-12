@@ -5,8 +5,8 @@ import MaterialIcon from 'material-icons-react';
 
 import NavItem from "../NavItem";
 
-const createNavItems = (currentRoute, routes) => map(({route, text}) => (
-  <NavItem key={route} active={currentRoute === route} route={route}>
+const createNavItems = (currentRoute, routes) => map(({path, text}) => (
+  <NavItem key={path} active={currentRoute === path} path={path}>
     {text}
   </NavItem>
 ))(routes);
@@ -28,7 +28,7 @@ class Navbar extends Component {
             {createNavItems(currentRoute, leftRoutes)}
           </ul>
           <div className={`nav-item dropdown float-right `}>
-              <a className="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a className="nav-link" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <MaterialIcon icon="person" size="32" />
               </a>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

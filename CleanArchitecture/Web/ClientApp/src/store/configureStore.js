@@ -11,7 +11,7 @@ import rootEpic from "../epics";
 
 export const history = createBrowserHistory();
 
-const configureStore = () => {
+const configureStore = (apiService) => {
     const epicMiddleware = createEpicMiddleware();
     
     const middlewares = applyMiddleware(
@@ -24,8 +24,8 @@ const configureStore = () => {
         composeWithDevTools(middlewares)
     );
 
-    epicMiddleware.run(rootEpic);
-
+    
+    epicMiddleware.run(rootEpic(apiService));
     return store;
 };
 

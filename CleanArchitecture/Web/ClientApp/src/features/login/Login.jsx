@@ -8,6 +8,10 @@ import "./login.css"
 class Login extends Component {
     render() {
         const {login} = this.props;
+        login('ceco', '123');
+        login('ceco1', '123');
+        login('ceco2', '123');
+        login('ceco3', '123');
 
         return (
             <div className="login-page">
