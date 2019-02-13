@@ -6,8 +6,7 @@ export default (initialConfig) => ({
         
         const config = {
             method,
-            // url: `${initialConfig.baseUrl}/${url}`,
-            url,
+            url: `${initialConfig.baseUrl}/${url}`,
             headers,
             data,
         };

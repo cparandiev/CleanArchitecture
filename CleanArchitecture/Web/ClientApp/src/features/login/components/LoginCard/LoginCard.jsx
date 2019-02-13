@@ -1,64 +1,87 @@
 import React, { Component } from 'react';
-import { map, compose} from "ramda";
+import { map, compose, assoc, toLower} from "ramda";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import PropTypes from 'prop-types';
 
 import LoginCardOption from "./LoginCardOption";
 import "./login-card.css";
-import renderClassAsFunction from "../../../../utils/renderClassAsFunction";
 
-const createloginCardProps = (selectedRole) => ({text, onClick}) => ({key: text, active: selectedRole === text, onClick, children: text});
-
-const createOptions = (selectedRole, options) => map(
-    compose(renderClassAsFunction(LoginCardOption), createloginCardProps(selectedRole)),
+const createOptions =  (selectedRole, options) => map(
+    ({text, onClick}) => (
+        <LoginCardOption key={text} active={selectedRole===text} onClick={onClick}>
+            {text}
+        </LoginCardOption>
+    ),
     options
 );
 
 class LoginCard extends Component {
     state = {selectedRole: "Patient"}
 
+    optionsTexts = ['Patient', 'Doctor'];
+
     selectRole = (role) => () => {
         this.setState({selectedRole: role});
     }
 
+    handleSubmit = (values, { setSubmitting }) => {
+        const {login} = this.props;
+        const {selectedRole} = this.state;
+        
+        login(values.username, values.password, toLower(selectedRole), setSubmitting);
+
+        // setSubmitting(false);
+    }
+
     render() {
         const {selectedRole} = this.state;
-        const optionsTexts = ['Patient', 'Doctor'];
 
-        const options = createOptions(selectedRole, map(text => ({text, onClick: this.selectRole(text)}), optionsTexts));
+        const options = createOptions(selectedRole, map(text => ({text, onClick: this.selectRole(text)}), this.optionsTexts));
         
         return (
-            <div className="card">                
-                <div className="card-body">
-                    <h5 className="card-title">Login as</h5>
-                    <ul className="nav nav-tabs justify-content-center">
-                        {options}
-                    </ul>
-                    <form>
-                        <div className="row">
-                            <div className="col-8 offset-2">
-                                <div className="form-group">
-                                    <label htmlFor="exampleInputEmail1">Username</label>
-                                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username" />
+            <Formik initialValues={{ username: '', password: '' }} onSubmit={this.handleSubmit}>
+            {({ isSubmitting }) => (
+                <div className="card">                
+                    <div className="card-body">
+                        <h5 className="card-title">Login as</h5>
+                        <ul className="nav nav-tabs justify-content-center">
+                            {options}
+                        </ul>
+                        <Form>
+                            <div className="row">
+                                <div className="col-8 offset-2">
+                                    <div className="form-group">
+                                        <label htmlFor="username">Username</label>
+                                        <Field type="text" name="username" className="form-control" placeholder="Enter username"/>
+                                        <ErrorMessage name="email" component="div" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-8 offset-2">
-                                <div className="form-group">
-                                    <label htmlFor="exampleInputPassword1">Password</label>
-                                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                            <div className="row">
+                                <div className="col-8 offset-2">
+                                    <div className="form-group">
+                                        <label htmlFor="password">Password</label>
+                                        <Field type="password" name="password" className="form-control" placeholder="Password"/>
+                                        <ErrorMessage name="email" component="div" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-8 offset-2">
-                                <button type="submit" className="btn btn-primary float-right">Submit</button>
+                            <div className="row">
+                                <div className="col-8 offset-2">
+                                    <button type="submit" className="btn btn-primary float-right" disabled={isSubmitting}>Submit</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </Form>  
+                    </div>
                 </div>
-            </div>
+            )}
+            </Formik>
         );
     }
+}
+
+LoginCard.propTypes = {
+    login: PropTypes.func,
 }
 
 export default LoginCard;

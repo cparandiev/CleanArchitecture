@@ -1,3 +1,3 @@
-import loginPatient from "./loginPatient";
+import login from "./login";
 
-export default loginPatient;
+export default login;

@@ -15,12 +15,12 @@ const userIsInRole = (userRoles, requiredRoles) =>
 
 class PrivateRoute extends Component {
     render() {
-        const {user, requiredRoles, exact, path, component: Component} = this.props;
+        const {user, requiredRoles, exact, path, component} = this.props;
         const authorized = userIsInRole(user.roles, requiredRoles);
 
         return (
             (user.authenticated && authorized)
-                ? (<Route exact={exact} path={path} component={Component}/>)
+                ? (<Route exact={exact} path={path} component={component}/>)
                 : (<Route exact={exact} path={path} render={() =>
                     user.authenticated
                         ? (<Redirect to={routesConfig.unauthorized.path} />)

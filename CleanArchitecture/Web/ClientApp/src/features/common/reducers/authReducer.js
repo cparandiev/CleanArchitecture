@@ -1,16 +1,15 @@
-import loginPatient from "../../login/actions";
+import login from "../../login/actions";
 
 const initialState = {
     authenticated: false,
-    userName: 'anonymous',
+    username: 'anonymous',
     roles: ['anonymous']
 }
 
 const authReducer = (state = initialState, {type, payload})=> {
     switch(type){
-        case loginPatient.types.FULFILLED:
-
-            return {authenticated: true, userName: 'somename', roles: ['anonymous']};
+        case login.types.FULFILLED:
+            return {authenticated: true, username: 'somename', roles: ['anonymous']};
         default: 
             return state;
     }

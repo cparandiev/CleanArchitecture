@@ -1,0 +1,17 @@
+@import '../../styles/variables.scss';
+
+.notification-container {
+    border-radius: 4px;
+    font-weight: bold !important;
+    font-size: $font-size-sm !important;
+}
+
+.notification-error {
+    background: $red !important;
+    color: $white;
+}
+
+.notification-success {
+    background: $white !important;
+    color: $grey;
+}

@@ -9,15 +9,12 @@ import routesConfig from "./routesConfig";
 
 class AnonymousRoute extends Component {
     render() {
-        const {user, exact, path, component: Component} = this.props;
+        const {user, exact, path, component} = this.props;
 
         return (
-            <Route exact={exact} path={path} render={
-                (props) => !user.authenticated
-                    ? (<Component {...props} />)
-                    : (<Redirect to={routesConfig.home.path} />)
-                }
-            />
+            !user.authenticated     
+                ? <Route exact={exact} path={path} component={component}/>
+                : <Route exact={exact} path={path} render={() => (<Redirect to={routesConfig.home.path} />)}/>
         );
     }
 }
