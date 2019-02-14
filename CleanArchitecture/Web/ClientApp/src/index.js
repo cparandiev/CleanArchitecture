@@ -7,6 +7,7 @@ import 'popper.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'react-toastify/dist/ReactToastify.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';

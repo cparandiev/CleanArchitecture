@@ -2,6 +2,8 @@
 using Application.Features.Patient.Models;
 using Application.Features.Users.Models;
 using AutoMapper;
+using Domain.Enums;
+using System.Linq;
 using Web.Models.ViewModels;
 
 namespace Web.AutoMapperDomainProfiles
@@ -22,7 +24,7 @@ namespace Web.AutoMapperDomainProfiles
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username))
                 .ForMember(dest => dest.Firstname, opt => opt.MapFrom(src => src.User.FirstName))
                 .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.User.LastName))
-                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.User.Roles))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.User.Roles.Where(r => r == Role.Patient.ToString())))
                 .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.Id));
 
             #endregion
@@ -33,7 +35,7 @@ namespace Web.AutoMapperDomainProfiles
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username))
                 .ForMember(dest => dest.Firstname, opt => opt.MapFrom(src => src.User.FirstName))
                 .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.User.LastName))
-                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.User.Roles))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.User.Roles.Where(r => r == Role.Doctor.ToString())))
                 .ForMember(dest => dest.DoctorId, opt => opt.MapFrom(src => src.Id));
             #endregion
         }

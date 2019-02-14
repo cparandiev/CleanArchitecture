@@ -1,3 +1,6 @@
 .main-layout {
   margin-top: 69px;
   overflow-y: auto; }
+
+.page-content {
+  margin-top: 100px; }

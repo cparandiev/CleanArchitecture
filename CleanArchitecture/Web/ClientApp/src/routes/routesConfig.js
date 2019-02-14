@@ -1,10 +1,15 @@
-import { Home } from '../components/Home';
+import Home from '../features/home';
+import About from '../features/about';
+import Contacts from '../features/contacts';
+import Login from '../features/login';
+import Unauthorized from '../features/unauthorized';
+import doctorWorkingTime from '../features/doctorWorkingTime';
 import { Counter } from '../components/Counter';
 
 export default {
     signIn: {
         path: '/login',
-        component: Home,
+        component: Login,
         exact: true,
         authenticated: false,
     },
@@ -16,8 +21,9 @@ export default {
     },
     unauthorized: {
         path: '/unauthorized',
-        component: Home,
+        component: Unauthorized,
         authenticated: true,
+        exact: true,
     },
     myProfile: {
         path: '/profile',
@@ -36,23 +42,28 @@ export default {
     home: {
         path: '/home',
         requiredRoles: [],
-        component: Home,
+        component: doctorWorkingTime,
+        // component: Home,
         exact: true,
     },
     about: {
-        path: '/two',
+        path: '/about',
         requiredRoles: [],
-        component: Counter
+        component: About,
+        exact: true,
     },
     contacts: {
         path: '/counter',
         requiredRoles: [],
-        component: Counter
+        component: Contacts,
+        exact: true,
     },
-    two: {
-        path: '/two2',
-        requiredRoles: [],
-        component: Counter
+    doctorWorkingTime: {
+        path: '/doctor/working-time',
+        requiredRoles: ['doctor'],
+        component: doctorWorkingTime,
+        exact: true,
+        authenticated: true,
     },
     counter: {
         path: '/counter2',

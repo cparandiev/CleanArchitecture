@@ -6,7 +6,6 @@ import "./notifications.css";
 
 class Notifications extends Component {
     componentWillReceiveProps({notification}){
-        console.log(notification);
         switch(notification.type){
             case "SUCCESS":
                 return toast(notification.message, {className: "notification-container notification-success"});
@@ -18,7 +17,7 @@ class Notifications extends Component {
     render() {
         return (
             <div>
-                <ToastContainer position="bottom-right" hideProgressBar autoClose={false}/>
+                <ToastContainer position="bottom-right" hideProgressBar/>
             </div>
         );
     }
