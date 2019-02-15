@@ -1,10 +1,11 @@
 import { combineEpics } from 'redux-observable';
 
 import loginEpics from "../features/login/epics";
-import apiRequestEpic from "../features/common/epics/apiRequestEpic";
+import {apiRequestEpic, getDoctorWorkingTimesEpic} from "../features/common/epics";
 
 
 export default (apiService) => combineEpics(
     apiRequestEpic(apiService),
+    getDoctorWorkingTimesEpic,
     ...loginEpics
 );

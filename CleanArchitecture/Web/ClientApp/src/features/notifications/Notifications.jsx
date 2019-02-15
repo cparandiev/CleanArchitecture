@@ -11,6 +11,8 @@ class Notifications extends Component {
                 return toast(notification.message, {className: "notification-container notification-success"});
             case "ERROR":
                 return toast.error(notification.message, {className: "notification-container notification-error"});
+            default:
+                return;
         }
     }
 

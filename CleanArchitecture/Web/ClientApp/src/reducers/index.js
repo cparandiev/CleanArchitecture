@@ -3,5 +3,6 @@ import notificationReducer from '../features/notifications/reducers';
 
 export default ({
     user: commonReducers.authReducer,
+    selectedDoctorWokingTimes: commonReducers.selectedDoctorWokingTimesReducer,
     notification: notificationReducer
 })

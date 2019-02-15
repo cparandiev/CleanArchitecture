@@ -27,6 +27,8 @@ namespace Application.AutoMapperDomainProfiles
 
             #region Doctor mappings
             CreateMap<Doctor, DoctorDto>();
+
+            CreateMap<DoctorWorkingTime, DoctorWorkingTimeDto>();
             #endregion
 
             CreateMap<Blood, string>()

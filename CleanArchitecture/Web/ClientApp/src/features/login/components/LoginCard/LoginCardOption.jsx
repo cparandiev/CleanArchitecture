@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class LoginCardOption extends Component {
     render() {
-        const {active, role, onClick, children} = this.props;
+        const {active, onClick, children} = this.props;
         const className = active ? 'btn nav-link active' : 'btn nav-link';
 
         return (

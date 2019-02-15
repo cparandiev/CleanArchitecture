@@ -1,2 +1,9 @@
 .date-row {
   margin: 10px 0; }
+
+.working-time-unit-container {
+  padding: 30px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #DFDFDF;
+  margin-top: 10px; }

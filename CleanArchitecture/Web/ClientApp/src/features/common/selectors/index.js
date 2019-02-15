@@ -1,5 +1,3 @@
-import currentRoute from "./currentRouteSelector";
-import user from "./userSelector";
-
-export const currentRouteSelector = currentRoute;
-export const userSelector = user;
+export {default as currentRouteSelector} from "./currentRouteSelector";
+export {default as userSelector} from "./userSelector";
+export {default as selectedDoctorWokingTimes} from "./selectedDoctorWokingTimes";

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { map, compose, assoc, toLower} from "ramda";
+import { map, toLower} from "ramda";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 

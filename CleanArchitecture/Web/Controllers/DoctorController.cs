@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Web.Models.BindingModels;
 using Web.Filters;
+using Application.Features.Doctor.Queries.GetDoctorWorkingTimes;
 
 namespace Web.Controllers
 {
@@ -17,6 +18,16 @@ namespace Web.Controllers
         public DoctorController(IMapper autoMapper)
         {
             _autoMapper = autoMapper;
+        }
+
+        [HttpGet("{doctorId:int}/WorkingTimes")]
+        public async Task<IActionResult> GetWorkingTimes([FromRoute] int? doctorId)
+        {
+            var getWorkingTimesQuery = new GetWorkingTimesQuery { DoctorId = doctorId };
+
+            var workingTimes = await Mediator.Send(getWorkingTimesQuery);
+
+            return Ok(workingTimes);
         }
 
         [HttpPost("{doctorId:int}/WeeklyWorkingTime")]

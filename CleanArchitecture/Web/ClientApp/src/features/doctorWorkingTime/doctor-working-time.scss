@@ -1,3 +1,13 @@
+@import '../../styles/variables.scss';
+
 .date-row {
     margin: 10px 0;
+}
+
+.working-time-unit-container {
+    padding: 30px;
+    border: 1px solid;
+    border-radius: 4px;
+    border-color: $grey-light;
+    margin-top: 10px;
 }

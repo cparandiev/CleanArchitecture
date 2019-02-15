@@ -13,3 +13,12 @@ body {
     background-color: $red !important;
     border-color: $red !important;
 }
+
+.title {
+    color: $grey;
+    font-weight: bold;
+}
+
+.react-datepicker-wrapper>div>input {
+    width: 108%;
+}

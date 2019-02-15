@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Route } from 'react-router-dom';
 import { map, compose, values } from "ramda";
 
 import routesConfig from "./routesConfig";

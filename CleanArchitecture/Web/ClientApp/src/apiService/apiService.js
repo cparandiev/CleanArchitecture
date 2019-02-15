@@ -1,4 +1,5 @@
 import axios from "axios";
+import { assoc, isNil } from "ramda";
 
 export default (initialConfig) => ({
     execute: ({method, url, headers, token, data}) => {
@@ -7,7 +8,9 @@ export default (initialConfig) => ({
         const config = {
             method,
             url: `${initialConfig.baseUrl}/${url}`,
-            headers,
+            headers: isNil(token) 
+                ? headers
+                : assoc('Authorization', `Bearer ${token}`, headers || {}),
             data,
         };
 

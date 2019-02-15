@@ -1,6 +1,6 @@
-import { filter, mapTo, debounceTime, timer, mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 import { from, of } from 'rxjs';
-import { combineEpics, ofType } from 'redux-observable';
+import { ofType } from 'redux-observable';
 
 import { apiRequest } from "../actions/";
 

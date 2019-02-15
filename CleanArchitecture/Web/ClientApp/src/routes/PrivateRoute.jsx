@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {isEmpty, all, includes, __, isNil} from "ramda";
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {userSelector} from "../features/common/selectors";

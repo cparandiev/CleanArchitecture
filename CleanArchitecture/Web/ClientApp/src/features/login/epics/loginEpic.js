@@ -1,5 +1,5 @@
-import { debounceTime, map, mapTo, tap, mergeMap} from 'rxjs/operators';
-import { of, concat, merge} from 'rxjs';
+import { debounceTime, tap, mergeMap} from 'rxjs/operators';
+import { of, merge} from 'rxjs';
 import { combineEpics, ofType } from 'redux-observable';
 import { pick, flatten, map as Rmap, values, apply } from "ramda";
 import { push } from 'connected-react-router';
