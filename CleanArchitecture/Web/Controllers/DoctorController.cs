@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Web.Models.BindingModels;
 using Web.Filters;
 using Application.Features.Doctor.Queries.GetDoctorWorkingTimes;
+using Application.Features.Doctor.Commands.DeleteWorkingTime;
 
 namespace Web.Controllers
 {
@@ -18,6 +19,17 @@ namespace Web.Controllers
         public DoctorController(IMapper autoMapper)
         {
             _autoMapper = autoMapper;
+        }
+
+        [HttpDelete("WorkingTime/{workingTimeId:int}")]
+        [Authorize(Roles = nameof(Role.Doctor))]
+        public async Task<IActionResult> DeleteWorkingTime([FromRoute]DeleteWorkingTimeBm workingTime)
+        {
+            var deleteWorkingTimeCommand = _autoMapper.Map<DeleteWorkingTimeCommand>(workingTime);
+
+            await Mediator.Send(deleteWorkingTimeCommand);
+
+            return Ok();
         }
 
         [HttpGet("{doctorId:int}/WorkingTimes")]

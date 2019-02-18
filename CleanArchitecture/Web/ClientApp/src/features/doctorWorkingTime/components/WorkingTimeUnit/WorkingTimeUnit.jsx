@@ -7,7 +7,7 @@ import "./working-time-unit.css";
 
 class WorkingTimeUnit extends Component {
     render() {
-        const {from, to} = this.props;
+        const {from, to, onDelete, id} = this.props;
 
         return (
             <div className="row working-time-row">
@@ -18,7 +18,7 @@ class WorkingTimeUnit extends Component {
                     <DatePicker selected={to} className="form-control" readOnly timeFormat="HH:mm" dateFormat="MMMM d, yyyy h:mm aa" timeCaption="time"/>
                 </div>
                 <div className="col-2">
-                    <MaterialIcon className="btn material-icons 32 md-dark" icon="delete_forever" size="32" />
+                    <MaterialIcon className="btn material-icons 32 md-dark" icon="delete_forever" size="32" onClick={() => onDelete(id)}/>
                 </div>
             </div>
         );
@@ -26,8 +26,10 @@ class WorkingTimeUnit extends Component {
 }
 
 WorkingTimeUnit.propTypes = {
+    id: PropTypes.number,
     from: PropTypes.instanceOf(Date),
     to: PropTypes.instanceOf(Date),
+    onDelete: PropTypes.func
 }
 
 

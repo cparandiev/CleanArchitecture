@@ -1,6 +1,7 @@
 ﻿using Application.AutoMapperDomainProfiles.Converters;
 using Application.Features.Doctor.Commands.AccomplishMedicalExamination;
 using Application.Features.Doctor.Commands.CreateDoctor;
+using Application.Features.Doctor.Commands.DeleteWorkingTime;
 using Application.Features.Doctor.Commands.ReviewMedicalExamination;
 using Application.Features.Doctor.Commands.SetWeeklyWorkingTime;
 using Application.Features.Doctor.Models;
@@ -36,6 +37,10 @@ namespace Web.AutoMapperDomainProfiles
                 .AfterMap((src, dest, cntx) => {
                     dest.DoctorId = (int?)cntx.Items[nameof(SetWeeklyWorkingTimeCommand.DoctorId)];
                 });
+
+            CreateMap<DeleteWorkingTimeBm, DeleteWorkingTimeCommand> ()
+                .IncludeBase<object, UserIdentity>();
+
             #endregion
 
             #region Medical Examination mappings

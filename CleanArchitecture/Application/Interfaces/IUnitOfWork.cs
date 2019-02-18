@@ -18,6 +18,8 @@ namespace Application.Interfaces
 
         IMedicalExaminationRequestRepository MedicalExaminationRequests { get; }
 
+        IDoctorWorkingTimeRepository DoctorWorkingTimes { get; }
+
         Task CompleteAsync();
 
         Task CompleteAsync(CancellationToken cancellationToken);

@@ -1,3 +1,3 @@
 import createAsynActionTypesAndActions from "../../../utils/createAsynActionTypesAndActions";
 
-export default createAsynActionTypesAndActions('GET_DOCTOR_WORKING_TIMES');
+export default createAsynActionTypesAndActions('DELETE_DOCTOR_WORKING_TIME');

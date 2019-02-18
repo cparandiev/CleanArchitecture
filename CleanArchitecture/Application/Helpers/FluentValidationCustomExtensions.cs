@@ -46,6 +46,11 @@ namespace Application.Helpers
             return ruleBuilder.SetValidator(new MedicalExaminationRequestExistsValidator<TElement>(context));
         }
 
+        public static IRuleBuilderOptions<T, TElement> DoctorWorkingTimeExists<T, TElement>(this IRuleBuilder<T, TElement> ruleBuilder, IUnitOfWork context)
+        {
+            return ruleBuilder.SetValidator(new DoctorWorkingTimeExistsValidator<TElement>(context));
+        }
+
         public static IRuleBuilderOptions<T, TElement> None<T, TEntity, TElement>(this IRuleBuilder<T, TElement> ruleBuilder, IRepository<TEntity> repository, Func<TElement, Expression<Func<TEntity, bool>>> setUpCriteria, string errorMessage)
             where TEntity : BaseEntity
         {

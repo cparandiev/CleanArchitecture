@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { map, isNil, isEmpty } from 'ramda';
-import ReactPaginate from 'react-paginate';
-import MaterialIcon from 'material-icons-react';
+import { map, compose } from 'ramda';
 
 import DatePicker from "./components/DatePicker";
 import WorkingTimeUnit from "./components/WorkingTimeUnit";
@@ -10,41 +8,46 @@ import {userSelector, selectedDoctorWokingTimes} from "../common/selectors";
 import {getDoctorWorkingTimes} from "../common/actions";
 import mergeSelectors from "../../utils/mergeSelectors";
 import './doctor-working-time.css';
+import Paginate from "../common/components/Paginate";
+import {orderWorkingTimes, filterWorkingTimes} from "./utils";
+import {getCurrentElements, getTotalPages} from "../../utils/paginate";
+import { deleteDoctorWorkingTime } from "./actions";
+
+const transformDoctorWokingTimes = (from, to) => compose(
+    orderWorkingTimes,
+    filterWorkingTimes(from, to),
+)
+
+const renderRowsByPage = (elementPerPage, currentPage, onDelete) => compose(
+    map((({open, close, id}) => <WorkingTimeUnit onDelete={onDelete} id={id} key={id} from={open} to={close}/>)),
+    getCurrentElements(elementPerPage, currentPage),
+)
+
+const elementPerPage = 5;
 
 class DoctorWorkingTime extends Component {
     state = {from: new Date(), to: new Date(), offset: 0}
 
-    handleChangeFrom = (date) => {
-        this.setState((state) => {
-            return {...state, from: date}
-        });
-    }
+    handleChangeFrom = (date) => {this.setState((state) => ({...state, from: date}));}
 
-    handleChangeTo = (date) => {
-        this.setState((state) => {
-            return {...state, to: date}
-        });
-    }
+    handleChangeTo = (date) => {this.setState((state) => ({...state, to: date}));}
 
-    handlePageChange = (data) => {
-        this.setState((state) => ({...state, offset: data.offset}));
-    }
+    handlePageChange = (data) => { this.setState((state) => ({...state, offset: data.selected}));}
 
     componentDidMount(){
         const {user, getDoctorWorkingTimes} = this.props;
-
         getDoctorWorkingTimes(user.doctorId);
     }
 
     render() {
-        const {from, to} = this.state;
-        const {selectedDoctorWokingTimes} = this.props;
+        const {from, to, offset} = this.state;
+        const {selectedDoctorWokingTimes, deleteDoctorWorkingTime} = this.props;
 
-        console.log(selectedDoctorWokingTimes);
+        const sortedAndFilteredDoctorWokingTimes = transformDoctorWokingTimes(from, to)(selectedDoctorWokingTimes);
+        const totalPages = getTotalPages(elementPerPage, sortedAndFilteredDoctorWokingTimes);
+        const renderRows = renderRowsByPage(elementPerPage, offset + 1, deleteDoctorWorkingTime);
+
         return (
-            // <div style={{fontWeight: 'bold', color: 'white', fontSize: '40px'}}>
-            //     DOCTOR WEEKLY TIME PAGE
-            // </div>
             <div className="container">
                 <div className="row">
                     <div className="col">
@@ -66,7 +69,8 @@ class DoctorWorkingTime extends Component {
                                         <DatePicker title='To' value={to} handleChange={this.handleChangeTo}/>
                                     </div>
                                 </div>
-                                <div className="working-time-unit-container">
+                                {(totalPages > 0) &&
+                                (<div className="working-time-unit-container">
                                     <div className="row">
                                         <div className="col-5 title">
                                             Open
@@ -78,35 +82,9 @@ class DoctorWorkingTime extends Component {
                                             Actions
                                         </div>
                                     </div>
-                                    {!isNil(selectedDoctorWokingTimes) && !isEmpty(selectedDoctorWokingTimes) && Array.isArray(selectedDoctorWokingTimes) &&
-                                        map((({open, close, id}) => <WorkingTimeUnit key={id} from={open} to={close}/>), selectedDoctorWokingTimes)
-                                    }
-                                    <nav aria-label="Page navigation example">
-                                    <ReactPaginate
-                                        pageClassName='page-item'
-                                        pageLinkClassName='page-link'
-                                        previousClassName='page-item'
-                                        previousLinkClassName='page-link'
-                                        nextClassName='page-item'
-                                        nextLinkClassName='page-link'
-
-                                        previousLabel={<MaterialIcon icon="arrow_back_ios" size="14" />}
-                                        nextLabel={<MaterialIcon icon="arrow_forward_ios" size="14" />}
-                                        // previousLabel={'previous'}
-                                        // nextLabel={'next'}
-                                        breakLabel={<MaterialIcon icon="more_horiz" size="14" />}
-                                        breakClassName={'page-item'}
-                                        breakLinkClassName='page-link'
-                                        pageCount={this.state.pageCount}
-                                        marginPagesDisplayed={2}
-                                        pageRangeDisplayed={5}
-                                        onPageChange={this.handlePageClick}
-                                        containerClassName={'pagination'}
-                                        subContainerClassName={'pages pagination'}
-                                        activeClassName={'active'}
-                                        />
-                                    </nav>
-                                </div>
+                                    { renderRows(sortedAndFilteredDoctorWokingTimes) }
+                                    { <Paginate pageCount={totalPages} onPageChange={this.handlePageChange} />}
+                                </div>)}
                             </div>                
                         </div>
                     </div>
@@ -122,6 +100,7 @@ const mapStateToProps = mergeSelectors(selectors);
 
 const mapDispatchToProps = (dispatch) => ({
     getDoctorWorkingTimes: (doctorId) => dispatch(getDoctorWorkingTimes.actions.DEFAULT({doctorId})),
+    deleteDoctorWorkingTime: (workingTimeId) => dispatch(deleteDoctorWorkingTime.actions.DEFAULT({workingTimeId})),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorWorkingTime);

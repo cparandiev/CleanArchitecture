@@ -1,5 +1,5 @@
-import { mergeMap, map, catchError, debounceTime } from 'rxjs/operators';
-import { from, of, merge } from 'rxjs';
+import { mergeMap,debounceTime } from 'rxjs/operators';
+import { of, merge } from 'rxjs';
 import { ofType } from 'redux-observable';
 
 import { getDoctorWorkingTimes, apiRequest } from "../actions/";
@@ -12,7 +12,12 @@ const getDoctorWorkingTimesEpic$ = (action$, state$) => action$.pipe(
         merge( 
             of(getDoctorWorkingTimes.actions.PENDING()),
             of(apiRequest.actions.DEFAULT(
-                {method: 'GET', url: `doctor/${payload.doctorId}/workingtimes`, ...getDoctorWorkingTimes.actions, token: userSelector(state$.value).user.jwt},
+                {
+                    method: 'GET',
+                    url: `doctor/${payload.doctorId || 1003}/workingtimes`, // todo
+                    ...getDoctorWorkingTimes.actions,
+                    token: userSelector(state$.value).user.jwt
+                },
                 meta
             ))
         )

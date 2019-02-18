@@ -10,7 +10,7 @@ namespace Persistence
         private readonly Context _context;
 
         public UnitOfWork(Context context, IUserRepository userRepository, IPatientRepository patientRepository, IRoleRepository rolesRepository, IDoctorRepository doctorsRepository, IClinicRepository clinicRepository,
-            IMedicalExaminationRequestRepository medicalExaminationRequestsRepository)
+            IMedicalExaminationRequestRepository medicalExaminationRequestsRepository, IDoctorWorkingTimeRepository doctorWorkingTimesRepository)
         {
             _context = context;
             Users = userRepository;
@@ -19,6 +19,7 @@ namespace Persistence
             Doctors = doctorsRepository;
             Clinics = clinicRepository;
             MedicalExaminationRequests = medicalExaminationRequestsRepository;
+            DoctorWorkingTimes = doctorWorkingTimesRepository;
         }
 
         public IUserRepository Users { get; }
@@ -32,6 +33,8 @@ namespace Persistence
         public IClinicRepository Clinics { get; }
 
         public IMedicalExaminationRequestRepository MedicalExaminationRequests { get; }
+
+        public IDoctorWorkingTimeRepository DoctorWorkingTimes{ get; set; }
 
         public async Task CompleteAsync()
         {

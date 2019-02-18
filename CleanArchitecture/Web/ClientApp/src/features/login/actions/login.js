@@ -1,13 +1,3 @@
-import { createAction } from 'redux-actions';
-import { mapObjIndexed, nthArg } from "ramda";
+import createAsynActionTypesAndActions from "../../../utils/createAsynActionTypesAndActions";
 
-import createAsynActionTypes from "../../../utils/createAsynActionTypes";
-
-const types = createAsynActionTypes('LOGIN');
-
-const actions = mapObjIndexed((actionType) => createAction(actionType, null, nthArg(1)), types);
-
-export default {
-    types,
-    actions
-}
+export default createAsynActionTypesAndActions('LOGIN');
