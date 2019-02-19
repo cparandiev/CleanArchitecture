@@ -12,6 +12,7 @@ body {
 .btn-primary {
     background-color: $red !important;
     border-color: $red !important;
+    color: $white !important;
 }
 
 .title {
@@ -20,5 +21,5 @@ body {
 }
 
 .react-datepicker-wrapper>div>input {
-    width: 108%;
+    width: 110%;
 }

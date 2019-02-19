@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 
 class Custom extends Component {
     render() {
-        const {value, handleChange, title} = this.props;
+        const {value, handleChange, title, datePickerContainerClassName, rowClassName, titleContainerClassName} = this.props;
 
         return (
-            <div className="row">
-                <div className="col-2 col-form-label">
+            <div className={rowClassName}>
+                <div className={titleContainerClassName}>
                     <label className="title">{title}</label>
                 </div>
-                <div className="col">
+                <div className={datePickerContainerClassName}>
                     <DatePicker showTimeSelect selected={value} onChange={handleChange} className="form-control"
                         timeFormat="HH:mm" timeIntervals={15} dateFormat="MMMM d, yyyy h:mm aa" timeCaption="time"/>
                 </div>
@@ -24,6 +24,9 @@ Custom.propTypes = {
     title: PropTypes.string,
     handleChange: PropTypes.func,
     value: PropTypes.instanceOf(Date),
+    datePickerContainerClassName: PropTypes.string,
+    titleContainerClassName: PropTypes.string,
+    rowClassName: PropTypes.string,
 }
 
 export default Custom;

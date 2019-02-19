@@ -4,6 +4,7 @@ import Contacts from '../features/contacts';
 import Login from '../features/login';
 import Unauthorized from '../features/unauthorized';
 import doctorWorkingTime from '../features/doctorWorkingTime';
+import addWorkingTime from '../features/addWorkingTime';
 import { Counter } from '../components/Counter';
 
 export default {
@@ -43,7 +44,7 @@ export default {
         path: '/home',
         requiredRoles: [],
         component: doctorWorkingTime,
-        // component: Home,
+        component: Home,
         exact: true,
     },
     about: {
@@ -62,6 +63,13 @@ export default {
         path: '/doctor/working-time',
         requiredRoles: ['doctor'],
         component: doctorWorkingTime,
+        exact: true,
+        authenticated: true,
+    },
+    addWorkingTime: {
+        path: '/doctor/add-working-time',
+        requiredRoles: ['doctor'],
+        component: addWorkingTime,
         exact: true,
         authenticated: true,
     },

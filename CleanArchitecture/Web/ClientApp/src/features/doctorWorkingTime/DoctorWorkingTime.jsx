@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { map, compose } from 'ramda';
+import {Link} from "react-router-dom";
 
-import DatePicker from "./components/DatePicker";
+import DatePicker from "../common/components/DatePicker";
 import WorkingTimeUnit from "./components/WorkingTimeUnit";
 import {userSelector, selectedDoctorWokingTimes} from "../common/selectors";
 import {getDoctorWorkingTimes} from "../common/actions";
@@ -12,6 +13,7 @@ import Paginate from "../common/components/Paginate";
 import {orderWorkingTimes, filterWorkingTimes} from "./utils";
 import {getCurrentElements, getTotalPages} from "../../utils/paginate";
 import { deleteDoctorWorkingTime } from "./actions";
+import routesConfig from "../../routes/routesConfig";
 
 const transformDoctorWokingTimes = (from, to) => compose(
     orderWorkingTimes,
@@ -58,15 +60,17 @@ class DoctorWorkingTime extends Component {
                                         <h5 className="card-title">Select a time range</h5>
                                     </div>
                                     <div className="col">
-                                        <button className="btn btn-primary float-right">Add new working time</button>
+                                        <Link to={routesConfig.addWorkingTime.path} className="btn btn-primary float-right">
+                                            Add new working time
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-5 offset-1">
-                                        <DatePicker title='From' value={from} handleChange={this.handleChangeFrom}/>
+                                        <DatePicker title='From' value={from} handleChange={this.handleChangeFrom} datePickerContainerClassName="col" rowClassName="row" titleContainerClassName="col-2 col-form-label"/>
                                     </div>
                                     <div className="col-5">
-                                        <DatePicker title='To' value={to} handleChange={this.handleChangeTo}/>
+                                        <DatePicker title='To' value={to} handleChange={this.handleChangeTo} datePickerContainerClassName="col" rowClassName="row" titleContainerClassName="col-2 col-form-label"/>
                                     </div>
                                 </div>
                                 {(totalPages > 0) &&

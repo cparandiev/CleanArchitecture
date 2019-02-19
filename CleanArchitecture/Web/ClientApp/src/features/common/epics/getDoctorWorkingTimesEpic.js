@@ -14,7 +14,7 @@ const getDoctorWorkingTimesEpic$ = (action$, state$) => action$.pipe(
             of(apiRequest.actions.DEFAULT(
                 {
                     method: 'GET',
-                    url: `doctor/${payload.doctorId || 1003}/workingtimes`, // todo
+                    url: `doctor/${payload.doctorId}/workingtimes`,
                     ...getDoctorWorkingTimes.actions,
                     token: userSelector(state$.value).user.jwt
                 },

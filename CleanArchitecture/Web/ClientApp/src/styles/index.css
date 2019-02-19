@@ -8,11 +8,12 @@ body {
 
 .btn-primary {
   background-color: #E14848 !important;
-  border-color: #E14848 !important; }
+  border-color: #E14848 !important;
+  color: #fff !important; }
 
 .title {
   color: #95A5A6;
   font-weight: bold; }
 
 .react-datepicker-wrapper > div > input {
-  width: 108%; }
+  width: 110%; }
