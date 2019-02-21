@@ -1,8 +1,6 @@
-﻿using Domain.Entities.MedicalExaminationRequestAggregate;
-
-namespace Application.Interfaces.Repositories
+﻿namespace Application.Interfaces.Repositories
 {
-    public interface IMedicalExaminationRequestRepository : IRepository<MedicalExaminationRequest>, IAsyncRepository<MedicalExaminationRequest>
+    public interface IMedicalExaminationRequestRepository : IRepository<Domain.Entities.MedicalExaminationRequestAggregate.MedicalExaminationRequest>, IAsyncRepository<Domain.Entities.MedicalExaminationRequestAggregate.MedicalExaminationRequest>
     {
     }
 }

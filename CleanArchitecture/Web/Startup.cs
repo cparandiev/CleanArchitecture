@@ -25,6 +25,12 @@ using System.Text;
 using Services;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using Application.Features.Patient.Services.Interfaces;
+using Application.Features.Users.Services.Interfaces;
+using Application.Features.Users.Services;
+using Application.Features.Patient.Services;
+using Application.Features.Doctor.Services.Interfaces;
+using Application.Features.Doctor.Services;
 
 namespace Web
 {
@@ -104,6 +110,9 @@ namespace Web
             services.AddAutoMapper(typeof(RequestModelsToEntityModels).GetTypeInfo().Assembly);
 
             // Add Services
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ISecurePasswordHasher, SecurePasswordHasher>();
         }

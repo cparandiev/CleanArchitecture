@@ -1,10 +1,11 @@
-﻿using Domain.Enums;
+﻿using Application.Features.Users.Models;
+using Domain.Enums;
 using MediatR;
 using System;
 
 namespace Application.Features.Users.Commands.CreateUser
 {
-    public class CreateUserCommand : IRequest<int>
+    public class CreateUserCommand : IRequest<UserDto>
     {
         public string FirstName { get; set; }
 

@@ -20,7 +20,7 @@ namespace Application.Features.Patient.Commands.RequestMedicalExamination
 
         public async Task<Unit> Handle(RequestMedicalExaminationCommand request, CancellationToken cancellationToken)
         {
-            var medicalExaminationRequestEntity = _autoMapper.Map<MedicalExaminationRequest>(request);
+            var medicalExaminationRequestEntity = _autoMapper.Map<Domain.Entities.MedicalExaminationRequestAggregate.MedicalExaminationRequest>(request);
 
             await _context.MedicalExaminationRequests.AddAsync(medicalExaminationRequestEntity);
 

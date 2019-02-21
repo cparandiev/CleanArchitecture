@@ -1,0 +1,29 @@
+@import '../../../../styles/variables.scss';
+
+.medical-examination-request-row {
+    padding-bottom: 10px;
+    border-top: 1px solid;
+    border-color: $grey-light;
+    padding-top: 10px;
+}
+
+.medical-examination-request-expandable-content-row {
+    margin-top: 10px;
+    border-top: 1px solid;
+    border-color: $grey-light;
+    padding-top: 10px;
+}
+
+.medical-examination-request-expandable-content-container {
+    padding: 0 50px;
+}
+
+.medical-examination-request-row:last-of-type {
+    border-bottom: 1px solid;
+    border-color: $grey-light;
+    margin-bottom: 30px
+}
+
+.medical-examination-request-row:nth-of-type(2n) {
+    background: $grey-lighter;
+}

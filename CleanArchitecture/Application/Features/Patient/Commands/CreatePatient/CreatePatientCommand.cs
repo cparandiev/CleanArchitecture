@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using Application.Features.Patient.Models;
+using Application.Features.Users.Commands.CreateUser;
+using MediatR;
 
 namespace Application.Features.Patient.Commands.CreatePatient
 {
-    public class CreatePatientCommand : IRequest<int>
+    public class CreatePatientCommand : IRequest<PatientDto>
     {
-        public int? UserId { get; set; }
+        public CreateUserCommand CreateUserCommand { get; set; }
     }
 }

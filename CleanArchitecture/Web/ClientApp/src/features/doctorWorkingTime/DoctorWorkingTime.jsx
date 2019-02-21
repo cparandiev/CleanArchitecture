@@ -28,7 +28,7 @@ const renderRowsByPage = (elementPerPage, currentPage, onDelete) => compose(
 const elementPerPage = 5;
 
 class DoctorWorkingTime extends Component {
-    state = {from: new Date(), to: new Date(), offset: 0}
+    state = {from: new Date('2010-01-12T20:01:00'), to: new Date(), offset: 0}
 
     handleChangeFrom = (date) => {this.setState((state) => ({...state, from: date}));}
 

@@ -1,34 +1,33 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Application.Features.Users.Models;
+using Application.Features.Users.Services.Interfaces;
 using Application.Interfaces;
 using AutoMapper;
-using Domain.Entities.UserAggregate;
 using MediatR;
 
 namespace Application.Features.Users.Commands.CreateUser
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
     {
+        private readonly IUserService _userService;
         private readonly IUnitOfWork _context;
         private readonly IMapper _autoMapper;
-        private readonly ISecurePasswordHasher _securePasswordHasher;
 
-        public CreateUserCommandHandler(IUnitOfWork context, IMapper autoMapper, ISecurePasswordHasher securePasswordHasher)
+        public CreateUserCommandHandler(IUserService userService, IUnitOfWork context, IMapper autoMapper)
         {
+            _userService = userService;
             _context = context;
             _autoMapper = autoMapper;
-            _securePasswordHasher = securePasswordHasher;
         }
 
-        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var entity = _autoMapper.Map<User>(request);
-            entity.PasswordHash = _securePasswordHasher.Hash(request.Password);
+            var entity = _userService.CreateUser(request);
 
-            await _context.Users.AddAsync(entity);
             await _context.CompleteAsync();
 
-            return entity.Id;
+            return _autoMapper.Map<UserDto>(entity);
         }
     }
 }

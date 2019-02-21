@@ -1,7 +1,6 @@
-﻿using Application.Helpers;
-using Application.Interfaces;
-using Application.Constants.User.Validation;
+﻿using Application.Interfaces;
 using FluentValidation;
+using Application.Features.Users.Commands.CreateUser;
 
 namespace Application.Features.Patient.Commands.CreatePatient
 {
@@ -9,10 +8,10 @@ namespace Application.Features.Patient.Commands.CreatePatient
     {
         public CreatePatientCommandValidator(IUnitOfWork context)
         {
-            RuleFor(x => x.UserId)
-                .NotNull()
-                //.Any(context.Users, prop => entity => entity.Id == prop.Value, ErrorMessages.USER_NOT_FOUND);
-                .UserExists(context);
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+
+            RuleFor(x => x.CreateUserCommand)
+                .SetValidator(new CreateUserCommandValidator(context));
         }
     }
 }

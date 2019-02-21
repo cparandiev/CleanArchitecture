@@ -1,7 +1,7 @@
-import { mergeMap, debounceTime, mapTo } from 'rxjs/operators';
+import { mergeMap, debounceTime } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { ofType, combineEpics } from 'redux-observable';
-import { pick, flatten, map as Rmap, values, apply } from "ramda";
+import { flatten, map as Rmap, values, apply } from "ramda";
 
 import { addWorkingTime } from "../actions";
 import { userSelector } from "../../common/selectors";

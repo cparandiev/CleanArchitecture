@@ -1,7 +1,6 @@
 import { mergeMap,debounceTime, mapTo } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { combineEpics, ofType } from 'redux-observable';
-import { flatten, map as Rmap, values, apply } from "ramda";
 
 import { deleteDoctorWorkingTime } from "../actions";
 import { apiRequest, notification, getDoctorWorkingTimes } from "../../common/actions";

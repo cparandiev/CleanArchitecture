@@ -7,6 +7,7 @@ namespace Application.Interfaces.Repositories
     {
         T GetById(int id);
         T GetSingleBySpec(ISpecification<T> spec);
+        IEnumerable<T> ListAllLocal();
         IEnumerable<T> ListAll();
         IEnumerable<T> List(ISpecification<T> spec);
         T Add(T entity);

@@ -1,9 +1,5 @@
-import { filter, allPass, compose, prop } from "ramda";
-
-const inRange = (low, high) => allPass([
-    x => x >= low, 
-    x => x <= high
-]);
+import { filter, compose, prop } from "ramda";
+import inRange from "../../../utils/inRange";
 
 const whereClause = (from, to) => compose(inRange(from, to), prop('open'))
 

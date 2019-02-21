@@ -23,7 +23,7 @@ namespace Application.Features.Doctor.Commands.AccomplishMedicalExamination
             var mdr = _context.MedicalExaminationRequests.GetById(request.RequestId.Value);
 
             mdr.IsAccomplished = true;
-            mdr.Result = _autoMapper.Map<MedicalExaminationResult>(request);
+            mdr.Result = _autoMapper.Map<Domain.Entities.MedicalExaminationResultAggregate.MedicalExaminationResult>(request);
 
             await _context.CompleteAsync();
 

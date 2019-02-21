@@ -8,6 +8,7 @@ using Application.Features.Doctor.Models;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Commands.RequestMedicalExamination;
+using Application.Features.Patient.Queries.GetPatientMedicalExaminations;
 using Application.Features.Users.Commands.CreateUser;
 using Application.Models;
 using AutoMapper;
@@ -23,14 +24,17 @@ namespace Web.AutoMapperDomainProfiles
         {
             #region Patient mappings
             CreateMap<RegisterPatientBm, CreateUserCommand>();
-            CreateMap<RegisterPatientBm, CreatePatientCommand>();
+            CreateMap<RegisterPatientBm, CreatePatientCommand>()
+                .ForMember(dest => dest.CreateUserCommand, opt => opt.MapFrom(src => src));
             CreateMap<LoginPatientBm, LoginPatientCommand>();
             #endregion
 
             #region Doctor mappings
             CreateMap<RegisterDoctorBm, CreateUserCommand>();
-            CreateMap<RegisterDoctorBm, CreatePatientCommand>();
-            CreateMap<RegisterDoctorBm, CreateDoctorCommand>();
+            CreateMap<RegisterDoctorBm, CreatePatientCommand>()
+                .ForMember(dest => dest.CreateUserCommand, opt => opt.MapFrom(src => src));
+            CreateMap<RegisterDoctorBm, CreateDoctorCommand>()
+                .ForMember(dest => dest.CreatePatientCommand, opt => opt.MapFrom(src => src));
 
             CreateMap<DoctorWeeklyWorkingTimeBm, SetWeeklyWorkingTimeCommand>()
                 .IncludeBase<object, UserIdentity>()
@@ -58,6 +62,9 @@ namespace Web.AutoMapperDomainProfiles
                 .AfterMap((src, dest, cntx) => {
                     dest.RequestId = (int?)cntx.Items[nameof(ReviewMedicalExaminationCommand.RequestId)];
                 });
+
+            CreateMap<PatientMedicalExaminationsBm, GetPatientMedicalExaminationsQuery>()
+                .IncludeBase<object, UserIdentity>();
             #endregion
 
             CreateMap<string, Gender>()

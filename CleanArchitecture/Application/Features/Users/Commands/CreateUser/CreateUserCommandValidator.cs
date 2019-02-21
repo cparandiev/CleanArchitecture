@@ -10,6 +10,8 @@ namespace Application.Features.Users.Commands.CreateUser
     {
         public CreateUserCommandValidator(IUnitOfWork context)
         {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+
             RuleFor(x => x.FirstName)
                 .NotNull()
                 .MinimumLength(ValidationParameters.FIRST_NAME_MIN_LENGTH)

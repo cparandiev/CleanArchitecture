@@ -1,8 +1,12 @@
 import commonReducers from '../features/common/reducers';
 import notificationReducer from '../features/notifications/reducers';
+import patientMedicalExaminationsReducer from '../features/patientMedicalExaminations/reducers';
+import requestMedicalExaminationReducer from '../features/requestMedicalExamination/reducers';
 
 export default ({
     user: commonReducers.authReducer,
     selectedDoctorWokingTimes: commonReducers.selectedDoctorWokingTimesReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    patientMedicalExaminations: patientMedicalExaminationsReducer,
+    requestMedicalExamination: requestMedicalExaminationReducer,
 })

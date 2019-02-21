@@ -37,12 +37,9 @@ namespace Web.Controllers
         [HttpPost("register/patient")]
         public async Task<IActionResult> RegisterPatient([FromBody]RegisterPatientBm model)
         {
-            var createUserCommand = _autoMapper.Map<CreateUserCommand>(model);
-            var userId = await Mediator.Send(createUserCommand);
-
             var createPatientCommand = _autoMapper.Map<CreatePatientCommand>(model);
-            createPatientCommand.UserId = userId;
-            var patientId = await Mediator.Send(createPatientCommand);
+            
+            var patient = await Mediator.Send(createPatientCommand);
 
             return await LoginPatient(_autoMapper.Map<LoginPatientBm>(model));
         }
@@ -67,16 +64,9 @@ namespace Web.Controllers
         [HttpPost("register/doctor")]
         public async Task<IActionResult> RegisterDoctor([FromBody]RegisterDoctorBm model)
         {
-            var createUserCommand = _autoMapper.Map<CreateUserCommand>(model);
-            var userId = await Mediator.Send(createUserCommand);
-
-            var createPatientCommand = _autoMapper.Map<CreatePatientCommand>(model);
-            createPatientCommand.UserId = userId;
-            var patientId = await Mediator.Send(createPatientCommand);
-
             var createDoctorCommand = _autoMapper.Map<CreateDoctorCommand>(model);
-            createDoctorCommand.UserId = userId;
-            var doctorId = await Mediator.Send(createDoctorCommand);
+
+            var doctor = await Mediator.Send(createDoctorCommand);
 
             return await LoginDoctor(_autoMapper.Map<LoginDoctorBm>(model));
         }
@@ -87,15 +77,11 @@ namespace Web.Controllers
         {
             var loginDoctorCommand = _autoMapper.Map<LoginDoctorCommand>(model);
             var doctorDto = await Mediator.Send(loginDoctorCommand);
-
-            var getPatientQuery = new GetPatientByIdQuery() { UserId = doctorDto.User.Id };
-            var patientDto = await Mediator.Send(getPatientQuery);
-
+            
             var loggedUserVm = _autoMapper.Map<LoggedDoctorViewModel>(doctorDto);
             loggedUserVm.JWT = CreateJWT(new List<Claim>() {
                 new Claim (UserClaimsNames.USER_ID, doctorDto.User.Id.ToString()),
                 new Claim (UserClaimsNames.DOCTOR_ID, doctorDto.Id.ToString()),
-                new Claim (UserClaimsNames.PATIENT_ID, patientDto.Id.ToString())
             });
 
             return Ok(loggedUserVm);

@@ -1,4 +1,5 @@
-﻿using Application.Features.Doctor.Models;
+﻿using Application.Features.Clinic.Models;
+using Application.Features.Doctor.Models;
 using Application.Features.Patient.Models;
 using Application.Features.Users.Models;
 using AutoMapper;
@@ -30,6 +31,8 @@ namespace Web.AutoMapperDomainProfiles
             #endregion
 
             #region Doctor mappings
+            CreateMap<DoctorDto, DoctorViewModel>();
+
             CreateMap<DoctorDto, LoggedDoctorViewModel>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id))
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username))
@@ -37,6 +40,10 @@ namespace Web.AutoMapperDomainProfiles
                 .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.User.LastName))
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.User.Roles.Where(r => r == Role.Doctor.ToString())))
                 .ForMember(dest => dest.DoctorId, opt => opt.MapFrom(src => src.Id));
+            #endregion
+
+            #region Clinic mappings
+            CreateMap<ClinicDto, ClinicViewModel>();
             #endregion
         }
     }

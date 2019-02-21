@@ -1,0 +1,1 @@
+export {default as getAllClinicsWithDoctorsEpic} from "./getAllClinicsWithDoctorsEpic";

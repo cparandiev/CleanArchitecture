@@ -1,4 +1,5 @@
-﻿using Application.Helpers;
+﻿using Application.Features.Patient.Commands.CreatePatient;
+using Application.Helpers;
 using Application.Interfaces;
 using FluentValidation;
 
@@ -10,10 +11,8 @@ namespace Application.Features.Doctor.Commands.CreateDoctor
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
-            RuleFor(x => x.UserId)
-                .NotNull()
-                .GreaterThan(0)
-                .UserExists(context);
+            RuleFor(x => x.Username)
+                .NotNull();
 
             RuleFor(x => x.Summary)
                 .NotNull()
@@ -24,6 +23,9 @@ namespace Application.Features.Doctor.Commands.CreateDoctor
                 .NotNull()
                 .GreaterThan(0)
                 .ClinicExists(context);
+
+            RuleFor(x => x.CreatePatientCommand)
+                .SetValidator(new CreatePatientCommandValidator(context));
         }
     }
 }

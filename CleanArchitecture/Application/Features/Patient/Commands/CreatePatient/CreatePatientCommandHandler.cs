@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Features.Patient.Models;
+using Application.Features.Patient.Services.Interfaces;
+using Application.Features.Users.Services.Interfaces;
 using Application.Interfaces;
 using Application.Specifications.RoleSpecifications;
 using AutoMapper;
@@ -10,30 +14,29 @@ using MediatR;
 
 namespace Application.Features.Patient.Commands.CreatePatient
 {
-    public class CreatePatientCommandHandler : IRequestHandler<CreatePatientCommand, int>
+    public class CreatePatientCommandHandler : IRequestHandler<CreatePatientCommand, PatientDto>
     {
         private readonly IUnitOfWork _context;
         private readonly IMapper _autoMapper;
+        private readonly IUserService _userService;
+        private readonly IPatientService _patientService;
 
-        public CreatePatientCommandHandler(IUnitOfWork context, IMapper autoMapper)
+        public CreatePatientCommandHandler(IUnitOfWork context, IUserService userService, IPatientService patientService, IMapper autoMapper)
         {
             _context = context;
             _autoMapper = autoMapper;
+            _userService = userService;
+            _patientService = patientService;
         }
 
-        public async Task<int> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
+        public async Task<PatientDto> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
         {
-            var userEntity = _context.Users.GetById(request.UserId.Value);
-            var patientRole = _context.Roles.GetSingleBySpec(new RoleByValueSpecifications(Domain.Enums.Role.Patient));
+            var user = await _userService.CreateUser(request.CreateUserCommand);
+            var patient = await _patientService.CreatePatient(user, request);
 
-            userEntity.UserRoles.Add(new UserRole { Role = patientRole });
-
-            var patientEntity = _autoMapper.Map<Domain.Entities.PatientAggregate.Patient>(request);
-
-            await _context.Patients.AddAsync(patientEntity);
             await _context.CompleteAsync();
 
-            return patientEntity.Id;
+            return _autoMapper.Map<PatientDto>(patient);
         }
     }
 }

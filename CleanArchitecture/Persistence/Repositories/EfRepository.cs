@@ -32,6 +32,11 @@ namespace Persistence.Repositories
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
+        public IEnumerable<T> ListAllLocal()
+        {
+            return _dbContext.Set<T>().Local;
+        }
+
         public IEnumerable<T> ListAll()
         {
             return _dbContext.Set<T>().AsEnumerable();

@@ -5,6 +5,8 @@ import Login from '../features/login';
 import Unauthorized from '../features/unauthorized';
 import doctorWorkingTime from '../features/doctorWorkingTime';
 import addWorkingTime from '../features/addWorkingTime';
+import patientMedicalExaminations from '../features/patientMedicalExaminations';
+import requestMedicalExamination from '../features/requestMedicalExamination';
 import { Counter } from '../components/Counter';
 
 export default {
@@ -43,7 +45,6 @@ export default {
     home: {
         path: '/home',
         requiredRoles: [],
-        component: doctorWorkingTime,
         component: Home,
         exact: true,
     },
@@ -70,6 +71,20 @@ export default {
         path: '/doctor/add-working-time',
         requiredRoles: ['doctor'],
         component: addWorkingTime,
+        exact: true,
+        authenticated: true,
+    },
+    patientMedicalExaminations: {
+        path: '/patient/medical-examination',
+        requiredRoles: ['patient'],
+        component: patientMedicalExaminations,
+        exact: true,
+        authenticated: true,
+    },
+    requestMedicalExamination: {
+        path: '/patient/request-medical-examination',
+        requiredRoles: ['patient'],
+        component: requestMedicalExamination,
         exact: true,
         authenticated: true,
     },
