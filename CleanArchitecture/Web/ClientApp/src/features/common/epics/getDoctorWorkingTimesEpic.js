@@ -1,4 +1,4 @@
-import { mergeMap,debounceTime } from 'rxjs/operators';
+import { mergeMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { ofType } from 'redux-observable';
 
@@ -7,6 +7,7 @@ import { userSelector} from "../selectors";
 
 const getDoctorWorkingTimesEpic$ = (action$, state$) => action$.pipe(
     ofType(getDoctorWorkingTimes.types.DEFAULT),
+    distinctUntilChanged((x, y) => x.payload.doctorId === y.payload.doctorId),
     debounceTime(500),
     mergeMap(({payload, meta}) =>
         merge( 
