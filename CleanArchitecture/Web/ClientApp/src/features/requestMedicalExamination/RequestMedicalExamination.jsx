@@ -1,22 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { compose, map } from "ramda";
 
 import RangePicker from "./components/RangePicker";
 import ClinicsDropdown from "./components/ClinicsDropdown";
 import DoctorsDropdown from "./components/DoctorsDropdown";
 import {clinicsSelector} from "./selectors";
 import mergeSelectors from "../../utils/mergeSelectors";
-import {getAllClinicsWithDoctors} from "./actions";
-import {getDoctorsBySelectedClinicId} from "./utils";
+import { selectedDoctorWokingTimes, userSelector } from "../common/selectors";
+import {getAllClinicsWithDoctors, requestMedicalExamination} from "./actions";
+import {getDoctorsBySelectedClinicId, orderWorkingTimes, filterWorkingTimes} from "./utils";
 import {getDoctorWorkingTimes} from "../common/actions";
 import DatePicker from "react-datepicker";
 import MaterialIcon from 'material-icons-react';
+import WorkingTimeRow from "./components/WorkingTimeRow";
+import {getCurrentElements, getTotalPages} from "../../utils/paginate";
+import Paginate from "../common/components/Paginate";
 import "./request-medical-examination.css";
 
+const transformDoctorWokingTimes = (from, to) => compose(
+    orderWorkingTimes,
+    filterWorkingTimes(from, to),
+)
+
+const renderRowsByPage = (elementPerPage, currentPage, onSubmit, requestDate, durationInMinutes, handleDurationInMinutesChange, handleRequestDateChange) => compose(
+    map((({open, close, id}) => <WorkingTimeRow onSubmit={onSubmit} id={id} key={id} open={open} close={close} requestDate={requestDate} durationInMinutes={durationInMinutes}
+        handleDurationInMinutesChange={handleDurationInMinutesChange} handleRequestDateChange={handleRequestDateChange}/>)),
+    getCurrentElements(elementPerPage, currentPage),
+)
+
+const elementPerPage = 5;
+
 class RequestNewExamination extends Component {
-    state = {from: new Date('2010-01-12T20:01:00'), to: new Date(), offset: 0, selectedClinicId: 0, selectedDoctorId: 0}
+    state = {from: new Date('2010-01-12T20:01:00'), to: new Date(), offset: 0, selectedClinicId: 0, selectedDoctorId: 0,
+        requestDate: new Date(), durationInMinutes: 0}
+    
+    handlePageChange = (data) => { this.setState((state) => ({...state, offset: data.selected}));}
     
     handleChange = (stateVariableName) => (value) => {this.setState((state) => ({...state, [stateVariableName]: value}));}
+
+    handleChange2 = (stateVariableName) => (e) => {const value = e.target.value; this.setState((state) => ({...state, [stateVariableName]: value}));}
 
     handleClinicDropdownChange = (e) => {const value = e.target.value; this.setState((state) => ({...state, selectedClinicId: +value}));}
 
@@ -38,13 +61,24 @@ class RequestNewExamination extends Component {
         getAllClinicsWithDoctors();
     }
 
+    handleSubmit = () => {
+        const {requestDate, durationInMinutes, selectedDoctorId} = this.state;
+        const {user, requestMedicalExamination} = this.props;
+
+        requestMedicalExamination(user.patientId, selectedDoctorId, requestDate, durationInMinutes);
+    }
+
     render() {
-        const {from, to, selectedClinicId, selectedDoctorId, open} = this.state;
-        const {clinics} = this.props;
-        
+        const {from, to, selectedClinicId, selectedDoctorId, offset, requestDate, durationInMinutes} = this.state;
+        const {clinics, selectedDoctorWokingTimes} = this.props;
+
         const doctors = getDoctorsBySelectedClinicId(clinics, selectedClinicId);
+        const sortedAndFilteredDoctorWokingTimes = transformDoctorWokingTimes(from, to)(selectedDoctorWokingTimes);
         
-        console.log(doctors);
+        const totalPages = getTotalPages(elementPerPage, sortedAndFilteredDoctorWokingTimes);
+        const renderRows = renderRowsByPage(elementPerPage, offset + 1, this.handleSubmit, requestDate, durationInMinutes, this.handleChange2('durationInMinutes'), this.handleChange('requestDate')); //todo
+
+        console.log(durationInMinutes);
 
         return (
             <div className="container">
@@ -75,19 +109,26 @@ class RequestNewExamination extends Component {
                                         <DoctorsDropdown disabled={selectedClinicId==0} doctors={doctors} selectedDoctorId={selectedDoctorId} handleSelected={this.handleDoctorDropdownChange}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="row">
-                                        <div className="col">
-                                            <DatePicker selected={from}  className="form-control" readOnly timeFormat="HH:mm" dateFormat="MMMM d, yyyy h:mm aa" timeCaption="time"/>
+                                {totalPages > 0 && 
+                                    <React.Fragment>
+                                        <div className="row">
+                                            <div className="col">
+                                                <div className="title">
+                                                    Open
+                                                </div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="title">
+                                                    Close
+                                                </div>
+                                            </div>
+                                            <div className="col-1" />
                                         </div>
-                                        <div className="col">
-                                            <DatePicker selected={to} className="form-control" readOnly timeFormat="HH:mm" dateFormat="MMMM d, yyyy h:mm aa" timeCaption="time"/>
-                                        </div>
-                                        <div className="col-1">
-                                            <MaterialIcon key={open} className="material-icons 32 md-dark clickable-icon float-right" icon={open ? "expand_less"  : "expand_more"} size="32" onClick={this.toggleOpen}/>
-                                        </div>
-                                    </div>
-                                </div>
+                                        { renderRows(sortedAndFilteredDoctorWokingTimes) }
+                                        { <Paginate pageCount={totalPages} onPageChange={this.handlePageChange} /> }
+                                    </React.Fragment>
+                                    
+                                }
                             </div>
                         </div>
                     </div>
@@ -98,13 +139,14 @@ class RequestNewExamination extends Component {
     }
 }
 
-const selectors = [clinicsSelector];
+const selectors = [clinicsSelector, selectedDoctorWokingTimes, userSelector];
 
 const mapStateToProps = mergeSelectors(selectors);
 
 const mapDispatchToProps = (dispatch) => ({
     getAllClinicsWithDoctors: () => dispatch(getAllClinicsWithDoctors.actions.DEFAULT()),
-    getDoctorWorkingTimes: (doctorId) => dispatch(getDoctorWorkingTimes.actions.DEFAULT({doctorId}))
+    getDoctorWorkingTimes: (doctorId) => dispatch(getDoctorWorkingTimes.actions.DEFAULT({doctorId})),
+    requestMedicalExamination: (patientId, doctorId, requestDate, durationInMinutes) => dispatch(requestMedicalExamination.actions.DEFAULT({patientId, doctorId, requestDate, durationInMinutes}))
 });
 
 

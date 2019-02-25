@@ -1,0 +1,20 @@
+.request-working-time-expandable-row-container {
+  border-top: 1px solid;
+  border-color: #DFDFDF;
+  padding-top: 10px; }
+
+.request-working-time-row-container {
+  border-top: 1px solid;
+  border-color: #DFDFDF; }
+
+.request-working-time-row {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.request-working-time-row-container:nth-of-type(2n) {
+  background: #F8F9FA; }
+
+.request-working-time-row-container:last-of-type {
+  border-bottom: 1px solid;
+  border-color: #DFDFDF;
+  margin-bottom: 30px; }

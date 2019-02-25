@@ -44,7 +44,7 @@ class AddWorkingTime extends Component {
                                 <label className="title" htmlFor="numOfWeeks">Number of weeks</label>
                             </div>
                             <div className="col-6">
-                                <input type="text" className="form-control" id="numOfWeeks" placeholder="Number of weeks" value={numOfWeeks} onChange={this.handleChange}/>
+                                <input type="number" className="form-control" id="numOfWeeks" placeholder="Number of weeks" value={numOfWeeks} onChange={this.handleChange}/>
                             </div>
                         </div>
                         <div className="text-center">

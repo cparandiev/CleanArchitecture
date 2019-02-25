@@ -1,0 +1,28 @@
+@import '../../../../styles/variables.scss';
+
+.request-working-time-expandable-row-container{
+    border-top: 1px solid;
+    border-color: $grey-light;
+    padding-top: 10px;   
+}
+
+
+.request-working-time-row-container{
+    border-top: 1px solid;
+    border-color: $grey-light;
+}
+
+.request-working-time-row {
+    padding-top: 10px;   
+    padding-bottom: 10px;   
+}
+
+.request-working-time-row-container:nth-of-type(2n) {
+    background: $grey-lighter;
+}
+
+.request-working-time-row-container:last-of-type {
+    border-bottom: 1px solid;
+    border-color: $grey-light;
+    margin-bottom: 30px
+}
