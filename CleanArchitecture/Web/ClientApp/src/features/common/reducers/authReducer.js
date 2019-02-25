@@ -8,7 +8,7 @@ const initialState = {
     // roles: ['anonymous']
     // todo
     authenticated: true,
-    patientId: 5,
+    patientId: 1005,
     doctorId: 1003,
     userId: 1005,
     jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDA1IiwiZG9jdG9ySWQiOiIxMDAzIiwicGF0aWVudElkIjoiMTAwNSIsImV4cCI6MTU4MjEyNTgyMiwiaXNzIjoieW91cmRvbWFpbi5jb20iLCJhdWQiOiJ5b3VyZG9tYWluLmNvbSJ9._GE3Mbg6tFeDnNb3W3cWU0EqDPQssvxrMLgDJfTc9yM',
