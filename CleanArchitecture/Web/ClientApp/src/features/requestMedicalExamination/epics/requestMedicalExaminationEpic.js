@@ -34,7 +34,6 @@ const requestMedicalExaminationFulfilled$ = (action$, state$) => action$.pipe(
     mergeMap(() =>
         merge( 
             of(notification.actions.NOTIFY_SUCCESS('Successfully requested')),
-            of(push(routesConfig.home.route))
         )
     )
 );

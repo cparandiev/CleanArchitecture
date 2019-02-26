@@ -6,6 +6,7 @@ import { deleteDoctorWorkingTime } from "../features/doctorWorkingTime/epics";
 import { addWorkingTimeEpic } from "../features/addWorkingTime/epics";
 import { getPatientMedicalExaminationsEpic } from "../features/patientMedicalExaminations/epics";
 import { getAllClinicsWithDoctorsEpic, requestMedicalExaminationEpic } from "../features/requestMedicalExamination/epics";
+import { getDoctorExaminationsEpic } from "../features/doctorExaminations/epics";
 
 export default (apiService) => combineEpics(
     apiRequestEpic(apiService),
@@ -15,5 +16,6 @@ export default (apiService) => combineEpics(
     getPatientMedicalExaminationsEpic,
     getAllClinicsWithDoctorsEpic,
     requestMedicalExaminationEpic,
+    getDoctorExaminationsEpic,
     ...loginEpics
 );

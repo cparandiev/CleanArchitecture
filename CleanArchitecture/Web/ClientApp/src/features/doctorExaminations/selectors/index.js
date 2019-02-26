@@ -1,0 +1,1 @@
+export {default as examinationsSelector} from "./examinationsSelector";

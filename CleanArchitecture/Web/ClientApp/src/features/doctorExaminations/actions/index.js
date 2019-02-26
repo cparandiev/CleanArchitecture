@@ -1,0 +1,1 @@
+export {default as getDoctorExaminations} from "./getDoctorExaminations";

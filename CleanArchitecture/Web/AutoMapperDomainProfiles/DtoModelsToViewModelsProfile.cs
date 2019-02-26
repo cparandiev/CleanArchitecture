@@ -1,5 +1,7 @@
 ﻿using Application.Features.Clinic.Models;
 using Application.Features.Doctor.Models;
+using Application.Features.MedicalExaminationRequest.Models;
+using Application.Features.MedicalExaminationResult.Models;
 using Application.Features.Patient.Models;
 using Application.Features.Users.Models;
 using AutoMapper;
@@ -44,6 +46,12 @@ namespace Web.AutoMapperDomainProfiles
 
             #region Clinic mappings
             CreateMap<ClinicDto, ClinicViewModel>();
+            #endregion
+
+
+            #region Medical Examination mappings
+            CreateMap<MedicalExaminationRequestDto, MedicalExaminationRequestViewModel>();
+            CreateMap<MedicalExaminationResultDto, MedicalExaminationResultViewModel>();
             #endregion
         }
     }

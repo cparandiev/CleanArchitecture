@@ -1,0 +1,1 @@
+export {default as getDoctorExaminationsEpic} from "./getDoctorExaminationsEpic";

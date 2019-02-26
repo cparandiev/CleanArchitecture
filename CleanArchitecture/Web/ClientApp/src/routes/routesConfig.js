@@ -7,6 +7,7 @@ import doctorWorkingTime from '../features/doctorWorkingTime';
 import addWorkingTime from '../features/addWorkingTime';
 import patientMedicalExaminations from '../features/patientMedicalExaminations';
 import requestMedicalExamination from '../features/requestMedicalExamination';
+import doctorExaminations from '../features/doctorExaminations';
 import { Counter } from '../components/Counter';
 
 export default {
@@ -88,15 +89,12 @@ export default {
         exact: true,
         authenticated: true,
     },
-    counter: {
-        path: '/counter2',
-        requiredRoles: [],
-        component: Counter
-    },
-    fetchdata: {
-        path: '/fetchdata',
-        requiredRoles: [],
-        component: Counter
+    doctorExaminations: {
+        path: '/doctor/examinations',
+        requiredRoles: ['doctor'],
+        component: doctorExaminations,
+        exact: true,
+        authenticated: true,
     },
     // notFound: {
     //     path: '*',

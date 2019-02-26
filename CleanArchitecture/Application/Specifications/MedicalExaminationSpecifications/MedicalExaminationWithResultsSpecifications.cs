@@ -12,6 +12,12 @@ namespace Application.Specifications.MedicalExaminationSpecifications
             AddIncludes();
         }
 
+        public MedicalExaminationWithResultsSpecifications(int doctorId)
+            : base(m => m.DoctorId == doctorId)
+        {
+            AddIncludes();
+        }
+
         private void AddIncludes()
         {
             AddInclude(m => m.Result);

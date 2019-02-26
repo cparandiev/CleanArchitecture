@@ -8,6 +8,9 @@ using Web.Models.BindingModels;
 using Web.Filters;
 using Application.Features.Doctor.Queries.GetDoctorWorkingTimes;
 using Application.Features.Doctor.Commands.DeleteWorkingTime;
+using Application.Features.Doctor.Queries.GetDoctorMedicalExaminations;
+using Web.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace Web.Controllers
 {
@@ -54,7 +57,20 @@ namespace Web.Controllers
             return Ok();
         }
 
-        
+        [HttpGet("{doctorId:int}/MedicalExaminations")]
+        [Authorize(Roles = nameof(Role.Doctor))]
+        public async Task<IActionResult> WeeklyWorkingTime(DoctorMedicalExaminationsBm model)
+        {
+            var getDoctorMedicalExaminationsQuery = _autoMapper.Map<GetDoctorMedicalExaminationsQuery>(model);
+
+            var medicalExaminationsDtos = await Mediator.Send(getDoctorMedicalExaminationsQuery);
+
+            var medicalExaminationsVms = _autoMapper.Map<List<MedicalExaminationRequestViewModel>>(medicalExaminationsDtos);
+
+            return Ok(medicalExaminationsVms);
+        }
+
+
         [HttpGet("one/{patientId}")]
         //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> Test(int? patientId)

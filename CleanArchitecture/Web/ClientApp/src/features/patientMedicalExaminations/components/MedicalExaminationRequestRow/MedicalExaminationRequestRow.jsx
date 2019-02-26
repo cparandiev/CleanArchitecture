@@ -58,7 +58,7 @@ MedicalExaminationRequestRow.protoTypes = {
     id: PropTypes.number,
     isApproved: PropTypes.bool,
     isAccomplished: PropTypes.bool,
-    requestDate: PropTypes.date,
+    requestDate: PropTypes.instanceOf(Date),
     doctor: PropTypes.string,
     clinic: PropTypes.string,
     result: PropTypes.object,
