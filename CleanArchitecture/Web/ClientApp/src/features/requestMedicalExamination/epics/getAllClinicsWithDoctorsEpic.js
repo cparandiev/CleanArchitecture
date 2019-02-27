@@ -1,4 +1,4 @@
-import { mergeMap,debounceTime, mapTo } from 'rxjs/operators';
+import { mergeMap,debounceTime } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { combineEpics, ofType } from 'redux-observable';
 

@@ -3,6 +3,8 @@ import ReactPaginate from 'react-paginate';
 import MaterialIcon from 'material-icons-react';
 import PropTypes from 'prop-types';
 
+import "./paginate.css"
+
 class Paginate extends Component {
     render() {
         const { pageCount, onPageChange} = this.props;
@@ -27,7 +29,7 @@ class Paginate extends Component {
                     onPageChange={onPageChange}
                     containerClassName={'pagination justify-content-center'}
                     subContainerClassName={'pages pagination'}
-                    activeClassName={'active'}
+                    activeClassName={'active-page'}
                 />
             </nav>
         );

@@ -1,9 +1,9 @@
-import { mergeMap,debounceTime, mapTo } from 'rxjs/operators';
+import { mergeMap,debounceTime } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { combineEpics, ofType } from 'redux-observable';
 
 import { getPatientMedicalExaminations } from "../actions";
-import { apiRequest, notification } from "../../common/actions";
+import { apiRequest } from "../../common/actions";
 import { userSelector } from "../../common/selectors";
 
 const getPatientMedicalExaminations$ = (action$, state$) => action$.pipe(

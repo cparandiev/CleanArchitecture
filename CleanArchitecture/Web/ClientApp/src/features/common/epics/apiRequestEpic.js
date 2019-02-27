@@ -1,8 +1,11 @@
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { ofType } from 'redux-observable';
+import { pathEq } from "ramda";
 
-import { apiRequest } from "../actions/";
+import { apiRequest, notification } from "../actions/";
+
+const isUnauthorized = pathEq(['response', 'status'], 401);
 
 const apiRequestEpic$ = (apiService) => action$ => action$.pipe(
     ofType(apiRequest.types.DEFAULT),
@@ -11,8 +14,9 @@ const apiRequestEpic$ = (apiService) => action$ => action$.pipe(
             map((response) => 
                 payload.FULFILLED(response, meta)
             ),
-            catchError(error => 
-                of(payload.REJECTED(error, meta))
+            catchError(error => isUnauthorized(error)
+                ? of(notification.actions.NOTIFY_ERROR("Unauthorized"))
+                : of(payload.REJECTED(error, meta))
             )
         )
     )

@@ -1,0 +1,7 @@
+@import '../../../../styles/variables.scss';
+
+.active-page > a {
+    background-color: $red !important;
+    border-color: $red !important;
+    color: $white !important;
+}

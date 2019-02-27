@@ -1,0 +1,13 @@
+.doctor-examination-row {
+  padding-bottom: 10px;
+  border-top: 1px solid;
+  border-color: #DFDFDF;
+  padding-top: 10px; }
+
+.doctor-examination-row:last-of-type {
+  border-bottom: 1px solid;
+  border-color: #DFDFDF;
+  margin-bottom: 30px; }
+
+.doctor-examination-row:nth-of-type(2n) {
+  background: #F8F9FA; }

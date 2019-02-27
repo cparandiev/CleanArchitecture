@@ -1,13 +1,11 @@
-import { mergeMap,debounceTime, mapTo } from 'rxjs/operators';
+import { mergeMap,debounceTime } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { combineEpics, ofType } from 'redux-observable';
-import { push } from 'connected-react-router';
-import { pick, flatten, map as Rmap, values, apply } from "ramda";
+import { flatten, map as Rmap, values, apply } from "ramda";
 
 import { requestMedicalExamination } from "../actions";
 import { apiRequest, notification} from "../../common/actions";
 import { userSelector } from "../../common/selectors";
-import routesConfig from "../../../routes/routesConfig";
 
 const requestMedicalExamination$ = (action$, state$) => action$.pipe(
     ofType(requestMedicalExamination.types.DEFAULT),
@@ -29,7 +27,7 @@ const requestMedicalExamination$ = (action$, state$) => action$.pipe(
     )
 );
 
-const requestMedicalExaminationFulfilled$ = (action$, state$) => action$.pipe(
+const requestMedicalExaminationFulfilled$ = (action$) => action$.pipe(
     ofType(requestMedicalExamination.types.FULFILLED),
     mergeMap(() =>
         merge( 

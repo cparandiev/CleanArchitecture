@@ -8,7 +8,6 @@ import addWorkingTime from '../features/addWorkingTime';
 import patientMedicalExaminations from '../features/patientMedicalExaminations';
 import requestMedicalExamination from '../features/requestMedicalExamination';
 import doctorExaminations from '../features/doctorExaminations';
-import { Counter } from '../components/Counter';
 
 export default {
     signIn: {

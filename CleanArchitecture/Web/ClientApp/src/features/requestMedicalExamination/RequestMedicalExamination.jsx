@@ -11,8 +11,6 @@ import { selectedDoctorWokingTimes, userSelector } from "../common/selectors";
 import {getAllClinicsWithDoctors, requestMedicalExamination} from "./actions";
 import {getDoctorsBySelectedClinicId, orderWorkingTimes, filterWorkingTimes} from "./utils";
 import {getDoctorWorkingTimes} from "../common/actions";
-import DatePicker from "react-datepicker";
-import MaterialIcon from 'material-icons-react';
 import WorkingTimeRow from "./components/WorkingTimeRow";
 import {getCurrentElements, getTotalPages} from "../../utils/paginate";
 import Paginate from "../common/components/Paginate";
@@ -106,7 +104,7 @@ class RequestNewExamination extends Component {
                                         <label className="title">Doctor</label>
                                     </div>
                                     <div className="col-8">
-                                        <DoctorsDropdown disabled={selectedClinicId==0} doctors={doctors} selectedDoctorId={selectedDoctorId} handleSelected={this.handleDoctorDropdownChange}/>
+                                        <DoctorsDropdown disabled={selectedClinicId===0} doctors={doctors} selectedDoctorId={selectedDoctorId} handleSelected={this.handleDoctorDropdownChange}/>
                                     </div>
                                 </div>
                                 {totalPages > 0 && 
