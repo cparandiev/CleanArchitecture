@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 import BaseButton from "./BaseButton";
+import routesConfig from "../../../../../routes/routesConfig";
 
-class ReviewButton extends Component {
+class AccomplishButton extends Component {
     render() {
-        const {onClick} = this.props;
+        const {id} = this.props;
 
         return (
-            <BaseButton onClick={onClick} label={"Start examination"} size={24} icon="rate_review"/>
+            <Link to={routesConfig.accomplishMedicalExamination.path.replace(':id(\\d+)', id)}>
+                <BaseButton label={"Start examination"} size={32} icon="rate_review"/>
+            </Link>
         );
     }
 }
 
-ReviewButton.propTypes = {
-    onClick: PropTypes.func,
+AccomplishButton.propTypes = {
+    id: PropTypes.number,
 }
 
-export default ReviewButton;
+export default AccomplishButton;

@@ -8,7 +8,7 @@ class CancelButton extends Component {
         const {onClick} = this.props;
 
         return (
-            <BaseButton onClick={onClick} label={"Cancel request"} size={24} icon="block"/>
+            <BaseButton onClick={onClick} label={"Cancel request"} size={32} icon="cancel"/>
         );
     }
 }

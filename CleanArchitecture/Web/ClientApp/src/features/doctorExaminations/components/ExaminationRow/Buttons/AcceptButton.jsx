@@ -8,7 +8,7 @@ class AcceptButton extends Component {
         const {onClick} = this.props;
 
         return (
-            <BaseButton onClick={onClick} label={"Accept request"} size={24} icon="done"/>
+            <BaseButton onClick={onClick} label={"Accept request"} size={32} icon="check_circle"/>
         );
     }
 }

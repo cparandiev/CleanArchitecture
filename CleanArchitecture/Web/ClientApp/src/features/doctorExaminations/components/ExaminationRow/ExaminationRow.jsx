@@ -8,11 +8,14 @@ import {AccomplishButton, AcceptButton, CancelButton, InformationButton} from ".
 import "./examination-row.css";
 
 class ExaminationRow extends Component {
-    
-    shouldComponentUpdate(nextProps) {
+    state = {open: false}
+
+    toggleOpen = () => {this.setState((state) => ({...state, open: !state.open}));}
+
+    shouldComponentUpdate(nextProps, nextState) {
         const objs = map(pickAll(['isAccomplished', 'isApproved']), [nextProps, this.props]);
 
-        return !equals(objs[0], objs[1]);
+        return !equals(objs[0], objs[1]) || !equals(nextState, this.state);
     }
 
     handleAccept = () => {
@@ -29,7 +32,8 @@ class ExaminationRow extends Component {
     }
 
     render() {
-        const {requestDate, isAccomplished, isApproved} = this.props;
+        const {open} = this.state;
+        const {requestDate, isAccomplished, isApproved, result, id} = this.props;
 
         return (
             <div className="doctor-examination-row">
@@ -47,12 +51,22 @@ class ExaminationRow extends Component {
                         <MaterialIcon key={isAccomplished} icon={isAccomplished ? "check_circle" : "block"} size="24" />
                     </div>
                     <div className="col-2 d-flex justify-content-center title">
-                        {isApproved && !isAccomplished && <AccomplishButton/>}
+                        {isApproved && !isAccomplished && <AccomplishButton id={id}/>}
                         {!isApproved && <AcceptButton onClick={this.handleAccept}/>}
                         {isApproved && !isAccomplished && <CancelButton onClick={this.handleCancel}/>}
-                        {isAccomplished && <InformationButton/>}
+                        {isAccomplished && <InformationButton onClick={this.toggleOpen}/>}
                     </div>
                 </div>
+                {open && (<div className="doctor-examination-expandable-row-container">
+                    <div className="row">
+                        <div className="col-2 offset-1 title">
+                            Result:
+                        </div>
+                        <div className="col-8">
+                            {result.notes}
+                        </div>
+                    </div>
+                </div>)}
             </div>
         );
     }
@@ -65,6 +79,7 @@ ExaminationRow.propTypes = {
     isAccomplished: PropTypes.bool,
     isApproved: PropTypes.bool,
     id: PropTypes.number,
+    result: PropTypes.object,
 }
 
 export default ExaminationRow;

@@ -8,9 +8,7 @@ import "./medical-examination-request-row.css";
 class MedicalExaminationRequestRow extends Component {
     state={open: false}
 
-    toggleOpen = () => {
-        this.setState((state) => ({...state, open: !state.open}));
-    }
+    toggleOpen = () => {this.setState((state) => ({...state, open: !state.open}));}
 
     render() {
         const {open} = this.state;
@@ -34,12 +32,11 @@ class MedicalExaminationRequestRow extends Component {
                     <div className="col-2 d-flex justify-content-center title">
                         <MaterialIcon icon={isAccomplished ? "check_circle" : "block"} size="24" />
                     </div>
-                    <div className="col d-flex justify-content-center title">
+                    {result && (<div className="col d-flex justify-content-center title">
                         <MaterialIcon key={open} className="material-icons 32 md-dark clickable-icon" icon={open ? "expand_less"  : "expand_more"} size="32" onClick={this.toggleOpen}/>
-                    </div>
+                    </div>)}
                 </div>
-                {open &&
-                (<div className="medical-examination-request-expandable-content-container">
+                {open && (<div className="medical-examination-request-expandable-content-container">
                     <div className="row align-items-center medical-examination-request-expandable-content-row">
                         <div className="col-2 offset-1 title">
                             Result:

@@ -62,6 +62,7 @@ class DoctorExaminations extends Component {
                                 <RangePicker handleChangeFrom={this.handleChange('from')} handleChangeTo={this.handleChange('to')} titleFrom="From" titleTo="To" dateFrom={from} dateTo={to}/>
                                 {totalPages > 0 && 
                                     <React.Fragment>
+                                        <hr/>
                                         <div className="row align-items-center">
                                             <div className="col-3 d-flex justify-content-center title">
                                                 Date

@@ -8,7 +8,7 @@ class InformationButton extends Component {
         const {onClick} = this.props;
 
         return (
-            <BaseButton onClick={onClick} label={"More info"} size={24} icon="info"/>
+            <BaseButton onClick={onClick} label={"More info"} size={32} icon="info"/>
         );
     }
 }

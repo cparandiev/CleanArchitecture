@@ -25,7 +25,10 @@ body {
 }
 
 .clickable-icon{
+    color: $red-light !important;
+
     &:hover {
+        color: $red-dark !important;
         cursor: pointer;
     }
 }

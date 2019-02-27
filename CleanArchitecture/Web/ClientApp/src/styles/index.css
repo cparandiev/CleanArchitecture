@@ -18,5 +18,9 @@ body {
 .react-datepicker-wrapper > div > input {
   width: 114%; }
 
+.clickable-icon {
+  color: #CA8181 !important; }
+
 .clickable-icon:hover {
+  color: #CC0000 !important;
   cursor: pointer; }

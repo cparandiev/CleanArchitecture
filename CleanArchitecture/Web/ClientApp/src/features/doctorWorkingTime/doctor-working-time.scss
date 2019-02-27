@@ -12,6 +12,10 @@
     margin-top: 10px;
 }
 
+.working-time-row:nth-of-type(2n){
+    background: $grey-lighter;
+}
+
 .working-time-row:last-of-type {
     border-bottom: 1px solid;
     border-color: $grey-light;

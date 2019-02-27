@@ -8,6 +8,7 @@ import addWorkingTime from '../features/addWorkingTime';
 import patientMedicalExaminations from '../features/patientMedicalExaminations';
 import requestMedicalExamination from '../features/requestMedicalExamination';
 import doctorExaminations from '../features/doctorExaminations';
+import accomplishMedicalExamination from '../features/accomplishMedicalExamination';
 
 export default {
     signIn: {
@@ -95,6 +96,13 @@ export default {
         exact: true,
         authenticated: true,
     },
+    accomplishMedicalExamination: {
+        path: '/medicalexamination/:id(\\d+)/accomplish',
+        requiredRoles: ['doctor'],
+        component: accomplishMedicalExamination,
+        exact: true,
+        authenticated: true,
+    }
     // notFound: {
     //     path: '*',
     //     requiredRoles: [],
