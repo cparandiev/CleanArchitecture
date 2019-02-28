@@ -7,21 +7,30 @@ import {userSelector} from "../features/common/selectors";
 import mergeSelectors from "../utils/mergeSelectors";
 import routesConfig from "./routesConfig";
 
-class AnonymousRoute extends Component {
-    render() {
-        const {user, exact, path, component} = this.props;
-
-        return (
-            !user.authenticated     
-                ? <Route exact={exact} path={path} component={component}/>
-                : <Route exact={exact} path={path} render={() => (<Redirect to={routesConfig.home.path} />)}/>
-        );
-    }
+const ComponentWrapper = ({Component, user, ...rest}) => {
+    
+    return !user.authenticated     
+        ? (<Component {...rest}/>)
+        : (<Redirect to={routesConfig.home.path} />);
 }
 
 const selectors = [userSelector];
-
 const mapStateToProps = mergeSelectors(selectors);
+const ConnectedComponentWrapper = connect(mapStateToProps)(ComponentWrapper);
+
+class AnonymousRoute extends Component {
+    render() {
+        const {exact, path, component} = this.props;
+
+        return (
+            <Route 
+                exact={exact}
+                path={path}
+                component={(props) => <ConnectedComponentWrapper Component={component} {...props}/>} 
+            />
+        );
+    }
+}
 
 AnonymousRoute.propTypes = {
     exact: PropTypes.bool,
@@ -29,4 +38,4 @@ AnonymousRoute.propTypes = {
     component: PropTypes.func,
 }
 
-export default connect(mapStateToProps)(AnonymousRoute);
+export default AnonymousRoute;

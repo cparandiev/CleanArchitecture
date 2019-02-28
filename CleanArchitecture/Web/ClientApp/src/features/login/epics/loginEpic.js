@@ -30,7 +30,7 @@ const loginFulfilled$ = action$ => action$.pipe(
     mergeMap(action =>
         merge( 
             of(notification.actions.NOTIFY_SUCCESS('Successful login')),
-            of(push(routesConfig.home.route))
+            of(push(routesConfig.home.path))
         )
     )
 );

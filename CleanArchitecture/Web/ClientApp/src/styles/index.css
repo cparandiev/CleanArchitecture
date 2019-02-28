@@ -20,7 +20,6 @@ body {
 
 .clickable-icon {
   color: #CA8181 !important; }
-
-.clickable-icon:hover {
-  color: #CC0000 !important;
-  cursor: pointer; }
+  .clickable-icon:hover {
+    color: #CC0000 !important;
+    cursor: pointer; }
