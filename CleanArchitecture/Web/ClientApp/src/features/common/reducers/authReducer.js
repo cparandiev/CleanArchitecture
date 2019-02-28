@@ -1,6 +1,7 @@
 import { toLower, map } from "ramda";
 
 import login from "../../login/actions";
+import {logout} from "../../logout/actions";
 
 const initialState = {
     // authenticated: false,
@@ -26,6 +27,8 @@ const authReducer = (state = initialState, {type, payload})=> {
         case login.types.FULFILLED:
 
             return {authenticated: true, ...payload.data, roles: map(toLower, payload.data.roles)};
+        case  logout.types.DEFAULT:
+            return {authenticated: false, roles: ['anonymous']}
         default: 
             return state;
     }

@@ -9,6 +9,7 @@ import patientMedicalExaminations from '../features/patientMedicalExaminations';
 import requestMedicalExamination from '../features/requestMedicalExamination';
 import doctorExaminations from '../features/doctorExaminations';
 import accomplishMedicalExamination from '../features/accomplishMedicalExamination';
+import logout from '../features/logout';
 
 export default {
     signIn: {
@@ -39,7 +40,7 @@ export default {
     logout: {
         path: '/logout',
         requiredRoles: [],
-        component: Home,
+        component: logout,
         exact: true,
         authenticated: true,
     },

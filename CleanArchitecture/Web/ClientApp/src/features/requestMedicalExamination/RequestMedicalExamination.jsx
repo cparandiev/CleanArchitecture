@@ -76,8 +76,6 @@ class RequestNewExamination extends Component {
         const totalPages = getTotalPages(elementPerPage, sortedAndFilteredDoctorWokingTimes);
         const renderRows = renderRowsByPage(elementPerPage, offset + 1, this.handleSubmit, requestDate, durationInMinutes, this.handleChange2('durationInMinutes'), this.handleChange('requestDate')); //todo
 
-        console.log(durationInMinutes);
-
         return (
             <div className="container">
                 <div className="row">
