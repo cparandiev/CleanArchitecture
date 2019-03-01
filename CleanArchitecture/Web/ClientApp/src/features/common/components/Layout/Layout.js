@@ -7,7 +7,7 @@ export class Layout extends Component {
     return (
       <div className="main-layout">
         <div className="container page-content">
-              {this.props.children}
+            {this.props.children}
         </div>
       </div>
     );

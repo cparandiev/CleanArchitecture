@@ -1,0 +1,40 @@
+@import '../../../../styles/variables.scss';
+
+.body-examination-row {
+    padding-top: 10px;   
+    padding-bottom: 10px;   
+}
+
+.body-examination-row-container {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-top: 1px solid;
+    border-color: $grey-light;
+}
+
+.body-examination-row-container-wrapper:nth-of-type(2n-1) {
+    background: $white;
+    .body-examination-row-container{
+        background: $grey-lighter;
+    }
+}
+
+.body-examination-row-container-wrapper:nth-of-type(2n) {
+    background: $grey-lighter;
+    .body-examination-row-container{
+        background: $white;
+    }
+}
+
+.body-examination-row-container:nth-of-type(2n) {
+    background: $grey-lighter;
+}
+.body-examination-row-container:nth-of-type(2n-1) {
+    background: $white;
+}
+
+.body-examination-row-container:last-of-type {
+    // border-bottom: 1px solid;
+    border-color: $grey-light;
+    // margin-bottom: 30px
+}

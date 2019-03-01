@@ -20,6 +20,11 @@ body {
     font-weight: bold;
 }
 
+.text {
+    color: $grey;
+    font-weight: 600;
+}
+
 .react-datepicker-wrapper>div>input {
     width: 114%;
 }

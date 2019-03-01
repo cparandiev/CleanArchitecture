@@ -10,6 +10,7 @@ import requestMedicalExamination from '../features/requestMedicalExamination';
 import doctorExaminations from '../features/doctorExaminations';
 import accomplishMedicalExamination from '../features/accomplishMedicalExamination';
 import logout from '../features/logout';
+import patientBodyЕxaminations from '../features/patientBodyЕxaminations';
 
 export default {
     signIn: {
@@ -101,6 +102,13 @@ export default {
         path: '/medicalexamination/:id(\\d+)/accomplish',
         requiredRoles: ['doctor'],
         component: accomplishMedicalExamination,
+        exact: true,
+        authenticated: true,
+    },
+    patientBodyЕxaminations: {
+        path: '/patient/bodyexaminations',
+        requiredRoles: ['patient'],
+        component: patientBodyЕxaminations,
         exact: true,
         authenticated: true,
     }
