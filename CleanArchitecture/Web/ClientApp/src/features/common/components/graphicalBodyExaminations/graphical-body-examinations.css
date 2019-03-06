@@ -1,0 +1,29 @@
+.body-graphical-examination-row {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.body-graphical-examination-row-container {
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-top: 1px solid;
+  border-color: #DFDFDF; }
+
+.body-graphical-examination-row-container-wrapper:nth-of-type(2n) {
+  background: #fff; }
+  .body-graphical-examination-row-container-wrapper:nth-of-type(2n) .body-graphical-examination-row-container {
+    background: #F8F9FA; }
+
+.body-graphical-examination-row-container-wrapper:nth-of-type(2n-1) {
+  background: #F8F9FA; }
+  .body-graphical-examination-row-container-wrapper:nth-of-type(2n-1) .body-graphical-examination-row-container {
+    background: #fff; }
+
+.body-graphical-examination-row-container:nth-of-type(2n-1) {
+  background: #F8F9FA; }
+
+.body-graphical-examination-row-container:nth-of-type(2n) {
+  background: #fff; }
+
+.body-graphical-examination-row-container-wrapper:last-of-type {
+  border-bottom: 1px solid;
+  border-color: #DFDFDF; }

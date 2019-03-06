@@ -29,7 +29,6 @@ const reviewMedicalExaminationEpic$ = (action$, state$) => action$.pipe(
 
 const reviewMedicalExaminationFulfilledEpic$ = (action$, state$) => action$.pipe(
     ofType(reviewMedicalExamination.types.FULFILLED),
-    tap(console.log),
     mergeMap(({meta}) =>
         merge( 
             of(notification.actions.NOTIFY_SUCCESS(`Successfully ${meta.isApproved ? "approved" : "disapproved"}`)),
