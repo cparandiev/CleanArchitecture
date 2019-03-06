@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.AdminAggregate;
+using Domain.Entities.BodyЕxaminationResultAggregate;
 using Domain.Entities.ClinicAggregate;
 using Domain.Entities.DoctorAggregate;
 using Domain.Entities.MedicalExaminationRequestAggregate;
@@ -24,7 +25,8 @@ namespace Persistence
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Clinic> Clinics { get; set; }
-        
+        public DbSet<BodyЕxaminationType> BodyЕxaminationTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -11,20 +11,13 @@ namespace Web.Controllers
     [Authorize]
     public class ClinicController : BaseController
     {
-        private readonly IMapper _autoMapper;
-
-        public ClinicController(IMapper autoMapper)
-        {
-            _autoMapper = autoMapper;
-        }
-
         [HttpGet]
         [AllowAnonymous] // todo
         public async Task<IActionResult> GetAllClinics()
         {
             var clinicsDto = await Mediator.Send(new GetAllClinicsQuery());
 
-            var clinicsViewModel = _autoMapper.Map<List<ClinicViewModel>>(clinicsDto);
+            var clinicsViewModel = AutoMapper.Map<List<ClinicViewModel>>(clinicsDto);
 
             return Ok(clinicsViewModel);
         }

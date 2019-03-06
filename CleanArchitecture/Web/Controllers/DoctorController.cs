@@ -17,18 +17,11 @@ namespace Web.Controllers
     [Authorize]
     public class DoctorController : BaseController
     {
-        private readonly IMapper _autoMapper;
-
-        public DoctorController(IMapper autoMapper)
-        {
-            _autoMapper = autoMapper;
-        }
-
         [HttpDelete("WorkingTime/{workingTimeId:int}")]
         [Authorize(Roles = nameof(Role.Doctor))]
         public async Task<IActionResult> DeleteWorkingTime([FromRoute]DeleteWorkingTimeBm workingTime)
         {
-            var deleteWorkingTimeCommand = _autoMapper.Map<DeleteWorkingTimeCommand>(workingTime);
+            var deleteWorkingTimeCommand = AutoMapper.Map<DeleteWorkingTimeCommand>(workingTime);
 
             await Mediator.Send(deleteWorkingTimeCommand);
 
@@ -50,7 +43,7 @@ namespace Web.Controllers
         //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> WeeklyWorkingTime([FromRoute] int? doctorId, [FromBody]DoctorWeeklyWorkingTimeBm model)
         {
-            var setWeeklyWorkingTimeCommand = _autoMapper.Map<SetWeeklyWorkingTimeCommand>(model, opts => opts.Items[nameof(SetWeeklyWorkingTimeCommand.DoctorId)] = doctorId.Value);
+            var setWeeklyWorkingTimeCommand = AutoMapper.Map<SetWeeklyWorkingTimeCommand>(model, opts => opts.Items[nameof(SetWeeklyWorkingTimeCommand.DoctorId)] = doctorId.Value);
             
             await Mediator.Send(setWeeklyWorkingTimeCommand);
 
@@ -61,11 +54,11 @@ namespace Web.Controllers
         [Authorize(Roles = nameof(Role.Doctor))]
         public async Task<IActionResult> WeeklyWorkingTime(DoctorMedicalExaminationsBm model)
         {
-            var getDoctorMedicalExaminationsQuery = _autoMapper.Map<GetDoctorMedicalExaminationsQuery>(model);
+            var getDoctorMedicalExaminationsQuery = AutoMapper.Map<GetDoctorMedicalExaminationsQuery>(model);
 
             var medicalExaminationsDtos = await Mediator.Send(getDoctorMedicalExaminationsQuery);
 
-            var medicalExaminationsVms = _autoMapper.Map<List<MedicalExaminationRequestViewModel>>(medicalExaminationsDtos);
+            var medicalExaminationsVms = AutoMapper.Map<List<MedicalExaminationRequestViewModel>>(medicalExaminationsDtos);
 
             return Ok(medicalExaminationsVms);
         }

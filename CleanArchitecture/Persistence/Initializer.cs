@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.AdminAggregate;
+using Domain.Entities.BodyЕxaminationResultAggregate;
 using Domain.Entities.ClinicAggregate;
 using Domain.Entities.DoctorAggregate;
 using Domain.Entities.PatientAggregate;
@@ -138,7 +139,31 @@ namespace Persistence
 
             context.Patients.AddRange(patients);
             #endregion
-            
+
+            #region BodyExaminations
+            var bodyЕxaminationTypes = new BodyЕxaminationType[]
+            {
+                new BodyЕxaminationType
+                {
+                    Value = BodyExaminationType.BloodOxygenLevel
+                },
+                new BodyЕxaminationType
+                {
+                    Value = BodyExaminationType.BloodPressure
+                },
+                new BodyЕxaminationType
+                {
+                    Value = BodyExaminationType.BodyTemperature
+                },
+                new BodyЕxaminationType
+                {
+                    Value = BodyExaminationType.PulseRate
+                }
+            };
+
+            context.BodyЕxaminationTypes.AddRange(bodyЕxaminationTypes);
+            #endregion
+
             context.SaveChanges();
         }
     }

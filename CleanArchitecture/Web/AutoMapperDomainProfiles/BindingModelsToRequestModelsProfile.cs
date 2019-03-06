@@ -1,4 +1,7 @@
 ﻿using Application.AutoMapperDomainProfiles.Converters;
+using Application.Features.BodyЕxamination.Commands.AddBloodOxygenLevelExamination;
+using Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExamination;
+using Application.Features.BodyЕxamination.Commands.AddPulseRateExamination;
 using Application.Features.Doctor.Commands.AccomplishMedicalExamination;
 using Application.Features.Doctor.Commands.CreateDoctor;
 using Application.Features.Doctor.Commands.DeleteWorkingTime;
@@ -68,6 +71,17 @@ namespace Web.AutoMapperDomainProfiles
                 .IncludeBase<object, UserIdentity>();
 
             CreateMap<DoctorMedicalExaminationsBm, GetDoctorMedicalExaminationsQuery>()
+                .IncludeBase<object, UserIdentity>();
+            #endregion
+
+            #region Body Examination mappings
+            CreateMap<AddBloodOxygenLevelExaminationBm, AddBloodOxygenLevelExaminationCommand>()
+                .IncludeBase<object, UserIdentity>();
+
+            CreateMap<AddBodyTemperatureExaminationBm, AddBodyTemperatureExaminationCommand>()
+                .IncludeBase<object, UserIdentity>();
+
+            CreateMap<AddPulseRateExaminationBm, AddPulseRateExaminationCommand>()
                 .IncludeBase<object, UserIdentity>();
             #endregion
 

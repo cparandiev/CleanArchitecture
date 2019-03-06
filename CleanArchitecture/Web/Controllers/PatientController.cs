@@ -13,19 +13,12 @@ namespace Web.Controllers
     [Authorize]
     public class PatientController : BaseController
     {
-        private readonly IMapper _autoMapper;
-
-        public PatientController(IMapper autoMapper)
-        {
-            _autoMapper = autoMapper;
-        }
-
         [HttpPost("{patientId:int}/RequestMedicalExamination")]
         [Authorize(Roles = nameof(Role.Patient))]
         //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> RequestMedicalExamination([FromRoute] int? patientId, [FromBody]RequestMedicalExaminationBm model)
         {
-            var requestMedicalExaminationCommand = _autoMapper.Map<RequestMedicalExaminationCommand>(model, opts => opts.Items[nameof(RequestMedicalExaminationCommand.PatientId)] = patientId.Value);
+            var requestMedicalExaminationCommand = AutoMapper.Map<RequestMedicalExaminationCommand>(model, opts => opts.Items[nameof(RequestMedicalExaminationCommand.PatientId)] = patientId.Value);
 
             await Mediator.Send(requestMedicalExaminationCommand);
 
@@ -38,7 +31,7 @@ namespace Web.Controllers
         //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> GetPatienMedicalExaminations(PatientMedicalExaminationsBm model)
         {
-            var getPatienMedicalExaminationsQuery = _autoMapper.Map<GetPatientMedicalExaminationsQuery>(model);
+            var getPatienMedicalExaminationsQuery = AutoMapper.Map<GetPatientMedicalExaminationsQuery>(model);
 
             var medicalExaminations = await Mediator.Send(getPatienMedicalExaminationsQuery);
 

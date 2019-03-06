@@ -23,13 +23,11 @@ namespace Web.Controllers
     public class AccountController : BaseController
     {
         private readonly IConfiguration _configuration;
-        private readonly IMapper _autoMapper;
         private readonly IAuthService _authService;
 
-        public AccountController(IConfiguration configuration, IMapper autoMapper, IAuthService authService)
+        public AccountController(IConfiguration configuration, IAuthService authService)
         {
             _configuration = configuration;
-            _autoMapper = autoMapper;
             _authService = authService;
         }
 
@@ -37,21 +35,21 @@ namespace Web.Controllers
         [HttpPost("register/patient")]
         public async Task<IActionResult> RegisterPatient([FromBody]RegisterPatientBm model)
         {
-            var createPatientCommand = _autoMapper.Map<CreatePatientCommand>(model);
+            var createPatientCommand = AutoMapper.Map<CreatePatientCommand>(model);
             
             var patient = await Mediator.Send(createPatientCommand);
 
-            return await LoginPatient(_autoMapper.Map<LoginPatientBm>(model));
+            return await LoginPatient(AutoMapper.Map<LoginPatientBm>(model));
         }
 
         [AllowAnonymous]
         [HttpPost("login/patient")]
         public async Task<IActionResult> LoginPatient([FromBody]LoginPatientBm model)
         {
-            var loginUserCommand = _autoMapper.Map<LoginPatientCommand>(model);
+            var loginUserCommand = AutoMapper.Map<LoginPatientCommand>(model);
             var patientDto = await Mediator.Send(loginUserCommand);
             
-            var loggedUserVm = _autoMapper.Map<LoggedPatientViewModel>(patientDto);
+            var loggedUserVm = AutoMapper.Map<LoggedPatientViewModel>(patientDto);
             loggedUserVm.JWT = CreateJWT(new List<Claim>() {
                 new Claim (UserClaimsNames.USER_ID, patientDto.User.Id.ToString()),
                 new Claim (UserClaimsNames.PATIENT_ID, patientDto.Id.ToString())
@@ -64,21 +62,21 @@ namespace Web.Controllers
         [HttpPost("register/doctor")]
         public async Task<IActionResult> RegisterDoctor([FromBody]RegisterDoctorBm model)
         {
-            var createDoctorCommand = _autoMapper.Map<CreateDoctorCommand>(model);
+            var createDoctorCommand = AutoMapper.Map<CreateDoctorCommand>(model);
 
             var doctor = await Mediator.Send(createDoctorCommand);
 
-            return await LoginDoctor(_autoMapper.Map<LoginDoctorBm>(model));
+            return await LoginDoctor(AutoMapper.Map<LoginDoctorBm>(model));
         }
 
         [AllowAnonymous]
         [HttpPost("login/doctor")]
         public async Task<IActionResult> LoginDoctor([FromBody]LoginDoctorBm model)
         {
-            var loginDoctorCommand = _autoMapper.Map<LoginDoctorCommand>(model);
+            var loginDoctorCommand = AutoMapper.Map<LoginDoctorCommand>(model);
             var doctorDto = await Mediator.Send(loginDoctorCommand);
             
-            var loggedUserVm = _autoMapper.Map<LoggedDoctorViewModel>(doctorDto);
+            var loggedUserVm = AutoMapper.Map<LoggedDoctorViewModel>(doctorDto);
             loggedUserVm.JWT = CreateJWT(new List<Claim>() {
                 new Claim (UserClaimsNames.USER_ID, doctorDto.User.Id.ToString()),
                 new Claim (UserClaimsNames.DOCTOR_ID, doctorDto.Id.ToString()),

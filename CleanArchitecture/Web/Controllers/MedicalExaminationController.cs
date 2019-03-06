@@ -13,18 +13,11 @@ namespace Web.Controllers
     [Authorize]
     public class MedicalExaminationController : BaseController
     {
-        private readonly IMapper _autoMapper;
-
-        public MedicalExaminationController(IMapper autoMapper)
-        {
-            _autoMapper = autoMapper;
-        }
-
         [HttpPost]
         [Authorize(Roles = nameof(Role.Patient))]
         public async Task<IActionResult> RequestMedicalExamination([FromBody]RequestMedicalExaminationBm model)
         {
-            var requestMedicalExaminationCommand = _autoMapper.Map<RequestMedicalExaminationCommand>(model);
+            var requestMedicalExaminationCommand = AutoMapper.Map<RequestMedicalExaminationCommand>(model);
 
             await Mediator.Send(requestMedicalExaminationCommand);
 
@@ -36,7 +29,7 @@ namespace Web.Controllers
         [Authorize(Roles = nameof(Role.Doctor))]
         public async Task<IActionResult> ReviewMedicalExamination([FromRoute]int? requestId, [FromBody]ReviewMedicalExaminationBm model)
         {
-            var approveMedicalExaminationCommand = _autoMapper.Map<ReviewMedicalExaminationCommand>(model, opts => opts.Items[nameof(ReviewMedicalExaminationCommand.RequestId)] = requestId);
+            var approveMedicalExaminationCommand = AutoMapper.Map<ReviewMedicalExaminationCommand>(model, opts => opts.Items[nameof(ReviewMedicalExaminationCommand.RequestId)] = requestId);
 
             await Mediator.Send(approveMedicalExaminationCommand);
 
@@ -47,7 +40,7 @@ namespace Web.Controllers
         [Authorize(Roles = nameof(Role.Doctor))]
         public async Task<IActionResult> AccomplishMedicalExamination([FromRoute]int? requestId, [FromBody]AccomplishMedicalExaminationBm model)
         {
-            var accomplishMedicalExaminationCommand = _autoMapper.Map<AccomplishMedicalExaminationCommand>(model, opts => opts.Items[nameof(AccomplishMedicalExaminationCommand.RequestId)] = requestId);
+            var accomplishMedicalExaminationCommand = AutoMapper.Map<AccomplishMedicalExaminationCommand>(model, opts => opts.Items[nameof(AccomplishMedicalExaminationCommand.RequestId)] = requestId);
 
             await Mediator.Send(accomplishMedicalExaminationCommand);
 
