@@ -11,7 +11,7 @@ namespace Persistence
 
         public UnitOfWork(Context context, IUserRepository userRepository, IPatientRepository patientRepository, IRoleRepository rolesRepository, IDoctorRepository doctorsRepository, IClinicRepository clinicRepository,
             IMedicalExaminationRequestRepository medicalExaminationRequestsRepository, IDoctorWorkingTimeRepository doctorWorkingTimesRepository,
-            IBodyЕxaminationResultRepository bodyЕxaminationResultRepository, IBodyЕxaminationTypeRepository bodyЕxaminationTypeRepository)
+            IBodyExaminationResultRepository bodyExaminationResultRepository, IBodyExaminationTypeRepository bodyExaminationTypeRepository)
         {
             _context = context;
             Users = userRepository;
@@ -21,8 +21,8 @@ namespace Persistence
             Clinics = clinicRepository;
             MedicalExaminationRequests = medicalExaminationRequestsRepository;
             DoctorWorkingTimes = doctorWorkingTimesRepository;
-            BodyЕxaminationResultRepository = bodyЕxaminationResultRepository;
-            BodyЕxaminationTypeRepository = bodyЕxaminationTypeRepository;
+            BodyExaminationResultRepository = bodyExaminationResultRepository;
+            BodyExaminationTypeRepository = bodyExaminationTypeRepository;
         }
 
         public IUserRepository Users { get; }
@@ -39,9 +39,9 @@ namespace Persistence
 
         public IDoctorWorkingTimeRepository DoctorWorkingTimes { get; }
 
-        public IBodyЕxaminationResultRepository BodyЕxaminationResultRepository { get; }
+        public IBodyExaminationResultRepository BodyExaminationResultRepository { get; }
 
-        public IBodyЕxaminationTypeRepository BodyЕxaminationTypeRepository { get; }
+        public IBodyExaminationTypeRepository BodyExaminationTypeRepository { get; }
 
         public async Task CompleteAsync()
         {

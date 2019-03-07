@@ -10,7 +10,7 @@ import requestMedicalExamination from '../features/requestMedicalExamination';
 import doctorExaminations from '../features/doctorExaminations';
 import accomplishMedicalExamination from '../features/accomplishMedicalExamination';
 import logout from '../features/logout';
-import patientBodyЕxaminations from '../features/patientBodyЕxaminations';
+import patientBodyExaminations from '../features/patientBodyExaminations';
 
 export default {
     signIn: {
@@ -105,10 +105,10 @@ export default {
         exact: true,
         authenticated: true,
     },
-    patientBodyЕxaminations: {
+    patientBodyExaminations: {
         path: '/patient/bodyexaminations',
         requiredRoles: ['patient'],
-        component: patientBodyЕxaminations,
+        component: patientBodyExaminations,
         exact: true,
         authenticated: true,
     }

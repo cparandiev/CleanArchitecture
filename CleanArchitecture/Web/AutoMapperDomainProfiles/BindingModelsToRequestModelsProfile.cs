@@ -1,8 +1,8 @@
 ﻿using Application.AutoMapperDomainProfiles.Converters;
-using Application.Features.BodyЕxamination.Commands.AddBloodOxygenLevelExamination;
-using Application.Features.BodyЕxamination.Commands.AddBloodPressureExamination;
-using Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExamination;
-using Application.Features.BodyЕxamination.Commands.AddPulseRateExamination;
+using Application.Features.BodyExamination.Commands.AddBloodOxygenLevelExamination;
+using Application.Features.BodyExamination.Commands.AddBloodPressureExamination;
+using Application.Features.BodyExamination.Commands.AddBodyTemperatureExamination;
+using Application.Features.BodyExamination.Commands.AddPulseRateExamination;
 using Application.Features.Doctor.Commands.AccomplishMedicalExamination;
 using Application.Features.Doctor.Commands.CreateDoctor;
 using Application.Features.Doctor.Commands.DeleteWorkingTime;
@@ -13,7 +13,7 @@ using Application.Features.Doctor.Queries.GetDoctorMedicalExaminations;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Commands.RequestMedicalExamination;
-using Application.Features.Patient.Queries.GetPatienBodyЕxaminations;
+using Application.Features.Patient.Queries.GetPatienBodyExaminations;
 using Application.Features.Patient.Queries.GetPatientMedicalExaminations;
 using Application.Features.Users.Commands.CreateUser;
 using Application.Models;
@@ -89,7 +89,7 @@ namespace Web.AutoMapperDomainProfiles
             CreateMap<AddBloodPressureExaminationBm, AddBloodPressureExaminationCommand>()
                 .IncludeBase<object, UserIdentity>();
 
-            CreateMap<PatienBodyЕxaminationsBm, GetPatienBodyЕxaminationsQuery>()
+            CreateMap<PatienBodyExaminationsBm, GetPatienBodyExaminationsQuery>()
                 .IncludeBase<object, UserIdentity>();
             #endregion
 

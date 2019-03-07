@@ -6,7 +6,7 @@ namespace Web.Models.BindingModels
     {
         public int? PatientId { get; set; }
 
-        public DateTime? ЕxaminationDate { get; set; }
+        public DateTime? ExaminationDate { get; set; }
 
         public decimal? Temperature { get; set; }
     }

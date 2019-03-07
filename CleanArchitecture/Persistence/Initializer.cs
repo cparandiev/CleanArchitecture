@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.AdminAggregate;
-using Domain.Entities.BodyЕxaminationResultAggregate;
+using Domain.Entities.BodyExaminationResultAggregate;
 using Domain.Entities.ClinicAggregate;
 using Domain.Entities.DoctorAggregate;
 using Domain.Entities.PatientAggregate;
@@ -141,27 +141,27 @@ namespace Persistence
             #endregion
 
             #region BodyExaminations
-            var bodyЕxaminationTypes = new BodyЕxaminationType[]
+            var bodyExaminationTypes = new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType[]
             {
-                new BodyЕxaminationType
+                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
                 {
-                    Value = BodyExaminationType.BloodOxygenLevel
+                    Value = Domain.Enums.BodyExaminationType.BloodOxygenLevel
                 },
-                new BodyЕxaminationType
+                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
                 {
-                    Value = BodyExaminationType.BloodPressure
+                    Value = Domain.Enums.BodyExaminationType.BloodPressure
                 },
-                new BodyЕxaminationType
+                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
                 {
-                    Value = BodyExaminationType.BodyTemperature
+                    Value = Domain.Enums.BodyExaminationType.BodyTemperature
                 },
-                new BodyЕxaminationType
+                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
                 {
-                    Value = BodyExaminationType.PulseRate
+                    Value = Domain.Enums.BodyExaminationType.PulseRate
                 }
             };
 
-            context.BodyЕxaminationTypes.AddRange(bodyЕxaminationTypes);
+            context.BodyExaminationTypes.AddRange(bodyExaminationTypes);
             #endregion
 
             context.SaveChanges();

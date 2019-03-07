@@ -1,4 +1,4 @@
-﻿using Domain.Entities.BodyЕxaminationResultAggregate;
+﻿using Domain.Entities.BodyExaminationResultAggregate;
 using Domain.Entities.MedicalExaminationRequestAggregate;
 using Domain.Entities.UserAggregate;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace Domain.Entities.PatientAggregate
     {
         public Patient()
         {
-            BodyЕxaminationResults = new HashSet<BodyЕxaminationResult>();
+            BodyExaminationResults = new HashSet<BodyExaminationResult>();
             MedicalExaminationRequests = new HashSet<MedicalExaminationRequest>();
         }
 
@@ -19,6 +19,6 @@ namespace Domain.Entities.PatientAggregate
 
         public virtual ICollection<MedicalExaminationRequest> MedicalExaminationRequests { get; set; }
 
-        public virtual ICollection<BodyЕxaminationResult> BodyЕxaminationResults { get; set; }
+        public virtual ICollection<BodyExaminationResult> BodyExaminationResults { get; set; }
     }
 }

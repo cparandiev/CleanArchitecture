@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Application.Models;
+using MediatR;
+using System;
 
-namespace Web.Models.BindingModels
+namespace Application.Features.BodyExamination.Commands.AddBloodPressureExamination
 {
-    public class AddBloodPressureExaminationBm
+    public class AddBloodPressureExaminationCommand : UserIdentity, IRequest
     {
         public int? PatientId { get; set; }
 

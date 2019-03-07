@@ -1,5 +1,5 @@
 ﻿using Application.AutoMapperDomainProfiles.Converters;
-using Application.Features.BodyЕxamination.Models;
+using Application.Features.BodyExamination.Models;
 using Application.Features.Clinic.Models;
 using Application.Features.Doctor.Models;
 using Application.Features.MedicalExaminationRequest.Models;
@@ -7,7 +7,7 @@ using Application.Features.MedicalExaminationResult.Models;
 using Application.Features.Patient.Models;
 using Application.Features.Users.Models;
 using AutoMapper;
-using Domain.Entities.BodyЕxaminationResultAggregate;
+using Domain.Entities.BodyExaminationResultAggregate;
 using Domain.Entities.ClinicAggregate;
 using Domain.Entities.DoctorAggregate;
 using Domain.Entities.MedicalExaminationRequestAggregate;
@@ -54,12 +54,12 @@ namespace Application.AutoMapperDomainProfiles
             #endregion
 
             #region Body Examination mappings
-            CreateMap<BodyЕxaminationResult, BodyЕxaminationResultDto>();
+            CreateMap<BodyExaminationResult, BodyExaminationResultDto>();
 
-            CreateMap<BodyЕxaminationResultType, string>()
+            CreateMap<BodyExaminationResultType, string>()
                 .ConvertUsing(src => Enum.GetName((src.Type.Value.GetType()), src.Type.Value) ?? string.Empty);
 
-            CreateMap<BloodOxygenLevelExamination, BodyЕxaminationResultDto>();
+            CreateMap<BloodOxygenLevelExamination, BodyExaminationResultDto>();
             CreateMap<BloodPressureExamination, BloodPressureExaminationDto>();
             CreateMap<BodyTemperatureExamination, BodyTemperatureExaminationDto>();
             CreateMap<PulseRateExamination, PulseRateExaminationDto>();
@@ -73,9 +73,6 @@ namespace Application.AutoMapperDomainProfiles
 
             CreateMap<Domain.Enums.Role, string>()
                 .ConvertUsing<EnumToStringConverter<Domain.Enums.Role>>();
-
-            CreateMap<BodyExaminationType, string>()
-                .ConvertUsing<EnumToStringConverter<BodyExaminationType>>();
         }
     }
 }

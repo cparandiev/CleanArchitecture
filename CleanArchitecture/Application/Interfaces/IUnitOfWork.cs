@@ -20,9 +20,9 @@ namespace Application.Interfaces
 
         IDoctorWorkingTimeRepository DoctorWorkingTimes { get; }
 
-        IBodyЕxaminationResultRepository BodyЕxaminationResultRepository { get; }
+        IBodyExaminationResultRepository BodyExaminationResultRepository { get; }
 
-        IBodyЕxaminationTypeRepository BodyЕxaminationTypeRepository { get; }
+        IBodyExaminationTypeRepository BodyExaminationTypeRepository { get; }
 
         Task CompleteAsync();
 

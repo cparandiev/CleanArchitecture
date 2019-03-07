@@ -106,8 +106,8 @@ namespace Web
             services.AddScoped<IClinicRepository, ClinicRepository>();
             services.AddScoped<IMedicalExaminationRequestRepository, MedicalExaminationRequestRepository>();
             services.AddScoped<IDoctorWorkingTimeRepository, DoctorWorkingTimeRepository>();
-            services.AddScoped<IBodyÅxaminationResultRepository, BodyÅxaminationResultRepository>();
-            services.AddScoped<IBodyÅxaminationTypeRepository, BodyÅxaminationTypeRepository>();
+            services.AddScoped<IBodyExaminationResultRepository, BodyExaminationResultRepository>();
+            services.AddScoped<IBodyExaminationTypeRepository, BodyExaminationTypeRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add Automapper

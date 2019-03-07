@@ -20,7 +20,7 @@ class BodyExaminationRow extends Component {
                 <div className="body-examination-row-container">
                     <div className="row body-examination-row align-items-center">
                         <div className="col-3 title offset-1">
-                            Еxamination Date
+                            Examination Date
                         </div>
                         <div className="col-3">
                             <RDatePicker selected={examinationDate} className="form-control" readOnly timeFormat="HH:mm" dateFormat="MMMM d, yyyy h:mm aa" timeCaption="time"/>
