@@ -26,6 +26,7 @@ namespace Persistence
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Clinic> Clinics { get; set; }
         public DbSet<BodyExaminationType> BodyExaminationTypes { get; set; }
+        public DbSet<BodyExaminationResult> BodyExaminationResults { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

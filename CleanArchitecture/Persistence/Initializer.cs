@@ -6,6 +6,7 @@ using Domain.Entities.PatientAggregate;
 using Domain.Entities.UserAggregate;
 using Domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Role = Domain.Entities.UserAggregate.Role;
 
@@ -141,27 +142,242 @@ namespace Persistence
             #endregion
 
             #region BodyExaminations
-            var bodyExaminationTypes = new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType[]
+
+            #region Types
+            var bloodOxygenLevelType = new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
             {
-                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
+                Value = Domain.Enums.BodyExaminationType.BloodOxygenLevel
+            };
+            var bloodPressureType = new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
+            {
+                Value = Domain.Enums.BodyExaminationType.BloodPressure
+            };
+            var bodyTemperatureType = new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
+            {
+                Value = Domain.Enums.BodyExaminationType.BodyTemperature
+            };
+            var pulseRateType = new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
+            {
+                Value = Domain.Enums.BodyExaminationType.PulseRate
+            };
+            #endregion
+            
+            var bloodOxygenLevelBodyExaminationResults = new BodyExaminationResult[]
+            {
+                new BodyExaminationResult
                 {
-                    Value = Domain.Enums.BodyExaminationType.BloodOxygenLevel
+                    BloodOxygenLevel = new BloodOxygenLevelExamination{OxygenLevel=90},
+                    ExaminationDate = DateTime.Now,
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodOxygenLevelType} }
                 },
-                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
+                new BodyExaminationResult
                 {
-                    Value = Domain.Enums.BodyExaminationType.BloodPressure
+                    BloodOxygenLevel = new BloodOxygenLevelExamination{OxygenLevel=70},
+                    ExaminationDate = DateTime.Now.AddDays(1),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodOxygenLevelType} }
                 },
-                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
+                new BodyExaminationResult
                 {
-                    Value = Domain.Enums.BodyExaminationType.BodyTemperature
+                    BloodOxygenLevel = new BloodOxygenLevelExamination{OxygenLevel=85},
+                    ExaminationDate = DateTime.Now.AddDays(2),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodOxygenLevelType} }
                 },
-                new Domain.Entities.BodyExaminationResultAggregate.BodyExaminationType
+                new BodyExaminationResult
                 {
-                    Value = Domain.Enums.BodyExaminationType.PulseRate
-                }
+                    BloodOxygenLevel = new BloodOxygenLevelExamination{OxygenLevel=95},
+                    ExaminationDate = DateTime.Now.AddDays(3),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodOxygenLevelType} }
+                },
+                new BodyExaminationResult
+                {
+                    BloodOxygenLevel = new BloodOxygenLevelExamination{OxygenLevel=82},
+                    ExaminationDate = DateTime.Now.AddDays(4),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodOxygenLevelType} }
+                },
+                new BodyExaminationResult
+                {
+                    BloodOxygenLevel = new BloodOxygenLevelExamination{OxygenLevel=74},
+                    ExaminationDate = DateTime.Now.AddDays(5),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodOxygenLevelType} }
+                },
+                new BodyExaminationResult
+                {
+                    BloodOxygenLevel = new BloodOxygenLevelExamination{OxygenLevel=83},
+                    ExaminationDate = DateTime.Now.AddDays(6),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodOxygenLevelType} }
+                },
             };
 
-            context.BodyExaminationTypes.AddRange(bodyExaminationTypes);
+            var BloodPressureBodyExaminationResults = new BodyExaminationResult[]
+            {
+                new BodyExaminationResult
+                {
+                    BloodPressure = new BloodPressureExamination{DiastolicBloodPressure=80, SystolicBloodPressure=122},
+                    ExaminationDate = DateTime.Now,
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodPressureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BloodPressure = new BloodPressureExamination{DiastolicBloodPressure=70, SystolicBloodPressure=110},
+                    ExaminationDate = DateTime.Now.AddDays(1),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodPressureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BloodPressure = new BloodPressureExamination{DiastolicBloodPressure=90, SystolicBloodPressure=140},
+                    ExaminationDate = DateTime.Now.AddDays(2),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodPressureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BloodPressure = new BloodPressureExamination{DiastolicBloodPressure=60, SystolicBloodPressure=126},
+                    ExaminationDate = DateTime.Now.AddDays(3),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodPressureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BloodPressure = new BloodPressureExamination{DiastolicBloodPressure=70, SystolicBloodPressure=110},
+                    ExaminationDate = DateTime.Now.AddDays(4),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodPressureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BloodPressure = new BloodPressureExamination{DiastolicBloodPressure=84, SystolicBloodPressure=128},
+                    ExaminationDate = DateTime.Now.AddDays(5),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodPressureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BloodPressure = new BloodPressureExamination{DiastolicBloodPressure=90, SystolicBloodPressure=135},
+                    ExaminationDate = DateTime.Now.AddDays(6),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bloodPressureType} }
+                },
+            };
+
+            var bodyTemperatureExaminationResults = new BodyExaminationResult[]
+            {
+                new BodyExaminationResult
+                {
+                    BodyTemperature= new BodyTemperatureExamination{Temperature = 36.5m},
+                    ExaminationDate = DateTime.Now,
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bodyTemperatureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BodyTemperature= new BodyTemperatureExamination{Temperature = 38.5m},
+                    ExaminationDate = DateTime.Now.AddDays(1),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bodyTemperatureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BodyTemperature= new BodyTemperatureExamination{Temperature = 37.2m},
+                    ExaminationDate = DateTime.Now.AddDays(2),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bodyTemperatureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BodyTemperature= new BodyTemperatureExamination{Temperature = 35.4m},
+                    ExaminationDate = DateTime.Now.AddDays(3),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bodyTemperatureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BodyTemperature= new BodyTemperatureExamination{Temperature = 39.2m},
+                    ExaminationDate = DateTime.Now.AddDays(4),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bodyTemperatureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BodyTemperature= new BodyTemperatureExamination{Temperature = 36.7m},
+                    ExaminationDate = DateTime.Now.AddDays(5),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bodyTemperatureType } }
+                },
+                new BodyExaminationResult
+                {
+                    BodyTemperature= new BodyTemperatureExamination{Temperature = 37.7m},
+                    ExaminationDate = DateTime.Now.AddDays(6),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = bodyTemperatureType} }
+                },
+            };
+
+            var pulseRateBodyExaminationResults = new BodyExaminationResult[]
+            {
+                new BodyExaminationResult
+                {
+                    PulseRate = new PulseRateExamination{Rate=80},
+                    ExaminationDate = DateTime.Now,
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = pulseRateType } }
+                },
+                new BodyExaminationResult
+                {
+                    PulseRate = new PulseRateExamination{Rate=60},
+                    ExaminationDate = DateTime.Now.AddDays(1),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = pulseRateType } }
+                },
+                new BodyExaminationResult
+                {
+                    PulseRate = new PulseRateExamination{Rate=80},
+                    ExaminationDate = DateTime.Now.AddDays(2),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = pulseRateType } }
+                },
+                new BodyExaminationResult
+                {
+                    PulseRate = new PulseRateExamination{Rate=75},
+                    ExaminationDate = DateTime.Now.AddDays(3),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = pulseRateType } }
+                },
+                new BodyExaminationResult
+                {
+                    PulseRate = new PulseRateExamination{Rate=98},
+                    ExaminationDate = DateTime.Now.AddDays(4),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = pulseRateType } }
+                },
+                new BodyExaminationResult
+                {
+                    PulseRate = new PulseRateExamination{Rate=111},
+                    ExaminationDate = DateTime.Now.AddDays(5),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = pulseRateType } }
+                },
+                new BodyExaminationResult
+                {
+                    PulseRate = new PulseRateExamination{Rate=91},
+                    ExaminationDate = DateTime.Now.AddDays(6),
+                    Patient = patients[0],
+                    BodyExaminationResultTypes = new List<BodyExaminationResultType>{new BodyExaminationResultType { Type = pulseRateType } }
+                },
+            };
+
+            context.BodyExaminationResults.AddRange(bloodOxygenLevelBodyExaminationResults);
+            context.BodyExaminationResults.AddRange(BloodPressureBodyExaminationResults);
+            context.BodyExaminationResults.AddRange(bodyTemperatureExaminationResults);
+            context.BodyExaminationResults.AddRange(pulseRateBodyExaminationResults);
             #endregion
 
             context.SaveChanges();
