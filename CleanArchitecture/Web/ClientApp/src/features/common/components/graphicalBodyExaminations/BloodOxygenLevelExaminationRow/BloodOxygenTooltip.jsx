@@ -24,7 +24,7 @@ const BloodOxygenTooltip = ({ payload, label, active }) => {
                     Blood Oxygen Level: 
                 </div>
                 <div className="col text">
-                    {getBloodOxygen(payload)}
+                    {`${getBloodOxygen(payload)} %`}
                 </div>
             </div>
         </div>)

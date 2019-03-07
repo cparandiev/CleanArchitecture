@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 
 import loginEpics from "../features/login/epics";
-import {apiRequestEpic, getDoctorWorkingTimesEpic} from "../features/common/epics";
+import {apiRequestEpic, getDoctorWorkingTimesEpic, getPatienBodyExaminationsEpic} from "../features/common/epics";
 import { deleteDoctorWorkingTime } from "../features/doctorWorkingTime/epics";
 import { addWorkingTimeEpic } from "../features/addWorkingTime/epics";
 import { getPatientMedicalExaminationsEpic } from "../features/patientMedicalExaminations/epics";
@@ -20,5 +20,6 @@ export default (apiService) => combineEpics(
     getDoctorExaminationsEpic,
     reviewMedicalExaminationeEpic,
     accomplishMedicalExaminationEpic,
+    getPatienBodyExaminationsEpic,
     ...loginEpics
 );

@@ -10,6 +10,8 @@ namespace Application.Features.BodyExamination.Models
             BodyExaminationResultTypes = new HashSet<string>();
         }
 
+        public int? Id { get; set; }
+
         public int PatientId { get; set; }
 
         public DateTime? ExaminationDate  { get; set; }

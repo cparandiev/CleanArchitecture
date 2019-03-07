@@ -13,7 +13,7 @@ class BodyExaminationRow extends Component {
 
     render() {
         const {expand} = this.state;
-        const {examinationDate} = this.props;
+        const {examinationDate, pulseRate, bloodOxygenLevel, bodyTemperature, bloodPressure} = this.props;
 
         return (
             <div className="body-examination-row-container-wrapper">
@@ -31,10 +31,10 @@ class BodyExaminationRow extends Component {
                     </div>
                     {expand && 
                         <React.Fragment>
-                            <BloodPressureRow systolicBloodPressure={100} diastolicBloodPressure={66}/>
-                            <BloodOxygenLevelRow oxygenLevel={80}/>
-                            <BodyTemperatureRow temperature={36.6}/>
-                            <PulseRateRow rate={60}/>
+                            {bloodPressure && <BloodPressureRow systolicBloodPressure={bloodPressure.systolicBloodPressure} diastolicBloodPressure={bloodPressure.diastolicBloodPressure}/>}
+                            {bloodOxygenLevel && <BloodOxygenLevelRow oxygenLevel={bloodOxygenLevel.oxygenLevel}/>}
+                            {bodyTemperature && <BodyTemperatureRow temperature={bodyTemperature.temperature}/>}
+                            {pulseRate && <PulseRateRow rate={pulseRate.rate}/>}
                         </React.Fragment>
                     }
                 </div>

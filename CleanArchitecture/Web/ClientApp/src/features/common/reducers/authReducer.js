@@ -4,25 +4,39 @@ import login from "../../login/actions";
 import {logout} from "../../logout/actions";
 
 const initialState = {
-    // authenticated: false,
-    // username: 'anonymous',
-    // roles: ['anonymous']
-    // todo
+    authenticated: false,
+    username: 'anonymous',
+    roles: ['anonymous']
+}
+
+const fakePatient = {
     authenticated: true,
-    patientId: 1005,
-    doctorId: 1003,
-    userId: 1005,
-    jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDA1IiwiZG9jdG9ySWQiOiIxMDAzIiwicGF0aWVudElkIjoiMTAwNSIsImV4cCI6MTU4MjEyNTgyMiwiaXNzIjoieW91cmRvbWFpbi5jb20iLCJhdWQiOiJ5b3VyZG9tYWluLmNvbSJ9._GE3Mbg6tFeDnNb3W3cWU0EqDPQssvxrMLgDJfTc9yM',
-    username: 'boris',
-    firstname: 'Cvetko',
-    lastname: 'Parandiev',
+    patientId: 3,
+    userId: 3,
+    jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzIiwicGF0aWVudElkIjoiMyIsImV4cCI6MTU4MzU5NTQ5OCwiaXNzIjoieW91cmRvbWFpbi5jb20iLCJhdWQiOiJ5b3VyZG9tYWluLmNvbSJ9.tjHqeH-acn2xJMDqBN4Zw-iIlDgt1bNJDletGINRPeY',
+    username: 'Hank',
+    firstname: 'Tony',
+    lastname: 'Hill',
     roles: [
-        'patient',
+        'patient'
+    ]
+}
+
+const fakeDoctor = {
+    authenticated: true,
+    patientId: 2,
+    doctorId: 2,
+    userId: 2,
+    jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwiZG9jdG9ySWQiOiIyIiwiZXhwIjoxNTgzNTk2MTc1LCJpc3MiOiJ5b3VyZG9tYWluLmNvbSIsImF1ZCI6InlvdXJkb21haW4uY29tIn0.OHaSk4KBz1h8e-xiQMJr36hSLiJYeyOBxPc22lF6PGg',
+    username: 'Tony',
+    firstname: 'Tony',
+    lastname: 'Watts',
+    roles: [
         'doctor'
     ]
 }
 
-const authReducer = (state = initialState, {type, payload})=> {
+const authReducer = (state = fakePatient, {type, payload})=> {
     switch(type){
         case login.types.FULFILLED:
 

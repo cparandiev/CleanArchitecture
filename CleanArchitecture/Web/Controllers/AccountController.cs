@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Features.Doctor.Commands.CreateDoctor;
@@ -55,6 +56,8 @@ namespace Web.Controllers
                 new Claim (UserClaimsNames.PATIENT_ID, patientDto.Id.ToString())
             });
 
+            loggedUserVm.Roles.Select(r => { r = r.ToLower(); return r; }).ToList();
+
             return Ok(loggedUserVm);
         }
 
@@ -81,6 +84,8 @@ namespace Web.Controllers
                 new Claim (UserClaimsNames.USER_ID, doctorDto.User.Id.ToString()),
                 new Claim (UserClaimsNames.DOCTOR_ID, doctorDto.Id.ToString()),
             });
+
+            loggedUserVm.Roles.Select(r => { r = r.ToLower(); return r; }).ToList();
 
             return Ok(loggedUserVm);
         }

@@ -1,24 +1,60 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Toggle from "react-toggle";
+import { connect } from 'react-redux';
+import { compose, map } from "ramda";
 
 import routesConfig from "../../routes/routesConfig";
 import DatePicker from "../common/components/DatePicker";
 import BodyExaminationRow from "../common/components/BodyExaminationRow";
 import Paginate from "../common/components/Paginate";
-import AreaChart from "../common/components/AreaChart";
 import { BloodOxygenLevelExaminationRow, BloodPressureExaminationRow, BodyTemperatureExaminationRow, PulseRateExaminationRow } from "../common/components/graphicalBodyExaminations";
+import { getPatienBodyExaminations } from "../common/actions";
+import { userSelector, selectedPatientBodyExaminations, selectedPatientBodyTemperatureExaminations, selectedPatientBloodPressureExaminations, selectedPatientPulseRateExaminations, selectedPatientBloodOxygenLevelExaminations} from "../common/selectors";
+import mergeSelectors from "../../utils/mergeSelectors";
+import {filterBodyExaminations, orderBodyExaminations} from "../common/utils";
+import {getCurrentElements, getTotalPages} from "../../utils/paginate";
+
+const transformPatientBodyExaminations = (from, to) => compose(
+    orderBodyExaminations,
+    filterBodyExaminations(from, to),
+);
+
+
+const renderRowsByPage = (elementPerPage, currentPage) => compose(
+    map(((props) =><BodyExaminationRow key={props.id} {...props}/> )),
+    getCurrentElements(elementPerPage, currentPage),
+)
+
+const elementPerPage = 5;
 
 class PatientBodyExaminations extends Component {
-    state = {from: new Date('2010-01-12T20:01:00'), to: new Date(), offset: 0, graphicalView: true}
+    state = {from: new Date('2010-01-12T20:01:00'), to: new Date(), offset: 0, graphicalView: false}
 
     handleChangeFrom = (date) => {this.setState((state) => ({...state, from: date}));}
     handleChangeTo = (date) => {this.setState((state) => ({...state, to: date}));}
     handlePageChange = (data) => { this.setState((state) => ({...state, offset: data.selected}));}
     handleBaconChange = (e) => {const value = e.target.checked;this.setState((state) => ({...state, graphicalView: value}));};
 
+    componentDidMount(){
+        const {getPatienBodyExaminations, user} = this.props;
+
+        getPatienBodyExaminations(user.patientId);
+    }
+
     render() {
         const {from, to, offset, graphicalView} = this.state;
+        const {selectedPatientBodyExaminations, selectedPatientBodyTemperatureExaminations, selectedPatientBloodPressureExaminations, selectedPatientPulseRateExaminations, selectedPatientBloodOxygenLevelExaminations } = this.props;
+
+        const sortedAndFilteredPatientBodyExaminations = transformPatientBodyExaminations(from, to)(selectedPatientBodyExaminations);
+        const totalPages = getTotalPages(elementPerPage, sortedAndFilteredPatientBodyExaminations);
+        const renderRows = renderRowsByPage(elementPerPage, offset + 1);
+
+        const sortedAndFilteredPatientBodyTemperatureExaminations = transformPatientBodyExaminations(from, to)(selectedPatientBodyTemperatureExaminations);
+        const sortedAndFilteredPatientBloodPressureExaminations = transformPatientBodyExaminations(from, to)(selectedPatientBloodPressureExaminations);
+        const sortedAndFilteredPatientPulseRateExaminations = transformPatientBodyExaminations(from, to)(selectedPatientPulseRateExaminations);
+        const sortedAndFilteredPatientBloodOxygenLevelExaminations = transformPatientBodyExaminations(from, to)(selectedPatientBloodOxygenLevelExaminations);
+        
         return (
             <div className="container">
                 <div className="row">
@@ -56,19 +92,14 @@ class PatientBodyExaminations extends Component {
                                 
                                 {graphicalView 
                                     ? (<React.Fragment>
-                                        <BloodPressureExaminationRow />
-                                        <BloodOxygenLevelExaminationRow />
-                                        <BodyTemperatureExaminationRow />
-                                        <PulseRateExaminationRow/>
+                                        <BloodPressureExaminationRow data={sortedAndFilteredPatientBloodPressureExaminations}/>
+                                        <BloodOxygenLevelExaminationRow data={sortedAndFilteredPatientBloodOxygenLevelExaminations}/>
+                                        <BodyTemperatureExaminationRow data={sortedAndFilteredPatientBodyTemperatureExaminations} />
+                                        <PulseRateExaminationRow data={sortedAndFilteredPatientPulseRateExaminations}/>
                                     </React.Fragment>) 
                                     : (<div>
-                                        <BodyExaminationRow examinationDate={new Date()}/>
-                                        <BodyExaminationRow examinationDate={new Date()}/>
-                                        <BodyExaminationRow examinationDate={new Date()}/>
-                                        <BodyExaminationRow examinationDate={new Date()}/>
-                                        <BodyExaminationRow examinationDate={new Date()}/>
-                                        {/* todo */}
-                                        <Paginate pageCount={3} onPageChange={this.handlePageChange} /> 
+                                        {renderRows(sortedAndFilteredPatientBodyExaminations)}
+                                        <Paginate pageCount={totalPages} onPageChange={this.handlePageChange} /> 
                                     </div>)}
                             </div>
                         </div>
@@ -78,6 +109,12 @@ class PatientBodyExaminations extends Component {
         );
     }
 }
+const selectors = [userSelector, selectedPatientBodyExaminations, selectedPatientBodyTemperatureExaminations, selectedPatientBloodPressureExaminations, selectedPatientPulseRateExaminations, selectedPatientBloodOxygenLevelExaminations];
 
+const mapStateToProps = mergeSelectors(selectors);
 
-export default PatientBodyExaminations;
+const mapDispatchToProps = (dispatch) => ({
+    getPatienBodyExaminations: (patientId) => dispatch(getPatienBodyExaminations.actions.DEFAULT({patientId})),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientBodyExaminations);

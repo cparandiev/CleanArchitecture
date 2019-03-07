@@ -5,7 +5,7 @@ import { max, map, prop, min, apply } from "ramda";
 import AreaChart from "../../AreaChart";
 
 class BaseExaminationRow extends Component {
-    state = {expand: true}
+    state = {expand: false}
 
     toggleOpen = () => {this.setState((state) => ({...state, expand: !state.expand}));}
 

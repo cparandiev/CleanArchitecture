@@ -2,6 +2,8 @@
 {
     public class BloodOxygenLevelExaminationDto
     {
+        public int? Id { get; set; }
+
         public decimal? OxygenLevel { get; set; }
     }
 }

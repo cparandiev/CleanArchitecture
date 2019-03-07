@@ -73,7 +73,7 @@ namespace Persistence
                         Height = 195,
                         Weight = 90,
                         Gender = Gender.Male,
-                        PasswordHash = "asd", //todo
+                        PasswordHash = "$MYHASH$V1$10000$uBoTl1Xuabc+P0IZc2pMUrrnWOlyOJhZeGreCwhfkE96ut5E", //todo //Dali6Aa@
                         Patient = new Patient(),
                         Doctor = new Doctor
                         {
@@ -107,7 +107,7 @@ namespace Persistence
                         Height = 175,
                         Weight = 80,
                         Gender = Gender.Male,
-                        PasswordHash = "asd", //todo
+                        PasswordHash = "$MYHASH$V1$10000$uBoTl1Xuabc+P0IZc2pMUrrnWOlyOJhZeGreCwhfkE96ut5E", //todo //Dali6Aa@
                         Patient = new Patient()
                     }
                 }
@@ -133,7 +133,7 @@ namespace Persistence
                         Height = 182,
                         Weight = 83,
                         Gender = Gender.Male,
-                        PasswordHash = "asd", //todo
+                        PasswordHash = "$MYHASH$V1$10000$uBoTl1Xuabc+P0IZc2pMUrrnWOlyOJhZeGreCwhfkE96ut5E", //todo //Dali6Aa@
                     }
                 }
             };
