@@ -1,6 +1,8 @@
 ﻿using Application.Features.BodyЕxamination.Commands.AddBloodOxygenLevelExamination;
+using Application.Features.BodyЕxamination.Commands.AddBloodPressureExamination;
 using Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExamination;
 using Application.Features.BodyЕxamination.Commands.AddPulseRateExamination;
+using Application.Features.BodyЕxamination.Models;
 using Application.Features.Doctor.Commands.AccomplishMedicalExamination;
 using Application.Features.Doctor.Commands.CreateDoctor;
 using Application.Features.Doctor.Models;
@@ -43,17 +45,21 @@ namespace Application.AutoMapperDomainProfiles
             #endregion
 
             #region BodyЕxaminationResult mappings
-            CreateMap<AddBloodOxygenLevelExaminationCommand, BloodOxygenLevelExamination>();
+            CreateMap<AddBloodOxygenLevelExaminationCommand, BloodOxygenLevelExaminationDto>();
             CreateMap<AddBloodOxygenLevelExaminationCommand, BodyЕxaminationResult>()
                 .ForMember(dest => dest.BloodOxygenLevel, opt => opt.MapFrom(src => src));
 
-            CreateMap<AddBodyTemperatureExaminationCommand, BodyTemperatureExamination>();
+            CreateMap<AddBodyTemperatureExaminationCommand, BodyTemperatureExaminationDto>();
             CreateMap<AddBodyTemperatureExaminationCommand, BodyЕxaminationResult>()
                 .ForMember(dest => dest.BodyTemperature, opt => opt.MapFrom(src => src));
 
-            CreateMap<AddPulseRateExaminationCommand, PulseRateExamination>();
+            CreateMap<AddPulseRateExaminationCommand, PulseRateExaminationDto>();
             CreateMap<AddPulseRateExaminationCommand, BodyЕxaminationResult>()
                 .ForMember(dest => dest.PulseRate, opt => opt.MapFrom(src => src));
+
+            CreateMap<AddBloodPressureExaminationCommand, BloodPressureExamination>();
+            CreateMap<AddBloodPressureExaminationCommand, BodyЕxaminationResult>()
+                .ForMember(dest => dest.BloodPressure, opt => opt.MapFrom(src => src));
             #endregion
         }
     }

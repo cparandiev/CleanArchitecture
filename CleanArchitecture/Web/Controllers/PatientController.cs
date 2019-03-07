@@ -1,4 +1,5 @@
 ﻿using Application.Features.Patient.Commands.RequestMedicalExamination;
+using Application.Features.Patient.Queries.GetPatienBodyЕxaminations;
 using Application.Features.Patient.Queries.GetPatientMedicalExaminations;
 using AutoMapper;
 using Domain.Enums;
@@ -36,6 +37,18 @@ namespace Web.Controllers
             var medicalExaminations = await Mediator.Send(getPatienMedicalExaminationsQuery);
 
             return Ok(medicalExaminations);
+        }
+
+        [HttpGet("{patientId:int}/BodyЕxaminations")]
+        [AllowAnonymous]
+        // [Authorize(Roles = nameof(Role.Patient))] // todo
+        public async Task<IActionResult> GetPatienBodyЕxaminations(PatienBodyЕxaminationsBm model)
+        {
+            var getPatienBodyЕxaminationsQuery = AutoMapper.Map<GetPatienBodyЕxaminationsQuery>(model);
+
+            var bodyЕxaminations = await Mediator.Send(getPatienBodyЕxaminationsQuery);
+
+            return Ok(bodyЕxaminations);
         }
     }
 }

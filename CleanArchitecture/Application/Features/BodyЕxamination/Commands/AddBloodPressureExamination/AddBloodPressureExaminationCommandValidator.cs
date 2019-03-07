@@ -2,13 +2,13 @@
 using Application.Interfaces;
 using FluentValidation;
 
-namespace Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExamination
+namespace Application.Features.BodyЕxamination.Commands.AddBloodPressureExamination
 {
-    public class AddBodyTemperatureExaminationCommandValidator : AbstractValidator<AddBodyTemperatureExaminationCommand>
+    public class AddBloodPressureExaminationCommandValidator : AbstractValidator<AddBloodPressureExaminationCommand>
     {
         private readonly IUnitOfWork _context;
 
-        public AddBodyTemperatureExaminationCommandValidator(IUnitOfWork context)
+        public AddBloodPressureExaminationCommandValidator(IUnitOfWork context)
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
@@ -22,7 +22,10 @@ namespace Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExami
                 RuleFor(x => x.ЕxaminationDate)
                     .NotNull();
 
-                RuleFor(x => x.Temperature)
+                RuleFor(x => x.DiastolicBloodPressure)
+                    .NotNull();
+
+                RuleFor(x => x.SystolicBloodPressure)
                     .NotNull();
             });
 
@@ -34,9 +37,14 @@ namespace Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExami
 
             RuleSet("Second Phase", () =>
             {
-                RuleFor(x => x.Temperature)
-                    .GreaterThan(0)
-                    .LessThan(50);
+                RuleFor(x => x.DiastolicBloodPressure)
+                    .GreaterThan(0);
+
+                RuleFor(x => x.DiastolicBloodPressure)
+                    .GreaterThan(0);
+
+                RuleFor(x => x)
+                    .Must(x => x.DiastolicBloodPressure < x.SystolicBloodPressure);
             });
         }
     }

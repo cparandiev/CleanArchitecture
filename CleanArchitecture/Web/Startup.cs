@@ -31,6 +31,7 @@ using Application.Features.Users.Services;
 using Application.Features.Patient.Services;
 using Application.Features.Doctor.Services.Interfaces;
 using Application.Features.Doctor.Services;
+using Newtonsoft.Json;
 
 namespace Web
 {
@@ -51,6 +52,7 @@ namespace Web
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(x => {
                     x.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommand>());
 

@@ -1,5 +1,6 @@
 ﻿using Application.AutoMapperDomainProfiles.Converters;
 using Application.Features.BodyЕxamination.Commands.AddBloodOxygenLevelExamination;
+using Application.Features.BodyЕxamination.Commands.AddBloodPressureExamination;
 using Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExamination;
 using Application.Features.BodyЕxamination.Commands.AddPulseRateExamination;
 using Application.Features.Doctor.Commands.AccomplishMedicalExamination;
@@ -12,6 +13,7 @@ using Application.Features.Doctor.Queries.GetDoctorMedicalExaminations;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Commands.RequestMedicalExamination;
+using Application.Features.Patient.Queries.GetPatienBodyЕxaminations;
 using Application.Features.Patient.Queries.GetPatientMedicalExaminations;
 using Application.Features.Users.Commands.CreateUser;
 using Application.Models;
@@ -82,6 +84,12 @@ namespace Web.AutoMapperDomainProfiles
                 .IncludeBase<object, UserIdentity>();
 
             CreateMap<AddPulseRateExaminationBm, AddPulseRateExaminationCommand>()
+                .IncludeBase<object, UserIdentity>();
+
+            CreateMap<AddBloodPressureExaminationBm, AddBloodPressureExaminationCommand>()
+                .IncludeBase<object, UserIdentity>();
+
+            CreateMap<PatienBodyЕxaminationsBm, GetPatienBodyЕxaminationsQuery>()
                 .IncludeBase<object, UserIdentity>();
             #endregion
 

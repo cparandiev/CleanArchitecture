@@ -1,4 +1,5 @@
 ﻿using Application.Features.BodyЕxamination.Commands.AddBloodOxygenLevelExamination;
+using Application.Features.BodyЕxamination.Commands.AddBloodPressureExamination;
 using Application.Features.BodyЕxamination.Commands.AddBodyTemperatureExamination;
 using Application.Features.BodyЕxamination.Commands.AddPulseRateExamination;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +41,17 @@ namespace Web.Controllers
             var addPulseRateExaminationCommand = AutoMapper.Map<AddPulseRateExaminationCommand>(model);
 
             await Mediator.Send(addPulseRateExaminationCommand);
+
+            return Ok();
+        }
+
+        [HttpPost("bloodpressure")]
+        [AllowAnonymous] // todo
+        public async Task<IActionResult> AddBloodPressureExamination([FromBody]AddBloodPressureExaminationBm model)
+        {
+            var addBloodPressureExaminationCommand = AutoMapper.Map<AddBloodPressureExaminationCommand>(model);
+
+            await Mediator.Send(addBloodPressureExaminationCommand);
 
             return Ok();
         }
