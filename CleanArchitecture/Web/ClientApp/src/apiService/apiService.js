@@ -3,7 +3,6 @@ import { assoc, isNil } from "ramda";
 
 export default (initialConfig) => ({
     execute: ({method, url, headers, token, data}) => {
-        console.log(data); // todo
         
         const config = {
             method,

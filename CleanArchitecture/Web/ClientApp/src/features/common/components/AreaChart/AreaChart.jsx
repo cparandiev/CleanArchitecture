@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { AreaChart, linearGradient, XAxis, YAxis, CartesianGrid, Tooltip, Area, ReferenceLine} from "recharts";
+import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, ReferenceLine} from "recharts";
 
 class CAreaChart extends Component {
     render() {

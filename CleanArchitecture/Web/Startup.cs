@@ -51,6 +51,7 @@ namespace Web
                 .AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(x => {
+                    x.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     x.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 })

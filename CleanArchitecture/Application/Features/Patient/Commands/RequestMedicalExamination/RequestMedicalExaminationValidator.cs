@@ -26,7 +26,7 @@ namespace Application.Features.Patient.Commands.RequestMedicalExamination
             RuleFor(x => x.DoctorId).NotNull().DoctorExists(context);
             RuleFor(x => x.PatientId).NotNull().PatientExists(context);
             RuleFor(x => x.DurationInMinutes).NotNull().GreaterThan(0);
-            RuleFor(x => x.RequestDate).NotNull().GreaterThan(DateTime.Now);
+            RuleFor(x => x.RequestDate).NotNull().GreaterThan(DateTime.UtcNow);
             
             RuleSet("Second Phase", () => {
                 RuleFor(x => x).Must(DoctorToBeFree)
