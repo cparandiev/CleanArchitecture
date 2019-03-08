@@ -1,4 +1,4 @@
-import { mergeMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { mergeMap, debounceTime } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { ofType } from 'redux-observable';
 

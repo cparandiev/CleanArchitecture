@@ -4,5 +4,6 @@
   border-radius: 4px;
   padding: 10px;
   width: 130%; }
-  .blood-pressure-tooltip .row > .col {
-    color: #fff; }
+
+.blood-pressure-tooltip .row > .col {
+  color: #fff; }

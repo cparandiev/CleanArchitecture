@@ -54,7 +54,7 @@ WorkingTimeRow.propTypes = {
     close: PropTypes.instanceOf(Date),
     handleRequestDateChange: PropTypes.func,
     handleDurationInMinutesChange: PropTypes.func,
-    durationInMinutes: PropTypes.number,
+    durationInMinutes: PropTypes.any,
     requestDate: PropTypes.instanceOf(Date),
     onSubmit: PropTypes.func,
 }

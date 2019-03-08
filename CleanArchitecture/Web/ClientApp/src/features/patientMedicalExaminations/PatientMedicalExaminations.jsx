@@ -37,8 +37,8 @@ class PatientMedicalExaminations extends Component {
     handlePageChange = (data) => { this.setState((state) => ({...state, offset: data.selected}));}
 
     componentDidMount() {
-        const {user, getPatientMedicalExaminations} = this.props;
-        getPatientMedicalExaminations(user.patientId);
+        const {match: {params : {patientId}}, getPatientMedicalExaminations} = this.props;
+        getPatientMedicalExaminations(patientId);
     }
 
     render() {

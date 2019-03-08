@@ -1,0 +1,15 @@
+@import "../../../../styles//variables.scss";
+
+.patient-header-title {
+    color: $white;
+    font-weight: bold;
+}
+
+.patient-header-container {
+    background: $grey-darker;
+    border-top-right-radius: 47px;
+}
+
+.patient-header {
+    height: 70px;
+}

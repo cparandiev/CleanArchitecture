@@ -1,0 +1,10 @@
+@import "../../styles//variables.scss";
+
+.doctor-patients-container {
+    margin-right: 50px;
+    margin-left: 50px;
+    padding-bottom: 0;
+    border: 1px solid $grey-darker;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}

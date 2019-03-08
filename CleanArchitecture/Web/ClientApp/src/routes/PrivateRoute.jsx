@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {isEmpty, all, includes, __, isNil} from "ramda";
+import {isEmpty, any, includes, __, isNil, all} from "ramda";
 import { Route, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 
@@ -11,7 +11,7 @@ import routesConfig from "./routesConfig";
 const userIsInRole = (userRoles, requiredRoles) => 
     isEmpty(requiredRoles)  || 
     isNil(requiredRoles) ||
-    all(includes(__, userRoles), (requiredRoles));
+    any(all(includes(__, userRoles)), requiredRoles);
 
 const ComponentWrapper = ({Component, user, requiredRoles, ...rest}) => {
     const authorized = userIsInRole(user.roles, requiredRoles);

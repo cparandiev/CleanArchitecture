@@ -11,6 +11,7 @@ import doctorExaminations from '../features/doctorExaminations';
 import accomplishMedicalExamination from '../features/accomplishMedicalExamination';
 import logout from '../features/logout';
 import patientBodyExaminations from '../features/patientBodyExaminations';
+import doctorPatients from '../features/doctorPatients';
 
 export default {
     signIn: {
@@ -65,53 +66,61 @@ export default {
     },
     doctorWorkingTime: {
         path: '/doctor/working-time',
-        requiredRoles: ['doctor'],
+        requiredRoles: [['doctor']],
         component: doctorWorkingTime,
         exact: true,
         authenticated: true,
     },
     addWorkingTime: {
         path: '/doctor/add-working-time',
-        requiredRoles: ['doctor'],
+        requiredRoles: [['doctor']],
         component: addWorkingTime,
         exact: true,
         authenticated: true,
     },
     patientMedicalExaminations: {
-        path: '/patient/medical-examination',
-        requiredRoles: ['patient'],
+        path: '/patient/:patientId(\\d+)/medical-examination',
+        requiredRoles: [['patient'], ['doctor']],
         component: patientMedicalExaminations,
         exact: true,
         authenticated: true,
     },
     requestMedicalExamination: {
         path: '/patient/request-medical-examination',
-        requiredRoles: ['patient'],
+        requiredRoles: [['patient']],
         component: requestMedicalExamination,
         exact: true,
         authenticated: true,
     },
     doctorExaminations: {
         path: '/doctor/examinations',
-        requiredRoles: ['doctor'],
+        requiredRoles: [['doctor']],
         component: doctorExaminations,
         exact: true,
         authenticated: true,
     },
     accomplishMedicalExamination: {
         path: '/medicalexamination/:id(\\d+)/accomplish',
-        requiredRoles: ['doctor'],
+        requiredRoles: [['doctor']],
         component: accomplishMedicalExamination,
         exact: true,
         authenticated: true,
     },
     patientBodyExaminations: {
-        path: '/patient/bodyexaminations',
-        requiredRoles: ['patient'],
+        path: '/patient/:patientId(\\d+)/bodyexaminations',
+        requiredRoles: [['patient'], ['doctor']],
         component: patientBodyExaminations,
         exact: true,
         authenticated: true,
-    }
+    },
+    doctorPatients: {
+        path: '/doctor/patients',
+        requiredRoles: [['doctor']],
+        component: doctorPatients,
+        exact: true,
+        authenticated: true,
+    },
+    // todo
     // notFound: {
     //     path: '*',
     //     requiredRoles: [],

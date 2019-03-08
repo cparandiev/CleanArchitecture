@@ -1,0 +1,10 @@
+.patient-header-title {
+  color: #fff;
+  font-weight: bold; }
+
+.patient-header-container {
+  background: #333333;
+  border-top-right-radius: 47px; }
+
+.patient-header {
+  height: 70px; }

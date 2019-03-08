@@ -4,5 +4,6 @@
   border-radius: 4px;
   padding: 10px;
   width: 130%; }
-  .pulse-rate-tooltip .row > .col {
-    color: #fff; }
+
+.pulse-rate-tooltip .row > .col {
+  color: #fff; }

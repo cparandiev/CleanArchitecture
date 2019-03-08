@@ -5,5 +5,6 @@ a {
 
 .active-route {
   background-color: #E14848 !important; }
-  .active-route a {
-    color: #fff !important; }
+
+.active-route a {
+  color: #fff !important; }

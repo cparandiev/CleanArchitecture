@@ -37,9 +37,9 @@ class PatientBodyExaminations extends Component {
     handleBaconChange = (e) => {const value = e.target.checked;this.setState((state) => ({...state, graphicalView: value}));};
 
     componentDidMount(){
-        const {getPatienBodyExaminations, user} = this.props;
+        const {match: {params : {patientId}}, getPatienBodyExaminations} = this.props;
 
-        getPatienBodyExaminations(user.patientId);
+        getPatienBodyExaminations(patientId);
     }
 
     render() {

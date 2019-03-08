@@ -1,0 +1,16 @@
+@import "../../../../styles//variables.scss";
+
+.patient-row {
+    padding-bottom: 10px;
+    border-top: 1px solid;
+    border-color: $grey-light;
+    padding-top: 10px;
+}
+
+.patient-row:last-of-type {
+    border-bottom-left-radius: 50px;
+}
+
+.patient-row:nth-of-type(2n) {
+    background: $grey-lighter;
+}
