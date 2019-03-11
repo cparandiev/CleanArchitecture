@@ -3,6 +3,7 @@ import notificationReducer from '../features/notifications/reducers';
 import patientMedicalExaminationsReducer from '../features/patientMedicalExaminations/reducers';
 import requestMedicalExaminationReducer from '../features/requestMedicalExamination/reducers';
 import doctorExaminationsReducer from '../features/doctorExaminations/reducers';
+import doctorPatientsReducer from '../features/doctorPatients/reducers';
 
 export default ({
     user: authReducer,
@@ -12,4 +13,5 @@ export default ({
     patientMedicalExaminations: patientMedicalExaminationsReducer,
     requestMedicalExamination: requestMedicalExaminationReducer,
     doctorExaminations: doctorExaminationsReducer,
+    doctorPatients: doctorPatientsReducer,
 })

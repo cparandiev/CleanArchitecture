@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { isEmpty, map } from "ramda";
 
+import { patientsSelector } from "./selectors";
+import { getDoctorPatients } from "./actions";
 import PatientRow from "./components/PatientRow";
 import PatientHeader from "./components/PatientHeader";
+import mergeSelectors from "../../utils/mergeSelectors";
 import "./doctor-patients.css";
 
 class DoctorPatients extends Component {
+    componentDidMount() {
+        const {match: {params : {doctorId}}, getDoctorPatients} = this.props;
+        getDoctorPatients(doctorId);
+    }
+
     render() {
+        const { patients }= this.props;
+        console.log(patients);
+
         return (
             <div className="container">
                 <div className="row">
@@ -18,17 +31,12 @@ class DoctorPatients extends Component {
                                     </div>
                                 </div>
                                 <hr/>
-                                <div className="doctor-patients-container">
-                                    <PatientHeader/>
-                                    <PatientRow id={3} firstName="Cvetko" lastName="Parandiev" gender="Male"/>
-                                    <PatientRow id={1} firstName="Maria" lastName="Qneva" gender="Female"/>
-                                    <PatientRow id={1} firstName="Cvetko" lastName="Parandiev" gender="Male"/>
-                                    <PatientRow id={1} firstName="Maria" lastName="Qneva" gender="Female"/>
-                                    <PatientRow id={1} firstName="Cvetko" lastName="Parandiev" gender="Male"/>
-                                    <PatientRow id={1} firstName="Maria" lastName="Qneva" gender="Female"/>
-                                    <PatientRow id={1} firstName="Cvetko" lastName="Parandiev" gender="Male"/>
-                                    <PatientRow id={1} firstName="Maria" lastName="Qneva" gender="Female"/>
-                                </div>
+                                {!isEmpty(patients) && (
+                                    <div className="doctor-patients-container">
+                                        <PatientHeader/>
+                                        {map(p => <PatientRow {...p} />, patients)}
+                                    </div>    
+                                )}
                             </div>
                         </div>
                     </div>
@@ -38,4 +46,12 @@ class DoctorPatients extends Component {
     }
 }
 
-export default DoctorPatients;
+const selectors = [patientsSelector];
+
+const mapStateToProps = mergeSelectors(selectors);
+
+const mapDispatchToProps = (dispatch) => ({
+    getDoctorPatients: (doctorId) => dispatch(getDoctorPatients.actions.DEFAULT({doctorId})),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DoctorPatients);

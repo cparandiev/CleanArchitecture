@@ -114,7 +114,7 @@ export default {
         authenticated: true,
     },
     doctorPatients: {
-        path: '/doctor/patients',
+        path: '/doctor/:doctorId(\\d+)/patients',
         requiredRoles: [['doctor']],
         component: doctorPatients,
         exact: true,

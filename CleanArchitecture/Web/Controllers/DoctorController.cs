@@ -1,22 +1,31 @@
 ﻿using Application.Features.Doctor.Commands.SetWeeklyWorkingTime;
-using AutoMapper;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Web.Models.BindingModels;
-using Web.Filters;
 using Application.Features.Doctor.Queries.GetDoctorWorkingTimes;
 using Application.Features.Doctor.Commands.DeleteWorkingTime;
 using Application.Features.Doctor.Queries.GetDoctorMedicalExaminations;
 using Web.Models.ViewModels;
 using System.Collections.Generic;
+using Application.Features.Doctor.Queries.GetDoctorPatient;
 
 namespace Web.Controllers
 {
     [Authorize]
     public class DoctorController : BaseController
     {
+        [HttpGet("{doctorId:int}/patients")]
+        public async Task<IActionResult> GetDoctorPatients(GetDoctorPatientsBm model)
+        {
+            var getDoctorPatientsQuery = AutoMapper.Map<GetDoctorPatientsQuery>(model);
+
+            var doctorPatients = await Mediator.Send(getDoctorPatientsQuery);
+
+            return Ok(doctorPatients);
+        }
+
         [HttpDelete("WorkingTime/{workingTimeId:int}")]
         [Authorize(Roles = nameof(Role.Doctor))]
         public async Task<IActionResult> DeleteWorkingTime([FromRoute]DeleteWorkingTimeBm workingTime)
