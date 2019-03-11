@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.Features.Doctor.Commands.CreateDoctor;
 using Application.Features.Doctor.Commands.LoginDoctor;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
-using Application.Features.Patient.Queries.GetPatient;
-using Application.Features.Users.Commands.CreateUser;
-using Application.Interfaces;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Web.Constants.Claim;
 using Web.Models.BindingModels;
 using Web.Models.ViewModels;
 
@@ -23,15 +13,6 @@ namespace Web.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        private readonly IConfiguration _configuration;
-        private readonly IAuthService _authService;
-
-        public AccountController(IConfiguration configuration, IAuthService authService)
-        {
-            _configuration = configuration;
-            _authService = authService;
-        }
-
         [AllowAnonymous]
         [HttpPost("register/patient")]
         public async Task<IActionResult> RegisterPatient([FromBody]RegisterPatientBm model)
@@ -48,15 +29,10 @@ namespace Web.Controllers
         public async Task<IActionResult> LoginPatient([FromBody]LoginPatientBm model)
         {
             var loginUserCommand = AutoMapper.Map<LoginPatientCommand>(model);
+
             var patientDto = await Mediator.Send(loginUserCommand);
             
             var loggedUserVm = AutoMapper.Map<LoggedPatientViewModel>(patientDto);
-            loggedUserVm.JWT = CreateJWT(new List<Claim>() {
-                new Claim (UserClaimsNames.USER_ID, patientDto.User.Id.ToString()),
-                new Claim (UserClaimsNames.PATIENT_ID, patientDto.Id.ToString())
-            });
-
-            loggedUserVm.Roles.Select(r => { r = r.ToLower(); return r; }).ToList();
 
             return Ok(loggedUserVm);
         }
@@ -77,20 +53,12 @@ namespace Web.Controllers
         public async Task<IActionResult> LoginDoctor([FromBody]LoginDoctorBm model)
         {
             var loginDoctorCommand = AutoMapper.Map<LoginDoctorCommand>(model);
+
             var doctorDto = await Mediator.Send(loginDoctorCommand);
             
             var loggedUserVm = AutoMapper.Map<LoggedDoctorViewModel>(doctorDto);
-            loggedUserVm.JWT = CreateJWT(new List<Claim>() {
-                new Claim (UserClaimsNames.USER_ID, doctorDto.User.Id.ToString()),
-                new Claim (UserClaimsNames.DOCTOR_ID, doctorDto.Id.ToString()),
-            });
-
-            loggedUserVm.Roles.Select(r => { r = r.ToLower(); return r; }).ToList();
 
             return Ok(loggedUserVm);
         }
-
-        [NonAction]
-        private string CreateJWT(List<Claim> claims) => _authService.CreateJWT(_configuration["SecurityKey"], claims.ToArray(), _configuration["Issuer"], _configuration["Audience"], DateTime.Now.AddYears(1)); //todo
     }
 }
