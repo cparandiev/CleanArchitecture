@@ -4,6 +4,7 @@ import patientMedicalExaminationsReducer from '../features/patientMedicalExamina
 import requestMedicalExaminationReducer from '../features/requestMedicalExamination/reducers';
 import doctorExaminationsReducer from '../features/doctorExaminations/reducers';
 import doctorPatientsReducer from '../features/doctorPatients/reducers';
+import patientProfileReducer from '../features/patientProfile/reducers';
 
 export default ({
     user: authReducer,
@@ -14,4 +15,5 @@ export default ({
     requestMedicalExamination: requestMedicalExaminationReducer,
     doctorExaminations: doctorExaminationsReducer,
     doctorPatients: doctorPatientsReducer,
+    patientProfile: patientProfileReducer,
 })

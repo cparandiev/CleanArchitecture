@@ -15,6 +15,7 @@ using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Commands.RequestMedicalExamination;
 using Application.Features.Patient.Queries.GetPatienBodyExaminations;
+using Application.Features.Patient.Queries.GetPatient;
 using Application.Features.Patient.Queries.GetPatientMedicalExaminations;
 using Application.Features.Users.Commands.CreateUser;
 using Application.Models;
@@ -34,6 +35,8 @@ namespace Web.AutoMapperDomainProfiles
             CreateMap<RegisterPatientBm, CreatePatientCommand>()
                 .ForMember(dest => dest.CreateUserCommand, opt => opt.MapFrom(src => src));
             CreateMap<LoginPatientBm, LoginPatientCommand>();
+            CreateMap<PatienInfoBm, GetPatientByIdQuery>()
+                .IncludeBase<object, UserIdentity>();
             #endregion
 
             #region Doctor mappings

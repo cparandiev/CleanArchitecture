@@ -7,8 +7,8 @@ namespace Application.Specifications.PatientSpecifications
 {
     public class PatientWithUserPropsSpecifications : BaseSpecification<Patient>
     {
-        public PatientWithUserPropsSpecifications(int userId) 
-            : base(p => p.User.Id == userId)
+        public PatientWithUserPropsSpecifications(int patientId) 
+            : base(p => p.Id == patientId)
         {
             AddInclude(u => u.User);
             AddInclude($"{nameof(Patient.User)}.{nameof(User.UserRoles)}.{nameof(UserRole.Role)}");

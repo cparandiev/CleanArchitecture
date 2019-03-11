@@ -10,7 +10,7 @@ class ProfileButton extends Component {
         const {id} = this.props;
 
         return (
-            <Link to={routesConfig.accomplishMedicalExamination.path.replace(':id(\\d+)', id)}>
+            <Link to={routesConfig.patientProfile.path.replace(':patientId(\\d+)', id)}>
                 <BaseButton label={"Patient Profile"} size={32} icon="person_pin"/>
             </Link>
         );

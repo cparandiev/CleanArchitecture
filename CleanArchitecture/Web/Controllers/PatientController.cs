@@ -1,5 +1,6 @@
 ﻿using Application.Features.Patient.Commands.RequestMedicalExamination;
 using Application.Features.Patient.Queries.GetPatienBodyExaminations;
+using Application.Features.Patient.Queries.GetPatient;
 using Application.Features.Patient.Queries.GetPatientMedicalExaminations;
 using AutoMapper;
 using Domain.Enums;
@@ -14,6 +15,16 @@ namespace Web.Controllers
     [Authorize]
     public class PatientController : BaseController
     {
+        [HttpGet("{patientId:int}/info")]
+        public async Task<IActionResult> GetPatienInfo(PatienInfoBm model)
+        {
+            var GetPatientByIdQuery = AutoMapper.Map<GetPatientByIdQuery>(model);
+
+            var patientInfo = await Mediator.Send(GetPatientByIdQuery);
+
+            return Ok(patientInfo);
+        }
+
         [HttpPost("{patientId:int}/RequestMedicalExamination")]
         [Authorize(Roles = nameof(Role.Patient))]
         //[TypeFilter(typeof(OwnerFilter))]

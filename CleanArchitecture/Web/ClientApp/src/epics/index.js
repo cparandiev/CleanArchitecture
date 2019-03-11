@@ -9,6 +9,7 @@ import { getAllClinicsWithDoctorsEpic, requestMedicalExaminationEpic } from "../
 import { getDoctorExaminationsEpic, reviewMedicalExaminationeEpic } from "../features/doctorExaminations/epics";
 import { accomplishMedicalExaminationEpic } from "../features/accomplishMedicalExamination/epics";
 import { getDoctorPatientsEpic } from "../features/doctorPatients/epics";
+import { getPatientInfoEpic } from "../features/patientProfile/epics";
 
 export default (apiService) => combineEpics(
     apiRequestEpic(apiService),
@@ -23,5 +24,6 @@ export default (apiService) => combineEpics(
     accomplishMedicalExaminationEpic,
     getPatienBodyExaminationsEpic,
     getDoctorPatientsEpic,
+    getPatientInfoEpic,
     ...loginEpics
 );

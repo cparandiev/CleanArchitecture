@@ -12,12 +12,13 @@ import accomplishMedicalExamination from '../features/accomplishMedicalExaminati
 import logout from '../features/logout';
 import patientBodyExaminations from '../features/patientBodyExaminations';
 import doctorPatients from '../features/doctorPatients';
+import patientProfile from '../features/patientProfile';
 import notFound from '../features/notFound';
 
 export default {
     //#region Common routes
     home: {
-        path: '/home',
+        path: '/',
         requiredRoles: [],
         component: Home,
         exact: true,
@@ -29,7 +30,7 @@ export default {
         exact: true,
     },
     contacts: {
-        path: '/counter',
+        path: '/contacts',
         requiredRoles: [],
         component: Contacts,
         exact: true,
@@ -56,13 +57,6 @@ export default {
         authenticated: true,
         exact: true,
     },
-    myProfile: {
-        path: '/profile',
-        requiredRoles: [],
-        component: Home,
-        exact: true,
-        authenticated: true,
-    },
     logout: {
         path: '/logout',
         requiredRoles: [],
@@ -72,6 +66,13 @@ export default {
     },
     //#endregion
     //#region Patient's routes
+    patientProfile: {
+        path: '/patient/:patientId(\\d+)/profile',
+        requiredRoles: [['patient'], ['doctor']],
+        component: patientProfile,
+        exact: true,
+        authenticated: true,
+    },
     patientMedicalExaminations: {
         path: '/patient/:patientId(\\d+)/medical-examination',
         requiredRoles: [['patient'], ['doctor']],
@@ -132,8 +133,10 @@ export default {
         authenticated: true,
     },
     //#endregion
+    //#region Latest routes
     notFound: {
         path: "*",
         component: notFound
     },
+    //#endregion
 }

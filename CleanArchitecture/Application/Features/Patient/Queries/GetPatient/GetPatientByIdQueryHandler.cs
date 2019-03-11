@@ -22,7 +22,7 @@ namespace Application.Features.Patient.Queries.GetPatient
 
         public Task<PatientDto> Handle(GetPatientByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = _context.Patients.GetSingleBySpec(new PatientWithUserPropsSpecifications(request.UserId));
+            var entity = _context.Patients.GetSingleBySpec(new PatientWithUserPropsSpecifications(request.PatientId.Value));
             
             var patientDto = _autoMapper.Map<PatientDto>(entity);
             

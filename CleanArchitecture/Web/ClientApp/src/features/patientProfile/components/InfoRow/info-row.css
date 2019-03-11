@@ -1,0 +1,10 @@
+.info-row {
+  margin: 0 -20px; }
+  .info-row:hover {
+    background: #333333 !important;
+    cursor: pointer; }
+  .info-row .col {
+    padding: 0 20px; }
+
+.info-row:nth-of-type(2n) {
+  background: #F8F9FA; }

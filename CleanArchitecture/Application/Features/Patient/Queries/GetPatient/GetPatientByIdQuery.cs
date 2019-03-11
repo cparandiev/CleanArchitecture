@@ -1,10 +1,11 @@
 ﻿using Application.Features.Patient.Models;
+using Application.Models;
 using MediatR;
 
 namespace Application.Features.Patient.Queries.GetPatient
 {
-    public class GetPatientByIdQuery : IRequest<PatientDto>
+    public class GetPatientByIdQuery : UserIdentity, IRequest<PatientDto>
     {
-        public int UserId { get; set; }
+        public int? PatientId { get; set; }
     }
 }
