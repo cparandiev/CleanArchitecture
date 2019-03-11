@@ -28,13 +28,11 @@ const xTickFormatter = pipe(split(' '), nth(2));
 class PulseRateExaminationRow extends Component {
     render() {
         const {data} = this.props;
-        if(isEmpty(data)) //todo
-            return null;
 
-        return (
-            <BaseExaminationRow title="Pusle Rate" data={transformData(data)} dataKey={'rate'} minHealthyValue={minHealthyValue} maxHealthyValue={maxHealthyValue}
-            xDataKey="examinationDateShort" xTickFormatter={xTickFormatter} yUnit="bpm" CustomTooltip={PulseRateTooltip}/>
-        ); 
+        return isEmpty(data)
+            ? null
+            : (<BaseExaminationRow title="Pusle Rate" data={transformData(data)} dataKey={'rate'} minHealthyValue={minHealthyValue} maxHealthyValue={maxHealthyValue}
+                xDataKey="examinationDateShort" xTickFormatter={xTickFormatter} yUnit="bpm" CustomTooltip={PulseRateTooltip}/>); 
     }
 }
 

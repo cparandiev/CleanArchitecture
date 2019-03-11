@@ -16,8 +16,7 @@ class DoctorPatients extends Component {
     }
 
     render() {
-        const { patients }= this.props;
-        console.log(patients);
+        const { patients } = this.props;
 
         return (
             <div className="container">
@@ -34,7 +33,7 @@ class DoctorPatients extends Component {
                                 {!isEmpty(patients) && (
                                     <div className="doctor-patients-container">
                                         <PatientHeader/>
-                                        {map(p => <PatientRow {...p} />, patients)}
+                                        {map(p => <PatientRow key={p.id} {...p} />, patients)}
                                     </div>    
                                 )}
                             </div>

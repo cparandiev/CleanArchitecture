@@ -28,13 +28,11 @@ const xTickFormatter = pipe(split(' '), nth(2));
 class BloodOxygenLevelExaminationRow extends Component {
     render() {
         const {data} = this.props;
-        if(isEmpty(data)) //todo
-            return null;
 
-        return (
-            <BaseExaminationRow title="Blood Oxygen Level" data={transformData(data)} dataKey={'oxygenLevel'} minHealthyValue={minHealthyValue} maxHealthyValue={maxHealthyValue}
-            xDataKey="examinationDateShort" xTickFormatter={xTickFormatter} yUnit="%" CustomTooltip={BloodOxygenTooltip}/>
-        );
+        return isEmpty(data)
+            ? null
+            : (<BaseExaminationRow title="Blood Oxygen Level" data={transformData(data)} dataKey={'oxygenLevel'} minHealthyValue={minHealthyValue} maxHealthyValue={maxHealthyValue}
+                xDataKey="examinationDateShort" xTickFormatter={xTickFormatter} yUnit="%" CustomTooltip={BloodOxygenTooltip}/>);
     }
 }
 

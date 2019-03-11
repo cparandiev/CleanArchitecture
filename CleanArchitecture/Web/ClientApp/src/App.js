@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Switch } from 'react-router-dom';
 
 import Navigation from './features/navigation';
 import Layout from './features/common/components/Layout';
@@ -13,9 +12,7 @@ export default class App extends Component {
         <Notifications/>
         <Navigation/>
         <Layout>
-          <Switch>
-            <Routes />    
-          </Switch>
+          <Routes />    
         </Layout>
       </React.Fragment>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
-import { compose, map } from "ramda";
+import { compose, map, head, prop, pipe } from "ramda";
 
 import DatePicker from "../common/components/DatePicker";
 import Paginate from "../common/components/Paginate";
@@ -13,6 +13,7 @@ import {getPatientMedicalExaminations} from "./actions";
 import {requestsSelector} from "./selectors";
 import {filterMedicalExaminations, sortMedicalExaminations} from "./utils";
 import {getCurrentElements, getTotalPages} from "../../utils/paginate";
+import userHasRole from "../../utils/userHasRole";
 import "./patient-medical-examinations.css";
 
 const transformMedicalExaminations = (from, to) => compose(
@@ -24,6 +25,8 @@ const renderRowsByPage = (elementPerPage, currentPage) => compose(
     map(((props) =><MedicalExaminationRequestRow key={props.id} {...props}/> )),
     getCurrentElements(elementPerPage, currentPage),
 )
+
+const getPatientName = pipe(head, prop('patient'));
 
 const elementPerPage = 5;
 
@@ -43,11 +46,13 @@ class PatientMedicalExaminations extends Component {
 
     render() {
         const {from, to, offset} = this.state;
-        const {requests} = this.props;
+        const {requests, user} = this.props;
         
         const sortedAndFilteredMedicalExaminations = transformMedicalExaminations(from, to)(requests);
         const totalPages = getTotalPages(elementPerPage, sortedAndFilteredMedicalExaminations);
         const renderRows = renderRowsByPage(elementPerPage, offset + 1);
+
+        const userIsADoctor = userHasRole(user, 'doctor');
 
         return (
             <div className="container">
@@ -57,13 +62,20 @@ class PatientMedicalExaminations extends Component {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="card-title">Medical Examination</h5>
+                                        <h5 className="card-title">
+                                            {userIsADoctor
+                                            ?  totalPages > 0
+                                                ? `${getPatientName(requests)} Medical Examination`
+                                                : "Patient Medical Examination"
+                                            : "Medical Examination"}
+                                        </h5>
                                     </div>
+                                    {!userIsADoctor &&
                                     <div className="col">
-                                        <Link to={routesConfig.requestMedicalExamination.path} className="btn btn-primary float-right"> {/* todo */}
+                                        <Link to={routesConfig.requestMedicalExamination.path} className="btn btn-primary float-right">
                                             Request new examination
                                         </Link>
-                                    </div>
+                                    </div>}
                                 </div>
                                 <div className="row">
                                     <div className="col-5 offset-1">

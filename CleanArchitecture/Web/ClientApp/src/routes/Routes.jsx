@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { map, compose, values } from "ramda";
 
 import routesConfig from "./routesConfig";
@@ -19,7 +19,9 @@ const createRoutes = compose(
 class Routes extends Component {
     render() {
         return (
-            createRoutes(routesConfig)
+            <Switch>
+                {createRoutes(routesConfig)}
+            </Switch>
         );
     }
 }

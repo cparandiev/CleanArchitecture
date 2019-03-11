@@ -12,8 +12,30 @@ import accomplishMedicalExamination from '../features/accomplishMedicalExaminati
 import logout from '../features/logout';
 import patientBodyExaminations from '../features/patientBodyExaminations';
 import doctorPatients from '../features/doctorPatients';
+import notFound from '../features/notFound';
 
 export default {
+    //#region Common routes
+    home: {
+        path: '/home',
+        requiredRoles: [],
+        component: Home,
+        exact: true,
+    },
+    about: {
+        path: '/about',
+        requiredRoles: [],
+        component: About,
+        exact: true,
+    },
+    contacts: {
+        path: '/counter',
+        requiredRoles: [],
+        component: Contacts,
+        exact: true,
+    },
+    //#endregion
+    //#region Anonymous user's routes
     signIn: {
         path: '/login',
         component: Login,
@@ -26,6 +48,8 @@ export default {
         exact: true,
         authenticated: false,
     },
+    //#endregion
+    //#region Common authorized routes 
     unauthorized: {
         path: '/unauthorized',
         component: Unauthorized,
@@ -46,38 +70,8 @@ export default {
         exact: true,
         authenticated: true,
     },
-    home: {
-        path: '/home',
-        requiredRoles: [],
-        component: Home,
-        exact: true,
-    },
-    about: {
-        path: '/about',
-        requiredRoles: [],
-        component: About,
-        exact: true,
-    },
-    contacts: {
-        path: '/counter',
-        requiredRoles: [],
-        component: Contacts,
-        exact: true,
-    },
-    doctorWorkingTime: {
-        path: '/doctor/working-time',
-        requiredRoles: [['doctor']],
-        component: doctorWorkingTime,
-        exact: true,
-        authenticated: true,
-    },
-    addWorkingTime: {
-        path: '/doctor/add-working-time',
-        requiredRoles: [['doctor']],
-        component: addWorkingTime,
-        exact: true,
-        authenticated: true,
-    },
+    //#endregion
+    //#region Patient's routes
     patientMedicalExaminations: {
         path: '/patient/:patientId(\\d+)/medical-examination',
         requiredRoles: [['patient'], ['doctor']],
@@ -92,6 +86,30 @@ export default {
         exact: true,
         authenticated: true,
     },
+    patientBodyExaminations: {
+        path: '/patient/:patientId(\\d+)/bodyexaminations',
+        requiredRoles: [['patient'], ['doctor']],
+        component: patientBodyExaminations,
+        exact: true,
+        authenticated: true,
+    },
+    //#endregion
+    //#region Doctor's routes
+    doctorWorkingTime: {
+        path: '/doctor/working-time',
+        requiredRoles: [['doctor']],
+        component: doctorWorkingTime,
+        exact: true,
+        authenticated: true,
+    },
+    addWorkingTime: {
+        path: '/doctor/add-working-time',
+        requiredRoles: [['doctor']],
+        component: addWorkingTime,
+        exact: true,
+        authenticated: true,
+    },
+    
     doctorExaminations: {
         path: '/doctor/examinations',
         requiredRoles: [['doctor']],
@@ -106,13 +124,6 @@ export default {
         exact: true,
         authenticated: true,
     },
-    patientBodyExaminations: {
-        path: '/patient/:patientId(\\d+)/bodyexaminations',
-        requiredRoles: [['patient'], ['doctor']],
-        component: patientBodyExaminations,
-        exact: true,
-        authenticated: true,
-    },
     doctorPatients: {
         path: '/doctor/:doctorId(\\d+)/patients',
         requiredRoles: [['doctor']],
@@ -120,10 +131,9 @@ export default {
         exact: true,
         authenticated: true,
     },
-    // todo
-    // notFound: {
-    //     path: '*',
-    //     requiredRoles: [],
-    //     component: NotFound
-    // },
+    //#endregion
+    notFound: {
+        path: "*",
+        component: notFound
+    },
 }

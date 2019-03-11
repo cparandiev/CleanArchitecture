@@ -14,6 +14,8 @@ namespace Application.Features.BodyExamination.Models
 
         public int PatientId { get; set; }
 
+        public string Patient { get; set; }
+
         public DateTime? ExaminationDate  { get; set; }
 
         public BloodOxygenLevelExaminationDto BloodOxygenLevel { get; set; }

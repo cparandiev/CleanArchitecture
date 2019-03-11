@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Toggle from "react-toggle";
 import { connect } from 'react-redux';
-import { compose, map } from "ramda";
+import { compose, map, head, prop, pipe } from "ramda";
 
 import routesConfig from "../../routes/routesConfig";
 import DatePicker from "../common/components/DatePicker";
@@ -14,6 +14,7 @@ import { userSelector, selectedPatientBodyExaminations, selectedPatientBodyTempe
 import mergeSelectors from "../../utils/mergeSelectors";
 import {filterBodyExaminations, orderBodyExaminations} from "../common/utils";
 import {getCurrentElements, getTotalPages} from "../../utils/paginate";
+import userHasRole from "../../utils/userHasRole";
 
 const transformPatientBodyExaminations = (from, to) => compose(
     orderBodyExaminations,
@@ -25,6 +26,8 @@ const renderRowsByPage = (elementPerPage, currentPage) => compose(
     map(((props) =><BodyExaminationRow key={props.id} {...props}/> )),
     getCurrentElements(elementPerPage, currentPage),
 )
+
+const getPatientName = pipe(head, prop('patient'));
 
 const elementPerPage = 5;
 
@@ -44,7 +47,7 @@ class PatientBodyExaminations extends Component {
 
     render() {
         const {from, to, offset, graphicalView} = this.state;
-        const {selectedPatientBodyExaminations, selectedPatientBodyTemperatureExaminations, selectedPatientBloodPressureExaminations, selectedPatientPulseRateExaminations, selectedPatientBloodOxygenLevelExaminations } = this.props;
+        const {user, selectedPatientBodyExaminations, selectedPatientBodyTemperatureExaminations, selectedPatientBloodPressureExaminations, selectedPatientPulseRateExaminations, selectedPatientBloodOxygenLevelExaminations } = this.props;
 
         const sortedAndFilteredPatientBodyExaminations = transformPatientBodyExaminations(from, to)(selectedPatientBodyExaminations);
         const totalPages = getTotalPages(elementPerPage, sortedAndFilteredPatientBodyExaminations);
@@ -55,6 +58,8 @@ class PatientBodyExaminations extends Component {
         const sortedAndFilteredPatientPulseRateExaminations = transformPatientBodyExaminations(from, to)(selectedPatientPulseRateExaminations);
         const sortedAndFilteredPatientBloodOxygenLevelExaminations = transformPatientBodyExaminations(from, to)(selectedPatientBloodOxygenLevelExaminations);
         
+        const userIsADoctor = userHasRole(user, 'doctor');
+
         return (
             <div className="container">
                 <div className="row">
@@ -63,13 +68,20 @@ class PatientBodyExaminations extends Component {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="card-title">Body Examination</h5>
+                                        <h5 className="card-title">
+                                        {userIsADoctor
+                                            ?  totalPages > 0
+                                                ? `${getPatientName(selectedPatientBodyExaminations)} Body Examination`
+                                                : "Patient Body Examination"
+                                            : "Your Body Examination"}
+                                        </h5>
                                     </div>
+                                    {!userIsADoctor &&
                                     <div className="col">
-                                        <Link to={routesConfig.home.path} className="btn btn-primary float-right"> {/* todo */}
+                                        <Link to={routesConfig.home.path} className="btn btn-primary float-right">
                                             Add body examination
                                         </Link>
-                                    </div>
+                                    </div>}
                                 </div>
                                 <div className="row">
                                     <div className="col-5 offset-1">

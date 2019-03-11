@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.BodyExaminationResultAggregate;
+using Domain.Entities.PatientAggregate;
 
 namespace Application.Specifications.BodyExaminationResultSpecifications
 {
@@ -18,6 +19,7 @@ namespace Application.Specifications.BodyExaminationResultSpecifications
             AddInclude(m => m.PulseRate);
             AddInclude(m => m.Patient);
             AddInclude($"{nameof(BodyExaminationResult.BodyExaminationResultTypes)}.{nameof(BodyExaminationResultType.Type)}");
+            AddInclude($"{nameof(BodyExaminationResult.Patient)}.{nameof(Patient.User)}");
         }
 
     }

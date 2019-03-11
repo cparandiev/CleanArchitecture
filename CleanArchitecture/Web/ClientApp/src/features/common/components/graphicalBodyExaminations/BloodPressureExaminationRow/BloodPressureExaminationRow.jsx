@@ -30,13 +30,11 @@ const xTickFormatter = pipe(split(' '), nth(2));
 class BloodPressureExaminationRow extends Component {
     render() {
         const {data} = this.props;
-        if(isEmpty(data)) //todo
-            return null;
 
-        return (
-            <BaseExaminationRow title="Blood Pressure" data={transformData(data)} dataKey={'bloodPressure'} minHealthyValue={minHealthyValue} maxHealthyValue={maxHealthyValue}
-            xDataKey="examinationDateShort" xTickFormatter={xTickFormatter} CustomTooltip={BloodPressureTooltip} />
-        );
+        return isEmpty(data)
+            ? null
+            : (<BaseExaminationRow title="Blood Pressure" data={transformData(data)} dataKey={'bloodPressure'} minHealthyValue={minHealthyValue} maxHealthyValue={maxHealthyValue}
+                xDataKey="examinationDateShort" xTickFormatter={xTickFormatter} CustomTooltip={BloodPressureTooltip} />);
     }
 }
 

@@ -54,12 +54,13 @@ namespace Application.AutoMapperDomainProfiles
             #endregion
 
             #region Body Examination mappings
-            CreateMap<BodyExaminationResult, BodyExaminationResultDto>();
+            CreateMap<BodyExaminationResult, BodyExaminationResultDto>()
+                .ForMember(dest => dest.Patient, opt => opt.MapFrom(src => $"{src.Patient.User.FirstName} {src.Patient.User.LastName}"));
 
             CreateMap<BodyExaminationResultType, string>()
                 .ConvertUsing(src => Enum.GetName((src.Type.Value.GetType()), src.Type.Value) ?? string.Empty);
 
-            CreateMap<BloodOxygenLevelExamination, BodyExaminationResultDto>();
+            CreateMap<BloodOxygenLevelExamination, BloodOxygenLevelExaminationDto>();
             CreateMap<BloodPressureExamination, BloodPressureExaminationDto>();
             CreateMap<BodyTemperatureExamination, BodyTemperatureExaminationDto>();
             CreateMap<PulseRateExamination, PulseRateExaminationDto>();
