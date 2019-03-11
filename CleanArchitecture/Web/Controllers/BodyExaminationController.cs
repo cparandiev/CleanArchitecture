@@ -13,7 +13,6 @@ namespace Web.Controllers
     public class BodyExaminationController : BaseController
     {
         [HttpPost("bloodoxygen")]
-        [AllowAnonymous] // todo
         public async Task<IActionResult> AddBloodOxygenLevelExamination([FromBody]AddBloodOxygenLevelExaminationBm model)
         {
             var addBloodOxygenLevelExaminationCommand = AutoMapper.Map<AddBloodOxygenLevelExaminationCommand>(model);
@@ -24,7 +23,6 @@ namespace Web.Controllers
         }
 
         [HttpPost("temperature")]
-        [AllowAnonymous] // todo
         public async Task<IActionResult> AddBodyTemperatureExamination([FromBody]AddBodyTemperatureExaminationBm model)
         {
             var addBodyTemperatureExaminationCommand = AutoMapper.Map<AddBodyTemperatureExaminationCommand>(model);
@@ -35,7 +33,6 @@ namespace Web.Controllers
         }
 
         [HttpPost("pulserate")]
-        [AllowAnonymous] // todo
         public async Task<IActionResult> AddPulseRateExamination([FromBody]AddPulseRateExaminationBm model)
         {
             var addPulseRateExaminationCommand = AutoMapper.Map<AddPulseRateExaminationCommand>(model);
@@ -46,7 +43,6 @@ namespace Web.Controllers
         }
 
         [HttpPost("bloodpressure")]
-        [AllowAnonymous] // todo
         public async Task<IActionResult> AddBloodPressureExamination([FromBody]AddBloodPressureExaminationBm model)
         {
             var addBloodPressureExaminationCommand = AutoMapper.Map<AddBloodPressureExaminationCommand>(model);
