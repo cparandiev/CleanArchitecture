@@ -1,7 +1,6 @@
 ﻿using Application.Features.Doctor.Commands.AccomplishMedicalExamination;
 using Application.Features.Doctor.Commands.ReviewMedicalExamination;
 using Application.Features.Patient.Commands.RequestMedicalExamination;
-using AutoMapper;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
