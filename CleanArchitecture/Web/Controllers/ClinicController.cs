@@ -12,7 +12,6 @@ namespace Web.Controllers
     public class ClinicController : BaseController
     {
         [HttpGet]
-        [AllowAnonymous] // todo
         public async Task<IActionResult> GetAllClinics()
         {
             var clinicsDto = await Mediator.Send(new GetAllClinicsQuery());

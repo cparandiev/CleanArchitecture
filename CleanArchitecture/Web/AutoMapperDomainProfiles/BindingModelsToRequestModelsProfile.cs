@@ -11,6 +11,7 @@ using Application.Features.Doctor.Commands.SetWeeklyWorkingTime;
 using Application.Features.Doctor.Models;
 using Application.Features.Doctor.Queries.GetDoctorMedicalExaminations;
 using Application.Features.Doctor.Queries.GetDoctorPatient;
+using Application.Features.Doctor.Queries.GetDoctorWorkingTimes;
 using Application.Features.Patient.Commands.CreatePatient;
 using Application.Features.Patient.Commands.LoginPatient;
 using Application.Features.Patient.Commands.RequestMedicalExamination;
@@ -56,6 +57,9 @@ namespace Web.AutoMapperDomainProfiles
                 .IncludeBase<object, UserIdentity>();
 
             CreateMap<GetDoctorPatientsBm, GetDoctorPatientsQuery> ()
+                .IncludeBase<object, UserIdentity>();
+
+            CreateMap<DoctorWorkingTimesBm, GetWorkingTimesQuery>()
                 .IncludeBase<object, UserIdentity>();
             #endregion
 

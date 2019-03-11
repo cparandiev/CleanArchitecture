@@ -17,6 +17,7 @@ namespace Web.Controllers
     public class DoctorController : BaseController
     {
         [HttpGet("{doctorId:int}/patients")]
+        [Authorize(Roles = nameof(Role.Doctor))]
         public async Task<IActionResult> GetDoctorPatients(GetDoctorPatientsBm model)
         {
             var getDoctorPatientsQuery = AutoMapper.Map<GetDoctorPatientsQuery>(model);
@@ -28,7 +29,7 @@ namespace Web.Controllers
 
         [HttpDelete("WorkingTime/{workingTimeId:int}")]
         [Authorize(Roles = nameof(Role.Doctor))]
-        public async Task<IActionResult> DeleteWorkingTime([FromRoute]DeleteWorkingTimeBm workingTime)
+        public async Task<IActionResult> DeleteWorkingTime(DeleteWorkingTimeBm workingTime)
         {
             var deleteWorkingTimeCommand = AutoMapper.Map<DeleteWorkingTimeCommand>(workingTime);
 
@@ -38,9 +39,9 @@ namespace Web.Controllers
         }
 
         [HttpGet("{doctorId:int}/WorkingTimes")]
-        public async Task<IActionResult> GetWorkingTimes([FromRoute] int? doctorId)
+        public async Task<IActionResult> GetWorkingTimes(DoctorWorkingTimesBm model)
         {
-            var getWorkingTimesQuery = new GetWorkingTimesQuery { DoctorId = doctorId };
+            var getWorkingTimesQuery = AutoMapper.Map<GetWorkingTimesQuery>(model);
 
             var workingTimes = await Mediator.Send(getWorkingTimesQuery);
 
@@ -49,7 +50,6 @@ namespace Web.Controllers
 
         [HttpPost("{doctorId:int}/WeeklyWorkingTime")]
         [Authorize(Roles = nameof(Role.Doctor))]
-        //[TypeFilter(typeof(OwnerFilter))]
         public async Task<IActionResult> WeeklyWorkingTime([FromRoute] int? doctorId, [FromBody]DoctorWeeklyWorkingTimeBm model)
         {
             var setWeeklyWorkingTimeCommand = AutoMapper.Map<SetWeeklyWorkingTimeCommand>(model, opts => opts.Items[nameof(SetWeeklyWorkingTimeCommand.DoctorId)] = doctorId.Value);
@@ -71,20 +71,5 @@ namespace Web.Controllers
 
             return Ok(medicalExaminationsVms);
         }
-
-
-        [HttpGet("one/{patientId}")]
-        //[TypeFilter(typeof(OwnerFilter))]
-        public async Task<IActionResult> Test(int? patientId)
-        {
-            return Ok();
-        }
-        
-        //[HttpPost("two/{patientId}")]
-        //[TypeFilter(typeof(OwnerFilter))]
-        //public async Task<IActionResult> Test2(DoctorWeeklyWorkingTimeBm model)
-        //{
-        //    return Ok();
-        //}
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Web.Models.BindingModels
 {
-    public class DeleteWorkingTimeBm
+    public class DoctorWorkingTimesBm
     {
         [FromRoute]
-        public int? WorkingTimeId { get; set; }
+        public int? DoctorId { get; set; }
     }
 }
