@@ -10,8 +10,20 @@
     .col {
         padding: 0 20px;
     }
+
+    border-bottom: 1px solid;
+    border-color: $grey-light;
 }
 
 .info-row:nth-of-type(2n) {
     background: $grey-lighter;
+}
+
+
+.info-row:last-of-type {
+    border: none;
+}
+
+.patient-profile-container {
+    margin-bottom: -20px;
 }

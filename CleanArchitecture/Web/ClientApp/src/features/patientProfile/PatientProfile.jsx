@@ -31,7 +31,7 @@ class PatientProfile extends Component {
                                         <h5 className="card-title">Patient Profile</h5>
                                     </div>
                                 </div>
-                                {profile && <React.Fragment>
+                                {profile && <div className="patient-profile-container">
                                     <InfoRow title={"FIRST NAME"} value={path(['user', 'firstName'], profile)}/>
                                     <InfoRow title={"LAST NAME"} value={path(['user', 'lastName'], profile)}/>
                                     <InfoRow title={"BIRTHDATE"} value={<DatePicker selected={path(['user', 'birthdate'], profile)} className="form-control" readOnly timeFormat="HH:mm" dateFormat="MMMM d, yyyy h:mm aa" timeCaption="time"/>}/>
@@ -39,7 +39,7 @@ class PatientProfile extends Component {
                                     <InfoRow title={"HEIGHT"} value={path(['user', 'height'], profile)}/>
                                     <InfoRow title={"WEIGHT"} value={path(['user', 'weight'], profile)}/>
                                     <InfoRow title={"BLOOD"} value={path(['user', 'blood'], profile)}/>
-                                </React.Fragment>}
+                                </div>}
                             </div>
                         </div>
                     </div>
