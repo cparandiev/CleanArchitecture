@@ -20,7 +20,7 @@ namespace Application.Features.Doctor.Commands.DeleteWorkingTime
 
             await _context.DoctorWorkingTimes.DeleteAsync(entity);
 
-            await _context.CompleteAsync(); // todo
+            await _context.CompleteAsync();
 
             return Unit.Value;
         }
