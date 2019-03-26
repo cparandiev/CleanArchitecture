@@ -14,6 +14,7 @@ import patientBodyExaminations from '../features/patientBodyExaminations';
 import doctorPatients from '../features/doctorPatients';
 import patientProfile from '../features/patientProfile';
 import notFound from '../features/notFound';
+import addBodyExamination from '../features/addBodyExamination';
 
 export default {
     //#region Common routes
@@ -91,6 +92,13 @@ export default {
         path: '/patient/:patientId(\\d+)/bodyexaminations',
         requiredRoles: [['patient'], ['doctor']],
         component: patientBodyExaminations,
+        exact: true,
+        authenticated: true,
+    },
+    addBodyExamination: {
+        path: '/patient/addBodyExamination',
+        requiredRoles: [['patient']],
+        component: addBodyExamination,
         exact: true,
         authenticated: true,
     },

@@ -78,7 +78,7 @@ class PatientBodyExaminations extends Component {
                                     </div>
                                     {!userIsADoctor &&
                                     <div className="col">
-                                        <Link to={routesConfig.home.path} className="btn btn-primary float-right">
+                                        <Link to={routesConfig.addBodyExamination.path} className="btn btn-primary float-right">
                                             Add body examination
                                         </Link>
                                     </div>}
