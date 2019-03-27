@@ -38,7 +38,7 @@ const fakeDoctor = {
 
 const profiles = [initialState, fakePatient, fakeDoctor]
 
-const authReducer = (state = profiles[2], {type, payload})=> {
+const authReducer = (state = profiles[1], {type, payload})=> {
     switch(type){
         case login.types.FULFILLED:
 
