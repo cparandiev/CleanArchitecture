@@ -89,14 +89,14 @@ export default {
         authenticated: true,
     },
     patientBodyExaminations: {
-        path: '/patient/:patientId(\\d+)/bodyexaminations',
+        path: '/patient/:patientId(\\d+)/body-examinations',
         requiredRoles: [['patient'], ['doctor']],
         component: patientBodyExaminations,
         exact: true,
         authenticated: true,
     },
     addBodyExamination: {
-        path: '/patient/addBodyExamination',
+        path: '/patient/add-body-examination',
         requiredRoles: [['patient']],
         component: addBodyExamination,
         exact: true,
@@ -127,7 +127,7 @@ export default {
         authenticated: true,
     },
     accomplishMedicalExamination: {
-        path: '/medicalexamination/:id(\\d+)/accomplish',
+        path: '/medical-examination/:id(\\d+)/accomplish',
         requiredRoles: [['doctor']],
         component: accomplishMedicalExamination,
         exact: true,
