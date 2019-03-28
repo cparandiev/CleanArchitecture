@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 
 import BodyExaminationItem from "./components/BodyExaminationItem";
 import koogeekBP from "../../images/koogeek-bp1.jpg";
 import koogeekBT from "../../images/koogeek-bt1.jpg";
 import jumperJpd from "../../images/jumper-jpd-500a.jpg";
+import {addBloodPressureExaminationActions} from "./actions";
 import {decodeBloodPressureRawData, decodeBodyTemperatureRawData, decodePulseOximeterRawData} from "./utils";
+import mergeSelectors from "../../utils/mergeSelectors";
+import { userSelector } from "../common/selectors";
 import "./add-body-examination.css";
 
 const someFunc = ({service_uuid, characteristic_uuid, decoder}) => {
@@ -27,7 +31,17 @@ const someFunc = ({service_uuid, characteristic_uuid, decoder}) => {
 }
 
 class AddBodyExamination extends Component {
+
+    examineBloodPressure = (rawData) => {
+        const {addBloodPressureExamination, user} = this.props;
+        const {systolic, diastolic} = decodeBloodPressureRawData(rawData);
+        console.log(systolic, diastolic);
+        addBloodPressureExamination({systolicBloodPressure: systolic, diastolicBloodPressure: diastolic, patientId: user.patientId, examinationDate: new Date()});
+    }
+
     render() {
+        this.examineBloodPressure('124245235412342353452412321');
+
         return (
             <React.Fragment>
                 <div style={{fontWeight: 'bold', color: 'black', fontSize: '40px', textAlign: 'center', marginBottom: "50px"}}>
@@ -45,4 +59,12 @@ class AddBodyExamination extends Component {
     }
 }
 
-export default AddBodyExamination;    
+const selectors = [userSelector];
+
+const mapStateToProps = mergeSelectors(selectors);
+
+const mapDispatchToProps = (dispatch) => ({
+    addBloodPressureExamination: ({systolicBloodPressure, diastolicBloodPressure, patientId, examinationDate}) => dispatch(addBloodPressureExaminationActions.actions.DEFAULT({systolicBloodPressure, diastolicBloodPressure, patientId, examinationDate}))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddBodyExamination);
