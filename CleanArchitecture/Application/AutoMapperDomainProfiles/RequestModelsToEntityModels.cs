@@ -45,15 +45,15 @@ namespace Application.AutoMapperDomainProfiles
             #endregion
 
             #region BodyExaminationResult mappings
-            CreateMap<AddBloodOxygenLevelExaminationCommand, BloodOxygenLevelExaminationDto>();
+            CreateMap<AddBloodOxygenLevelExaminationCommand, BloodOxygenLevelExamination>();
             CreateMap<AddBloodOxygenLevelExaminationCommand, BodyExaminationResult>()
                 .ForMember(dest => dest.BloodOxygenLevel, opt => opt.MapFrom(src => src));
 
-            CreateMap<AddBodyTemperatureExaminationCommand, BodyTemperatureExaminationDto>();
+            CreateMap<AddBodyTemperatureExaminationCommand, BodyTemperatureExamination>();
             CreateMap<AddBodyTemperatureExaminationCommand, BodyExaminationResult>()
                 .ForMember(dest => dest.BodyTemperature, opt => opt.MapFrom(src => src));
 
-            CreateMap<AddPulseRateExaminationCommand, PulseRateExaminationDto>();
+            CreateMap<AddPulseRateExaminationCommand, PulseRateExamination>();
             CreateMap<AddPulseRateExaminationCommand, BodyExaminationResult>()
                 .ForMember(dest => dest.PulseRate, opt => opt.MapFrom(src => src));
 

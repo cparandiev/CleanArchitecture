@@ -10,7 +10,7 @@ import { getDoctorExaminationsEpic, reviewMedicalExaminationeEpic } from "../fea
 import { accomplishMedicalExaminationEpic } from "../features/accomplishMedicalExamination/epics";
 import { getDoctorPatientsEpic } from "../features/doctorPatients/epics";
 import { getPatientInfoEpic } from "../features/patientProfile/epics";
-import { addBloodPressureExaminationEpic } from "../features/addBodyExamination/epics";
+import { addBloodPressureExaminationEpic, addPulseRateExaminationEpic, addBloodOxygenExaminationEpic, addBodyTemperatureExaminationEpic } from "../features/addBodyExamination/epics";
 
 export default (apiService) => combineEpics(
     apiRequestEpic(apiService),
@@ -27,5 +27,8 @@ export default (apiService) => combineEpics(
     getDoctorPatientsEpic,
     getPatientInfoEpic,
     addBloodPressureExaminationEpic,
+    addPulseRateExaminationEpic,
+    addBloodOxygenExaminationEpic,
+    addBodyTemperatureExaminationEpic,
     ...loginEpics
 );
