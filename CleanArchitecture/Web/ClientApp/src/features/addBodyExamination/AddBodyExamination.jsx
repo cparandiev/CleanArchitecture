@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { isNil } from "ramda";
 
 import BodyExaminationItem from "./components/BodyExaminationItem";
 import koogeekBP from "../../images/koogeek-bp1.jpg";
 import koogeekBT from "../../images/koogeek-bt1.jpg";
 import jumperJpd from "../../images/jumper-jpd-500a.jpg";
 import {addBloodPressureExaminationActions, addBloodOxygenExaminationActions, addPulseRateExaminationActions, addBodyTemperatureExaminationActions} from "./actions";
-import {decodeBloodPressureRawData, decodeBodyTemperatureRawData, decodePulseOximeterRawData} from "./utils";
+import {decodeBloodPressureRawData, decodeBodyTemperatureRawData, decodePulseOximeterRawData, toByteArrayFromHexSting} from "./utils";
 import mergeSelectors from "../../utils/mergeSelectors";
 import { userSelector } from "../common/selectors";
 import "./add-body-examination.css";
@@ -24,13 +25,23 @@ const someFunc = ({service_uuid, characteristic_uuid, decoder}) => {
         .then(characteristic => {
             characteristic.addEventListener(
                 'characteristicvaluechanged',
-                decoder
+                (e) => {
+                    console.log(e);
+                    let value = e.target.value;
+                    let a = [];
+                    for (let i = 0; i < value.byteLength; i++) {
+                      a.push(('00' + value.getUint8(i).toString(16)).slice(-2));
+                    }
+                    console.log(a);
+                    decoder(toByteArrayFromHexSting(a.join('')));
+                }
             );
         })
         .catch(error => { console.log(error); });
 }
 
 class AddBodyExamination extends Component {
+    state = {selectedExamination: null};
 
     examineBloodPressure = (rawData) => {
         const {addBloodPressureExamination, user} = this.props;
@@ -41,34 +52,69 @@ class AddBodyExamination extends Component {
 
     examineBloodOxygen = (rawData) => {
         const {addBloodOxygenExamination, addPulseRateExamination, user} = this.props;
-        const {spO2, pulse} = decodePulseOximeterRawData(rawData);
-        console.log(spO2, pulse);
-        addBloodOxygenExamination({oxygenLevel: spO2, patientId: user.patientId, examinationDate: new Date()});
-        addPulseRateExamination({rate: pulse, patientId: user.patientId, examinationDate: new Date()});
+
+        if (rawData.length == 4 && rawData[3] != '00') {
+            const {spO2, pulse} = decodePulseOximeterRawData(rawData);
+            console.log(spO2, pulse);
+            addPulseRateExamination({rate: pulse, patientId: user.patientId, examinationDate: new Date()});
+            addBloodOxygenExamination({oxygenLevel: spO2, patientId: user.patientId, examinationDate: new Date()});
+        }
     }
 
     examineBodyTemperature = (rawData) => {
         const {addBodyTemperatureExamination, user} = this.props;
         const {temperature} = decodeBodyTemperatureRawData(rawData);
         console.log(temperature);
-        addBodyTemperatureExamination({temperature, patientId: user.patientId, examinationDate: new Date()});
+        // addBodyTemperatureExamination({temperature, patientId: user.patientId, examinationDate: new Date()});
     }
 
     render() {
+        const { selectedExamination } = this.state;
         // this.examineBloodPressure('98774651332');
         // this.examineBloodOxygen('2134235356456546456');
         // this.examineBodyTemperature('3563543463435422844');
         
         return (
             <React.Fragment>
+                {isNil(selectedExamination) &&
                 <div style={{fontWeight: 'bold', color: 'black', fontSize: '40px', textAlign: 'center', marginBottom: "50px"}}>
                     Select body examination
-                </div>
-                <div className="container">
+                </div>}
+                <div className="container d-flex justify-content-center">
                     <div className="row">
-                        <BodyExaminationItem imgSrc={koogeekBP} imgTitle="Blood pressure" handleClick={() => console.log("Clicked BP")} onDisconnect={() => console.log("BP will unmout")}/>
-                        <BodyExaminationItem imgSrc={koogeekBT} imgTitle="Body temperature"  handleClick={() => console.log("Clicked BT")} onDisconnect={() => console.log("BT will unmout")}/>
-                        <BodyExaminationItem imgSrc={jumperJpd} imgTitle="Pulse oximeter"  handleClick={() => console.log("Clicked HR")} onDisconnect={() => console.log("HR will unmout")}/>
+                        {(isNil(selectedExamination) || selectedExamination == "blood pressure") &&   
+                        <BodyExaminationItem imgSrc={koogeekBP} imgTitle="Blood pressure" 
+                            handleClick={() => {
+                                this.setState({selectedExamination: 'blood pressure'});
+                                someFunc({
+                                    service_uuid: '0000fff0-0000-1000-8000-00805f9b34fb', 
+                                    characteristic_uuid: '0000fff4-0000-1000-8000-00805f9b34fb',
+                                    decoder: this.examineBloodPressure
+                                })
+                            }} 
+                            onDisconnect={() => console.log("BP will unmout")}/>}
+                        {(isNil(selectedExamination) || selectedExamination == "body temperature") &&   
+                        <BodyExaminationItem imgSrc={koogeekBT} imgTitle="Body temperature" 
+                            handleClick={() => {
+                                this.setState({selectedExamination: 'body temperature'});
+                                someFunc({
+                                    service_uuid: '0000fff0-0000-1000-8000-00805f9b34fb', 
+                                    characteristic_uuid: '0000fff1-0000-1000-8000-00805f9b34fb',
+                                    decoder: this.examineBodyTemperature
+                                })
+                            }}
+                            onDisconnect={() => console.log("BT will unmout")}/>}
+                        {(isNil(selectedExamination) || selectedExamination == "pulse oximeter") &&   
+                        <BodyExaminationItem imgSrc={jumperJpd} imgTitle="Pulse oximeter" 
+                            handleClick={() => {
+                                this.setState({selectedExamination: 'pulse oximeter'});
+                                someFunc({
+                                    service_uuid: 'cdeacb80-5235-4c07-8846-93a37ee6b86d', 
+                                    characteristic_uuid: 'cdeacb81-5235-4c07-8846-93a37ee6b86d',
+                                    decoder: this.examineBloodOxygen
+                                })
+                            }} 
+                            onDisconnect={() => console.log("HR will unmout")}/>}
                     </div>
                 </div>
             </React.Fragment>

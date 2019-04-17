@@ -1,3 +1,5 @@
+//00002901-0000-1000-8000-00805f9b34fb_0034 - heart rate #3
+
 const toByteArray = hexString => {
     if(hexString.length % 2 > 0) {
         hexString = "0" + hexString;
@@ -13,9 +15,20 @@ const toByteArray = hexString => {
 const bloodPressure = (rawData) => {
     rawData = toByteArray(rawData);
 
-    const systolic = 0xFF & rawData[1];
-    const diastolic = 0xFF & rawData[3];
-    const heartRate = 0xFF & rawData[14];
+    var systolic = 0xFF & rawData[1];
+    var diastolic = 0xFF & rawData[3];
+    var heartRate = 0xFF & rawData[14];
+
+    console.log('Blood pressure measurement');
+    console.log(`\tSystolic: ${systolic}`);
+    console.log(`\tDiastolic: ${diastolic}`);
+    console.log(`\tHeart rate: ${heartRate}`);
+
+    rawData = rawData.reverse();
+
+    systolic = 0xFF & rawData[1];
+    diastolic = 0xFF & rawData[3];
+    heartRate = 0xFF & rawData[14];
 
     console.log('Blood pressure measurement');
     console.log(`\tSystolic: ${systolic}`);
@@ -107,10 +120,10 @@ const KS_BT1_OFFLINE_MEASUREMENTS_UUID = "0000fff2-0000-1000-8000-00805f9b34fb";
 //#endregion
 
 
-const bodyTemperature = (rawData) => {
+const bodyTemperature2 = (rawData) => {
     rawData = toByteArray(rawData);
     
-    const temperature = ((0xFF & rawData[7]) << 8 | (0xFF & rawData[8])) * 0.01;
+    var temperature = ((0xFF & rawData[7]) << 8 | (0xFF & rawData[8])) * 0.01;
     
     console.log('Body temperature measurement');
     console.log(`\tTemperature: ${temperature}`);
