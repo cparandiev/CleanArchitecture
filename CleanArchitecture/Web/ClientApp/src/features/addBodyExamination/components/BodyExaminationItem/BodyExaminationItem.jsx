@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
 class BodyExaminationItem extends Component {
-    componentWillUnmount() {
-        const {onDisconnect} = this.props;
-
-        onDisconnect();
-    }
-
     render() {
         const {imgSrc, imgTitle, handleClick} = this.props;
 
